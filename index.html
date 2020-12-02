@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <title>test</title>
+    <script src="main.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="darken" id='darken'></div>
+    <div class="popup">
+      <div id='popup-text'>Welcome</div> <br>
+      <button class="clickMe" id="popup-mustButton" onclick="togglePopup();">OK</button>
+    </div>
+    <div id="windows">
+
+    </div>
+    <div class="bar" id='bar'>
+      <baritem class='start' onclick="$('ul.menu').toggle();">«</baritem>
+    </div>
+    <ul class="menu hidden" id='menu'>
+      <li onclick="openWindow(0)">Test app</li>
+    </ul>
+
+    </div>
+    <br>
+  </body>
+
+</html>

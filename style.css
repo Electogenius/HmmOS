@@ -1,0 +1,90 @@
+body{
+  background-color: #222;
+  color: white;
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 20px;
+}
+.popup{
+  background-color: #333;
+  color: #acd;
+  display: inline;
+  padding: 3vw;
+  border: 3px solid #000;
+  margin-left: 40vw;
+  margin-top: 40vh;
+  border-radius: 9px;
+  position: fixed;
+  font-size: 3vw;
+}
+button.clickMe{
+  background-color: #0cd;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+}
+.darken{
+  padding-left: 50vw;
+  padding-right: 50vw;
+  padding-bottom: 50vh;
+  padding-top: 50vh;
+  background-color: #000;
+  opacity: 0.5;
+  position: fixed;
+}
+.fullWidth{
+  width: 98vw;
+}
+.halfWidth{
+  width: 50vw;
+}
+.floatRight{
+  float: right;
+}
+.noBorder{
+  border: none;
+}
+a{
+  color: #0cf;
+}
+.hidden{
+  display: none;
+}
+window{
+  position: absolute;
+  border: 2px solid #bcf;
+  background-color: #fff;
+}
+taskbar{
+  display: block;
+  background-color: #05f;
+  cursor: move;
+}
+div.bar{
+  float: right;
+  background-color: #aab;
+  position: static;
+  width: 30px;
+  height: 98vh
+}
+baritem{
+  border-bottom: 1px solid #000;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+baritem.start{
+  font-weight: bolder;
+  font-size: 25px;
+  border-bottom: 2px solid #05f;
+  padding-right: 6px;
+}
+ul.menu{
+  position: absolute;
+  right: 40px;
+  width: 100px;
+  background-color: #333;
+}
+ul li{
+  list-style-type: none;
+}
