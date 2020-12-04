@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-
+    <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <meta charset="utf-8">
     <title>test</title>
@@ -21,9 +21,11 @@
       <baritem class='start' onclick="$('ul.menu').toggle();">«</baritem>
     </div>
     <ul class="menu hidden" id='menu'>
-      <li onclick="openWindow(0)">Test app</li>
-    </ul>
+      <li onclick="openWindow('test')">Test app</li>
+      <li onclick="openWindow('fileExplorer')">File explorer</li>
 
+    </ul>
+    <hi>drag</hi>
     </div>
     <br>
   </body>
