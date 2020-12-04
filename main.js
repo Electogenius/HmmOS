@@ -35,6 +35,29 @@ function openWindow(appID){
   var node = document.createElement("window"); //make a node (for the app)
   //decode the windowcode
   //title bar (named taskbar)
+  const position = { x: 0, y: 0 }
+
+
+
+interact(node).draggable({
+      allowFrom: 'taskbar',
+      modifiers: [
+
+      ],
+      listeners: {
+        start (event) {
+
+        },
+        move (event) {
+          position.x += event.dx
+          position.y += event.dy
+
+          event.target.style.transform =
+            `translate(${position.x}px, ${position.y}px)`
+        },
+      }
+    })
+
   var taskbar = document.createTextNode(windowname + '');
   var taskbardiv = document.createElement('taskbar')
   taskbardiv.id = 'windowId' + windowsOpened + "header";
@@ -83,23 +106,3 @@ $(document).on("click", 'taskbar', function(){
   //dragElement(document.getElementById(activeWindow));
 
 });
-const position = { x: 0, y: 0 }
-
-interact('window').draggable({
-      allowFrom: 'taskbar',
-      modifiers: [
-
-      ],
-      listeners: {
-        start (event) {
-
-        },
-        move (event) {
-          position.x += event.dx
-          position.y += event.dy
-
-          event.target.style.transform =
-            `translate(${position.x}px, ${position.y}px)`
-        },
-      }
-    })
