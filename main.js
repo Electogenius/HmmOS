@@ -1,15 +1,22 @@
+//file system
+var storage = {
+  "private": {
+
+  }
+}
+var node = document.createElement('window');
 //the boring variable thingies
 const errtxt = document.getElementById("popup-text");
 const blur = document.getElementById('darken');
 const windowContainer = document.getElementById('windows');
-
+var active = ''
 var appnames = ['test', 'test2'];
 var appcodes = {
-  0: ["button", 'Click me', 'script', "document.querySelector('window button').onclick = function(){alert('you got hacked LOL'); document.querySelector('*').innerHTML = 'hi'};"],
+  0: ["button", 'Click me', 'h1', 'wwwwwwwww', 'script', "document.querySelector('window button').onclick = function(){alert('you got hacked LOL'); document.querySelector('*').innerHTML = 'hi'};"],
 }
 var elmnt;
-var active = 'window #1';
 var windowsOpened = 0;
+var xOffset, yOffset;
 //function defining
 function toggleblur() {
   $(".darken").toggle();
@@ -27,11 +34,21 @@ function openWindow(appID){
   var windowname = appnames[appID];
   var node = document.createElement("window"); //make a node (for the app)
   //decode the windowcode
-  var taskbar = document.createTextNode(windowname + '\n');
+  //title bar (named taskbar)
+  var taskbar = document.createTextNode(windowname + '');
   var taskbardiv = document.createElement('taskbar')
-  taskbardiv.id = 'window #' + windowsOpened + "header";
+  taskbardiv.id = 'windowId' + windowsOpened + "header";
   taskbardiv.appendChild(taskbar);
+  taskbardiv.class = "windowTitle" + windowsOpened;
   node.appendChild(taskbardiv)
+  //close
+  taskbar = document.createTextNode('X');
+  taskbardiv = document.createElement('close');
+  taskbardiv.appendChild(taskbar);
+  taskbardiv.id = "closeButton" + windowsOpened;
+
+  node.appendChild(taskbardiv);
+  //aaa
   var line;
   for (i = 0; i < windowcode.length; i++){
     line = windowcode[i];
@@ -48,59 +65,41 @@ function openWindow(appID){
 
   };//-for
   windowsOpened++;
-  node.id = 'window #' + windowsOpened;
+  node.id = 'windowId' + windowsOpened;
   document.getElementById('windows').appendChild(node); // add to window container
-  dragElement(document.getElementById(active));
+
   elmnt = document.getElementById(active);
 }//-function
 
+// Gettervar disabled = $( "hi" ).draggable( "option", "disabled" );
+
+// Setter$( "hi" ).draggable( "option", "disabled", true );
 
 //setup idk
 //dragElement(document.getElementById("window #1"));
-//
-function dragElement(elmnt) {
-  elmnt = elmnt;
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
-}
-function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-}
-function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
-  function closeDragElement() {
-      // stop moving when mouse button is released:
-      document.onmouseup = null;
-      document.onmousemove = null;
-    }
-//aaaa
-$(document).on('mousedown', 'window', function(){
+
+$(document).on("click", 'taskbar', function(){
   active = this.id;
   //dragElement(document.getElementById(activeWindow));
 
-  elmnt = document.getElementById(active);
 });
-//
+const position = { x: 0, y: 0 }
+
+interact('window').draggable({
+      allowFrom: 'taskbar',
+      modifiers: [
+
+      ],
+      listeners: {
+        start (event) {
+
+        },
+        move (event) {
+          position.x += event.dx
+          position.y += event.dy
+
+          event.target.style.transform =
+            `translate(${position.x}px, ${position.y}px)`
+        },
+      }
+    })

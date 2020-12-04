@@ -4,6 +4,7 @@ body{
   font-family: monospace;
   font-weight: lighter;
   font-size: 20px;
+  user-select: none;
 }
 .popup{
   background-color: #333;
@@ -53,12 +54,14 @@ a{
 window{
   position: absolute;
   border: 2px solid #bcf;
-  background-color: #fff;
+  background-color: #000;
+  touch-action: none;
 }
 taskbar{
   display: block;
   background-color: #05f;
   cursor: move;
+  touch-action: none;
 }
 div.bar{
   float: right;
@@ -87,4 +90,10 @@ ul.menu{
 }
 ul li{
   list-style-type: none;
+}
+hin{ width: 150px; height: 150px; padding: 0.5em; }
+close{
+position: absolute;
+top: -10px;
+left: 200px;
 }
