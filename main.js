@@ -6,8 +6,11 @@ var storage = {
   "stored": {
     "text.str": "true",
     "haha.ra": ['hi', 'wow'],
+    "desktop": {
+      'yes.str': 'bruh'
+    }
   },
-  'wow.txt': 'clap clap wow'
+  'wow.str': 'clap clap wow'
 }
 var node = document.createElement('window');
 //the boring variable thingies
@@ -35,6 +38,7 @@ var appcodes = {
   var feDirectory = storage
   var feContainer = document.getElementById('0offileExplorer');
   function feGetFilesaddElements(){
+    feContainer.innerHTML = ''
   for (fefile in feDirectory) {
     var fecurrentfile = feDirectory[fefile]
     //check if folder or file
@@ -49,12 +53,12 @@ var appcodes = {
 }
 feGetFilesaddElements();
 $('fefolder').click(function(){
-  feContainer.innerHTML = ''
   feDirectory = feDirectory[this.innerHTML];
   feGetFilesaddElements();
 })
 $('fefile').click(function(){
   alert(feDirectory[this.innerHTML]);
+  feGetFilesaddElements();
 })
   `
 ],
@@ -71,7 +75,6 @@ function togglePopup() {
   toggleblur();
   $(".popup").toggle();
 };
-
 function openWindow(appID){
   //get the code and stuff
   var classCount = 0;
@@ -149,4 +152,8 @@ function newElement(ne_tagname, ne_content) {
 $(document).on("click", 'taskbar', function(){
   active = this.id;
 
+});
+
+$("body").click(function(){
+  alert("hbhbdhbjdhbdjbdjdjdbjgdv")
 });
