@@ -118,7 +118,7 @@ interact(node).draggable({
   taskbar = document.createTextNode('X');
   taskbardiv = document.createElement('close');
   taskbardiv.appendChild(taskbar);
-  taskbar.addEventListener('click', alert('no'));
+  //taskbar.addEventListener('click', alert('no'));
   taskbardiv.id = "closeButton" + windowsOpened;
 
   node.appendChild(taskbardiv);
