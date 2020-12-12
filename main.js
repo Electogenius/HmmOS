@@ -10,7 +10,7 @@ var storage = {
       'yes.str': 'bruh'
     }
   },
-  'wow.str': 'clap clap wow'
+  'wow.str': 'clap clap wow',
 }
 var node = document.createElement('window');
 //the boring variable thingies
@@ -37,31 +37,27 @@ var appcodes = {
   `
   var feDirectory = storage
   var feContainer = document.getElementById('0offileExplorer');
-  function feGetFilesaddElements(){
-    feContainer.innerHTML = ''
-  for (fefile in feDirectory) {
-    var fecurrentfile = feDirectory[fefile]
-    //check if folder or file
 
-    if (typeof fecurrentfile == "string"){
-      appendNewElement('fefile', fefile, feContainer);
-
-    }else{
-      appendNewElement('fefolder', fefile, feContainer);
-    }
-  }
-}
 feGetFilesaddElements();
 $('fefolder').click(function(){
   feDirectory = feDirectory[this.innerHTML];
   feGetFilesaddElements();
-})
+  feGetFilesaddElements();
+});
 $('fefile').click(function(){
   alert(feDirectory[this.innerHTML]);
   feGetFilesaddElements();
 })
   `
 ],
+'tempJS': ['p', '', 'form', '', 'script', `
+var tjs_form = document.getElementById('1oftempJS');
+appendNewElement('input', '', tjs_form);
+tjs_form.elements[0].value
+document.getElementById('3oftempJS').onclick = function(){
+  appendNewElement('script', tjs_form.elements[0].value, document.querySelector('head'))
+}
+`, 'button', 'Enter']
 }
 var elmnt;
 var windowsOpened = 0;
@@ -75,10 +71,17 @@ function togglePopup() {
   toggleblur();
   $(".popup").toggle();
 };
-function openWindow(appID){
+function openWindow(appID, custom){
   //get the code and stuff
   var classCount = 0;
-  var windowcode = appcodes[appID];
+  var windowname;
+  var windowcode;
+  if (!custom) {
+    windowcode = appcodes[appID];
+  }else{
+    windowcode = appID;
+    windowname = '';
+  }
   var windowname = appID;
   var node = document.createElement("window"); //make a node (for the app)
   //decode the windowcode
@@ -111,9 +114,11 @@ interact(node).draggable({
   taskbardiv.class = "windowTitle" + windowsOpened;
   node.appendChild(taskbardiv)
   //close
+  //dont mind recycling of vars
   taskbar = document.createTextNode('X');
   taskbardiv = document.createElement('close');
   taskbardiv.appendChild(taskbar);
+  taskbar.addEventListener('click', alert('no'));
   taskbardiv.id = "closeButton" + windowsOpened;
 
   node.appendChild(taskbardiv);
@@ -140,8 +145,8 @@ interact(node).draggable({
   elmnt = document.getElementById(active);
 }//-function
 function appendNewElement(ae_name, ae_content, ae_element) {
-  var ae_node = newElement(ae_name, ae_content)
-  ae_element.appendChild(ae_node)
+  var ae_node = newElement(ae_name, ae_content);
+  ae_element.appendChild(ae_node);
 }
 function newElement(ne_tagname, ne_content) {
   var ne_textnode = document.createTextNode(ne_content)
@@ -153,7 +158,20 @@ $(document).on("click", 'taskbar', function(){
   active = this.id;
 
 });
+function closewindo() {
+  alert('no')
+}
+function feGetFilesaddElements(){
+  feContainer.innerHTML = ''
+for (fefile in feDirectory) {
+  var fecurrentfile = feDirectory[fefile]
+  //check if folder or file
 
-$("body").click(function(){
-  alert("hbhbdhbjdhbdjbdjdjdbjgdv")
-});
+  if (typeof fecurrentfile == "string"){
+    appendNewElement('fefile', fefile, feContainer);
+
+  }else{
+    appendNewElement('fefolder', fefile, feContainer);
+  }
+}
+}

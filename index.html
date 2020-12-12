@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -21,8 +22,9 @@
       <baritem class='start' onclick="$('ul.menu').toggle();">«</baritem>
     </div>
     <ul class="menu hidden" id='menu'>
-      <li onclick="openWindow('test')">Test app</li>
-      <li onclick="openWindow('fileExplorer')">File explorer</li>
+      <li onclick="openWindow('test', false)">Test app</li>
+      <li onclick="openWindow('fileExplorer', false)">File explorer</li>
+      <li onclick="openWindow('tempJS', false)">System modifier</li>
 
     </ul>
     <hi>drag</hi>

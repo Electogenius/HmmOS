@@ -4,7 +4,7 @@ body{
   font-family: monospace;
   font-weight: lighter;
   font-size: 20px;
-  
+  user-select: none;
 }
 .popup{
   background-color: #333;
@@ -102,4 +102,15 @@ top: 0px;
 left: 0px;
 color: #f10;
 background-color: #000;
+}
+button{
+border: 1px solid #00f;
+background-color: #333;
+color: #fff;
+}
+button:hover{
+  background-color: #555;
+}
+button:active{
+  border: 1px solid #fff
 }
