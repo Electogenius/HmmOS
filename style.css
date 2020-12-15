@@ -1,3 +1,6 @@
+:root{
+  --pointer:
+}
 body{
   background-color: #222;
   color: white;
@@ -63,8 +66,10 @@ taskbar{
   background-color: #05f;
   cursor: move;
   touch-action: none;
-  padding-left: 15px
+  padding-left: 15px;
+  border-radius: 3px;
 }
+
 div.bar{
   float: right;
   background-color: #aab;
@@ -83,6 +88,11 @@ baritem.start{
   font-size: 25px;
   border-bottom: 2px solid #05f;
   padding-right: 6px;
+  background-color: #aad;
+}
+baritem.start:hover{
+  background-color: #fff;
+  color: #0cd;
 }
 ul.menu{
   position: absolute;
@@ -102,6 +112,10 @@ top: 0px;
 left: 0px;
 color: #f10;
 background-color: #000;
+}
+close:hover{
+  color: #f10;
+  background-color: #fff;
 }
 button{
 border: 1px solid #00f;
