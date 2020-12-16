@@ -1,26 +1,37 @@
 //file system
 var storage = {
-  "private": {
-    'version.str': "beta 2",
+  private: {
+    "version.str": "beta 2"
   },
-  "stored": {
+  stored: {
     "text.str": "true",
-    "haha.ra": ['hi', 'wow'],
-    "desktop": {
-      'yes.str': 'bruh'
+    "haha.ra": ["hi", "wow"],
+    desktop: {
+      "yes.str": "bruh"
     }
   },
-  'wow.str': 'clap clap wow',
-}
-var node = document.createElement('window');
+  "wow.str": "clap clap wow"
+};
+var node = document.createElement("window");
 //the boring variable thingies
 const errtxt = document.getElementById("popup-text");
-const blur = document.getElementById('darken');
-const windowContainer = document.getElementById('windows');
-var active = ''
+const blur = document.getElementById("darken");
+const windowContainer = document.getElementById("windows");
+var active = "";
 var appcodes = {
-  'test': ["button", 'Click me', 'h1', 'wwwwwwwww', 'script', "document.querySelector('window button').onclick = function(){alert('you got hacked LOL'); document.querySelector('*').innerHTML = 'hi'};"],
-  "fileExplorer": ['div', '', 'style', `
+  test: [
+    "button",
+    "Click me",
+    "h1",
+    "wwwwwwwww",
+    "script",
+    "document.querySelector('window button').onclick = function(){alert('you got hacked LOL'); document.querySelector('*').innerHTML = 'hi'};"
+  ],
+  fileExplorer: [
+    "div",
+    "",
+    "style",
+    `
   fefile{
     display: block;
     font-size: 15px;
@@ -33,8 +44,8 @@ var appcodes = {
     border-bottom: 1px solid #000;
   }
   `,
-  'script',
-  `
+    "script",
+    `
   var feDirectory = storage
   var feContainer = document.getElementById('0offileExplorer');
 
@@ -49,129 +60,138 @@ $('fefile').click(function(){
   feGetFilesaddElements();
 })
   `
-],
-'tempJS': ['p', '', 'form', '', 'script', `
+  ],
+  tempJS: [
+    "p",
+    "",
+    "form",
+    "",
+    "script",
+    `
 var tjs_form = document.getElementById('1oftempJS');
 appendNewElement('input', '', tjs_form);
 tjs_form.elements[0].value
 document.getElementById('3oftempJS').onclick = function(){
   appendNewElement('script', tjs_form.elements[0].value, document.querySelector('head'))
 }
-`, 'button', 'Enter']
-}
+`,
+    "button",
+    "Enter"
+  ]
+};
 var elmnt;
 var windowsOpened = 0;
 var xOffset, yOffset;
 //function defining
 function toggleblur() {
   $(".darken").toggle();
-};
+}
 
 function togglePopup() {
   toggleblur();
   $(".popup").toggle();
-};
-function openWindow(appID, custom){
+}
+function openWindow(appID, custom) {
   //get the code and stuff
   var classCount = 0;
   var windowname;
   var windowcode;
   if (!custom) {
     windowcode = appcodes[appID];
-  }else{
+  } else {
     windowcode = appID;
-    windowname = '';
+    windowname = "";
   }
   var windowname = appID;
   var node = document.createElement("window"); //make a node (for the app)
   //decode the windowcode
   //title bar (named taskbar)
-  const position = { x: 0, y: 0 }
+  const position = { x: 0, y: 0 };
 
-interact(node).draggable({
-      allowFrom: 'taskbar',
-      modifiers: [
+  interact(node).draggable({
+    allowFrom: "taskbar",
+    modifiers: [],
+    listeners: {
+      start(event) {},
+      move(event) {
+        position.x += event.dx;
+        position.y += event.dy;
 
-      ],
-      listeners: {
-        start (event) {
-
-        },
-        move (event) {
-          position.x += event.dx
-          position.y += event.dy
-
-          event.target.style.transform =
-            `translate(${position.x}px, ${position.y}px)`
-        },
+        event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
       }
-    })
+    }
+  });
 
-  var taskbar = document.createTextNode('' + windowname + '');
-  var taskbardiv = document.createElement('taskbar')
-  taskbardiv.id = 'windowId' + windowsOpened + "header";
+  var taskbar = document.createTextNode("" + windowname + "");
+  var taskbardiv = document.createElement("taskbar");
+  taskbardiv.id = "windowId" + windowsOpened + "header";
   taskbardiv.appendChild(taskbar);
   taskbardiv.class = "windowTitle" + windowsOpened;
-  node.appendChild(taskbardiv)
+  node.appendChild(taskbardiv);
   //close
   //dont mind recycling of vars
-  taskbar = document.createTextNode('X');
-  taskbardiv = document.createElement('close');
+  taskbar = document.createTextNode("X");
+  taskbardiv = document.createElement("close");
   taskbardiv.appendChild(taskbar);
-  taskbardiv.onclick = function(){windowsOpened--; this.parentNode.remove();};
+  taskbardiv.onclick = function () {
+    windowsOpened--;
+    this.parentNode.remove();
+  };
   taskbardiv.id = "closeButton" + windowsOpened;
 
   node.appendChild(taskbardiv);
   //aaa
   var line;
-  for (i = 0; i < windowcode.length; i++){
+  for (i = 0; i < windowcode.length; i++) {
     line = windowcode[i];
-    var textnode = document.createTextNode(line)
-    if (i % 2 == 0){
-
+    var textnode = document.createTextNode(line);
+    if (i % 2 == 0) {
       var tag = document.createElement(line);
-      tag.id = classCount + 'of' + appID;
-      classCount+= 1;
-    }else {
+      tag.id = classCount + "of" + appID;
+      classCount += 1;
+    } else {
       tag.appendChild(textnode);
       node.appendChild(tag);
-    };//-if
-
-  };//-for
+    } //-if
+  } //-for
   windowsOpened++;
-  node.id = 'windowId' + windowsOpened;
-  document.getElementById('windows').appendChild(node); // add to window container
-
+  node.id = "windowId" + windowsOpened;
+  document.getElementById("windows").appendChild(node); // add to window container
+  //add icon to bar
+  addToBar(appID.charAt(1), "#fff", appID.charAt(0));
   elmnt = document.getElementById(active);
-}//-function
+} //-function
 function appendNewElement(ae_name, ae_content, ae_element) {
   var ae_node = newElement(ae_name, ae_content);
   ae_element.appendChild(ae_node);
 }
 function newElement(ne_tagname, ne_content) {
-  var ne_textnode = document.createTextNode(ne_content)
-  var ne_node = document.createElement(ne_tagname)
-  ne_node.appendChild(ne_textnode)
+  var ne_textnode = document.createTextNode(ne_content);
+  var ne_node = document.createElement(ne_tagname);
+  ne_node.appendChild(ne_textnode);
   return ne_node;
 }
-$(document).on("click", 'taskbar', function(){
+$(document).on("click", "taskbar", function () {
   active = this.id;
-
 });
 function closewindo() {
-  alert('no')
+  alert("no");
 }
-function feGetFilesaddElements(){
-  feContainer.innerHTML = ''
-for (fefile in feDirectory) {
-  var fecurrentfile = feDirectory[fefile]
-  //check if folder or file
+function feGetFilesaddElements() {
+  feContainer.innerHTML = "";
+  var fefile = "";
+  for (fefile in feDirectory) {
+    var fecurrentfile = feDirectory[fefile];
+    //check if folder or file
 
-  if (typeof fecurrentfile == "string"){
-    appendNewElement('fefile', fefile, feContainer);
-
-  }else{
-    appendNewElement('fefolder', fefile, feContainer);
+    if (typeof fecurrentfile == "string") {
+      appendNewElement("fefile", fefile, feContainer);
+    } else {
+      appendNewElement("fefolder", fefile, feContainer);
+    }
   }
 }
+function addToBar(atb_name, atb_color, atb_iconhtm) {
+  document.getElementById("bar").innerHTML +=
+    "<baritem>" + atb_iconhtm + "</baritem>";
 }

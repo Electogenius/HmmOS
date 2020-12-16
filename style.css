@@ -1,7 +1,7 @@
-:root{
-  --pointer:
+:root {
+  --pointer: ;
 }
-body{
+body {
   background-color: #222;
   color: white;
   font-family: monospace;
@@ -9,7 +9,7 @@ body{
   font-size: 20px;
   user-select: none;
 }
-.popup{
+.popup {
   background-color: #333;
   color: #acd;
   display: inline;
@@ -21,13 +21,13 @@ body{
   position: fixed;
   font-size: 3vw;
 }
-button.clickMe{
+button.clickMe {
   background-color: #0cd;
   border: 1px solid #fff;
   border-radius: 5px;
   color: #fff;
 }
-.darken{
+.darken {
   padding-left: 50vw;
   padding-right: 50vw;
   padding-bottom: 50vh;
@@ -36,32 +36,32 @@ button.clickMe{
   opacity: 0.5;
   position: fixed;
 }
-.fullWidth{
+.fullWidth {
   width: 98vw;
 }
-.halfWidth{
+.halfWidth {
   width: 50vw;
 }
-.floatRight{
+.floatRight {
   float: right;
 }
-.noBorder{
+.noBorder {
   border: none;
 }
-a{
+a {
   color: #0cf;
 }
-.hidden{
+.hidden {
   display: none;
 }
-window{
+window {
   position: absolute;
   border: 2px solid #bcf;
   background-color: #000;
   touch-action: none;
   border-radius: 5px;
 }
-taskbar{
+taskbar {
   display: block;
   background-color: #05f;
   cursor: move;
@@ -70,61 +70,66 @@ taskbar{
   border-radius: 3px;
 }
 
-div.bar{
+div.bar {
   float: right;
   background-color: #aab;
   position: static;
   width: 30px;
-  height: 98vh
+  height: 98vh;
 }
-baritem{
+baritem {
   border-bottom: 1px solid #000;
   padding-left: 10px;
   padding-right: 10px;
+  display: block;
 }
 
-baritem.start{
+baritem.start {
   font-weight: bolder;
   font-size: 25px;
   border-bottom: 2px solid #05f;
   padding-right: 6px;
   background-color: #aad;
 }
-baritem.start:hover{
+baritem.start:hover {
   background-color: #fff;
   color: #0cd;
 }
-ul.menu{
+ul.menu {
   position: absolute;
   right: 40px;
   width: 100px;
   background-color: #333;
-  font-size: 10px
+  font-size: 10px;
 }
-ul li{
+ul li {
   list-style-type: none;
-  left: -20px
+  left: -20px;
 }
-hin{ width: 150px; height: 150px; padding: 0.5em; }
-close{
-position: absolute;
-top: 0px;
-left: 0px;
-color: #f10;
-background-color: #000;
+hin {
+  width: 150px;
+  height: 150px;
+  padding: 0.5em;
 }
-close:hover{
+close {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  color: #f10;
+  background-color: #000;
+}
+close:hover {
   color: #f10;
   background-color: #fff;
 }
-button{
-border: 1px solid #00f;
-background-color: #333;
-color: #fff;
+button {
+  border: 1px solid #00f;
+  background-color: #333;
+  color: #fff;
 }
-button:hover{
+button:hover {
   background-color: #555;
 }
-button:active{
-  border: 1px solid #fff
+button:active {
+  border: 1px solid #fff;
 }
