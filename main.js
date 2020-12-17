@@ -1,13 +1,18 @@
 //file system
 var storage = {
   private: {
-    "version.str": "beta 2"
+    "version.str": "alpha 4"
+  },
+  appData: {
+    tempJS: {
+      "commands.str": ``
+    }
   },
   stored: {
     "text.str": "true",
     "haha.ra": ["hi", "wow"],
     desktop: {
-      "yes.str": "bruh"
+      "yes.str": "yes"
     }
   },
   "wow.str": "clap clap wow"
@@ -50,36 +55,42 @@ var appcodes = {
   var feContainer = document.getElementById('0offileExplorer');
 
 feGetFilesaddElements();
-$('fefolder').click(function(){
+$('fefolder').onclick = function(){
   feDirectory = feDirectory[this.innerHTML];
   feGetFilesaddElements();
   feGetFilesaddElements();
-});
-$('fefile').click(function(){
+}
+$('fefile').onclick = function(){
   alert(feDirectory[this.innerHTML]);
   feGetFilesaddElements();
-})
+}
   `
   ],
+  //TEMPJS
   tempJS: [
-    "p",
+    "style",
+    "tjsconsole{height: 50px; overflow: scroll}",
+    "tjsconsole",
     "",
     "form",
     "",
     "script",
     `
-var tjs_form = document.getElementById('1oftempJS');
-appendNewElement('input', '', tjs_form);
-tjs_form.elements[0].value
-document.getElementById('3oftempJS').onclick = function(){
-  appendNewElement('script', tjs_form.elements[0].value, document.querySelector('head'))
+var tjs_form = document.getElementById('2oftempJS');
+tjs_form.innerHTML = '<input>'
+tjs_form.style.display = 'inline'
+document.getElementById('1oftempJS').style.overflow = 'none'
+document.getElementById('1oftempJS').style.height = '50px'
+document.getElementById('4oftempJS').onclick = function(){
+	appendNewElement('script', tjs_form.elements[0].value, document.querySelector('head'));
+	document.querySelector('tjsconsole').innerHTML += tjs_form.elements[0].value + '<br>';
+	storage.appData.tempJS['commands.str'] += tjs_form.elements[0].value + '<br>';
 }
 `,
     "button",
     "Enter"
   ]
 };
-var elmnt;
 var windowsOpened = 0;
 var xOffset, yOffset;
 //function defining
@@ -158,7 +169,7 @@ function openWindow(appID, custom) {
   node.id = "windowId" + windowsOpened;
   document.getElementById("windows").appendChild(node); // add to window container
   //add icon to bar
-  addToBar(appID.charAt(1), "#fff", appID.charAt(0));
+  addToBar(appID, "#fff", appID.charAt(0));
   elmnt = document.getElementById(active);
 } //-function
 function appendNewElement(ae_name, ae_content, ae_element) {
