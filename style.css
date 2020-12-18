@@ -16,7 +16,7 @@ body {
   font-weight: lighter;
   font-size: 20px;
   user-select: none;
-  overflow: hidden;
+  overflow: scroll;
 }
 .popup {
   background-color: #333;
@@ -69,7 +69,7 @@ window {
   background-color: #000;
   touch-action: none;
   border-radius: 5px;
-  overflow: hidden;
+  overflow: scroll;
   width: 100px;
 }
 taskbar {
