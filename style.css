@@ -8,6 +8,7 @@ body {
   font-weight: lighter;
   font-size: 20px;
   user-select: none;
+  overflow: hidden;
 }
 .popup {
   background-color: #333;
