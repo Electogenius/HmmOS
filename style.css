@@ -65,10 +65,12 @@ a {
 }
 window {
   position: absolute;
-  border: 2px solid #bcf;
+  border: 1px solid #bcf;
   background-color: #000;
   touch-action: none;
   border-radius: 5px;
+  overflow: hidden;
+  width: 100px;
 }
 taskbar {
   display: block;
