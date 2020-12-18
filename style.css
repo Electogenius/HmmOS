@@ -1,3 +1,11 @@
+::-webkit-scrollbar{width: 10px}
+::webkit-scrollbar-track{
+  display: none;
+}
+::webkit-scrollbar-thumb{
+  background-color: #0cd;
+  border-radius: 2px;
+}
 :root {
   --pointer: ;
 }
