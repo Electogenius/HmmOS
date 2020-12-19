@@ -1,21 +1,21 @@
 //file system
 var storage = {
-	private: {
-		"version.str": "alpha 4"
-	},
-	appData: {
-		tempJS: {
-			"commands.str": ``
-		}
-	},
-	stored: {
-		"text.str": "true",
-		"haha.ra": ["hi", "wow"],
-		desktop: {
-			"yes.str": "yes"
-		}
-	},
-	"wow.str": "clap clap wow"
+  private: {
+    "version.str": "alpha 4"
+  },
+  appData: {
+    tempJS: {
+      "commands.str": ``
+    }
+  },
+  stored: {
+    "text.str": "true",
+    "haha.ra": ["hi", "wow"],
+    desktop: {
+      "yes.str": "yes"
+    }
+  },
+  "wow.str": "clap clap wow"
 };
 var node = document.createElement("window");
 //the boring variable thingies
@@ -24,7 +24,7 @@ const blur = document.getElementById("darken");
 const windowContainer = document.getElementById("windows");
 var active = "";
 var appcodes = {
-	test: [
+  test: [
 		"button",
 		"Click me",
 		"h1",
@@ -32,7 +32,7 @@ var appcodes = {
 		"script",
 		"document.querySelector('window button').onclick = function(){alert('you got hacked LOL'); document.querySelector('*').innerHTML = 'hi'};"
 	],
-	fileExplorer: [
+  fileExplorer: [
 		"div",
 		"",
 		"style",
@@ -66,8 +66,8 @@ $('fefile').onclick = function(){
 }
   `
 	],
-	//TEMPJS
-	tempJS: [
+  //TEMPJS
+  tempJS: [
 		"style",
 		"tjsconsole{height: 50px; overflow: scroll}",
 		"tjsconsole",
@@ -95,124 +95,147 @@ var windowsOpened = 0;
 var xOffset, yOffset;
 //function defining
 function toggleblur() {
-	$(".darken").toggle();
+  $(".darken").toggle();
 }
 
 function togglePopup() {
-	toggleblur();
-	$(".popup").toggle();
+  toggleblur();
+  $(".popup").toggle();
 }
+
 function openWindow(appID, custom) {
-	//get the code and stuff
-	var classCount = 0;
-	var windowname;
-	var windowcode;
-	if (!custom) {
-		windowcode = appcodes[appID];
-	} else {
-		windowcode = appID;
-		windowname = "";
-	}
-	var windowname = appID;
-	var node = document.createElement("window"); //make a node (for the app)
-	//decode the windowcode
-	//title bar (named taskbar)
-	const position = { x: 0, y: 0 };
+  //get the code and stuff
+  var classCount = 0;
+  var windowname;
+  var windowcode;
+  if (!custom) {
+    windowcode = appcodes[appID];
+  } else {
+    windowcode = appID;
+    windowname = "";
+  }
+  var windowname = appID;
+  var node = document.createElement("window"); //make a node (for the app)
+  //decode the windowcode
+  //title bar (named taskbar)
+  const position = { x: 0, y: 0 };
 
-	interact(node).draggable({
-		allowFrom: "taskbar",
-		modifiers: [],
-		listeners: {
-			start(event) {},
-			move(event) {
-				position.x += event.dx;
-				position.y += event.dy;
+  interact(node).draggable({
+    allowFrom: "taskbar",
+    modifiers: [],
+    listeners: {
+      start(event) {},
+      move(event) {
+        position.x += event.dx;
+        position.y += event.dy;
 
-				event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
-			}
-		}
-	});
+        event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
+      }
+    }
+  })
+  
+  interact(node).resizable({
+    edges: {
+      top: true,
+      left: true,
+      bottom: true,
+      right: true
+    }
+  }).on('resizemove', event => {
+    let { x, y } = event.target.dataset;
 
-	var taskbar;
-	if (!custom) {
-		taskbar = document.createTextNode("" + windowname + "");
-	} else {
-		taskbar = document.createTextNode("");
-	}
-	var taskbardiv = document.createElement("taskbar");
-	taskbardiv.id = "windowId" + windowsOpened + "header";
-	taskbardiv.appendChild(taskbar);
-	taskbardiv.id = "windowTitle" + windowsOpened;
-	node.appendChild(taskbardiv);
-	//close
-	//dont mind recycling of vars
-	taskbar = document.createTextNode("X");
-	taskbardiv = document.createElement("close");
-	taskbardiv.appendChild(taskbar);
-	taskbardiv.onclick = function () {
-		windowsOpened--;
-		this.parentNode.remove();
-	};
-	taskbardiv.id = "closeButton" + windowsOpened;
+    Object.assign(event.target.style, {
+      width: `${event.rect.width}px`,
+      height: `${event.rect.height}px`
+    })
 
-	node.appendChild(taskbardiv);
-	//aaa
-	var line;
-	for (i = 0; i < windowcode.length; i++) {
-		line = windowcode[i];
-		var textnode = document.createTextNode(line);
-		if (i % 2 == 0) {
-			var tag = document.createElement(line);
-			tag.id = classCount + "of" + appID;
-			classCount += 1;
-		} else {
-			tag.appendChild(textnode);
-			node.appendChild(tag);
-		} //-if
-	} //-for
-	windowsOpened++;
-	node.id = "windowId" + windowsOpened;
-	document.getElementById("windows").appendChild(node); // add to window container
-	//add icon to bar
-	addToBar(appID, "#fff", appID.charAt(0));
-	elmnt = document.getElementById(active);
+    Object.assign(event.target.dataset, { x, y })
+  });
+
+  var taskbar;
+  if (!custom) {
+    taskbar = document.createTextNode("" + windowname + "");
+  } else {
+    taskbar = document.createTextNode("");
+  }
+  var taskbardiv = document.createElement("taskbar");
+  taskbardiv.id = "windowId" + windowsOpened + "header";
+  taskbardiv.appendChild(taskbar);
+  taskbardiv.id = "windowTitle" + windowsOpened;
+  node.appendChild(taskbardiv);
+  //close
+  //dont mind recycling of vars
+  taskbar = document.createTextNode("X");
+  taskbardiv = document.createElement("close");
+  taskbardiv.appendChild(taskbar);
+  taskbardiv.onclick = function() {
+    windowsOpened--;
+    this.parentNode.remove();
+  };
+  taskbardiv.id = "closeButton" + windowsOpened;
+
+  node.appendChild(taskbardiv);
+  //aaa
+  var line;
+  for (i = 0; i < windowcode.length; i++) {
+    line = windowcode[i];
+    var textnode = document.createTextNode(line);
+    if (i % 2 == 0) {
+      var tag = document.createElement(line);
+      tag.id = classCount + "of" + appID;
+      classCount += 1;
+    } else {
+      tag.appendChild(textnode);
+      node.appendChild(tag);
+    } //-if
+  } //-for
+  windowsOpened++;
+  node.id = "windowId" + windowsOpened;
+  document.getElementById("windows").appendChild(node); // add to window container
+  //add icon to bar
+  addToBar(appID, "#fff", appID.charAt(0));
+  elmnt = document.getElementById(active);
 } //-function
 function appendNewElement(ae_name, ae_content, ae_element) {
-	var ae_node = newElement(ae_name, ae_content);
-	ae_element.appendChild(ae_node);
+  var ae_node = newElement(ae_name, ae_content);
+  ae_element.appendChild(ae_node);
 }
-function newElement(ne_tagname, ne_content) {
-	var ne_textnode = document.createTextNode(ne_content);
-	var ne_node = document.createElement(ne_tagname);
-	ne_node.appendChild(ne_textnode);
-	return ne_node;
-}
-$(document).on("click", "taskbar", function () {
-	active = this.id;
-});
-function closewindo() {
-	alert("no");
-}
-function feGetFilesaddElements() {
-	feContainer.innerHTML = "";
-	var fefile = "";
-	for (fefile in feDirectory) {
-		var fecurrentfile = feDirectory[fefile];
-		//check if folder or file
 
-		if (typeof fecurrentfile == "string") {
-			appendNewElement("fefile", fefile, feContainer);
-		} else {
-			appendNewElement("fefolder", fefile, feContainer);
-		}
-	}
+function newElement(ne_tagname, ne_content) {
+  var ne_textnode = document.createTextNode(ne_content);
+  var ne_node = document.createElement(ne_tagname);
+  ne_node.appendChild(ne_textnode);
+  return ne_node;
 }
+$(document).on("click", "taskbar", function() {
+  active = this.id;
+});
+
+function closewindo() {
+  alert("no");
+}
+
+function feGetFilesaddElements() {
+  feContainer.innerHTML = "";
+  var fefile = "";
+  for (fefile in feDirectory) {
+    var fecurrentfile = feDirectory[fefile];
+    //check if folder or file
+
+    if (typeof fecurrentfile == "string") {
+      appendNewElement("fefile", fefile, feContainer);
+    } else {
+      appendNewElement("fefolder", fefile, feContainer);
+    }
+  }
+}
+
 function addToBar(atb_name, atb_color, atb_iconhtm) {
-	document.getElementById("bar").innerHTML +=
-		"<baritem>" + atb_iconhtm + "</baritem>";
+  document.getElementById("bar").innerHTML +=
+    "<baritem>" + atb_iconhtm + "</baritem>";
 }
-$(document).ready(function () {
-	openWindow(
+$(document).ready(function() {
+  openWindow(
 		[
 			"h1",
 			"Hello",
@@ -222,9 +245,9 @@ $(document).ready(function () {
 			"script",
 			"document.querySelector('taskbar').innerHTML = 'Welcome'"
 		],
-		true
-	);
+    true
+  );
 });
-$('body').bind('contextmenu',function(){ //i think it removes the right click menu
+$('body').bind('contextmenu', function() { //i think it removes the right click menu
   return false;
- });
+});
