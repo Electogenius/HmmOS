@@ -1,4 +1,4 @@
-@keyframes windowHi{
+@keyframes windowOpen{
     from{display:none;}
     to {display:block;}
 }
@@ -82,6 +82,8 @@ window {
   overflow: auto;
   width: 50vw;
   height:25vw;
+  animation-name: windowOpen;
+  animation-duration: 4s;
 }
 taskbar {
   display: block;
