@@ -225,6 +225,6 @@ $(document).ready(function () {
 		true
 	);
 });
-$('.context-menu').bind('contextmenu',function(){ //i think it removes the right click menu
+$('body').bind('contextmenu',function(){ //i think it removes the right click menu
   return false;
  });
