@@ -1,6 +1,6 @@
 ::-webkit-scrollbar{width: 10px}
 ::webkit-scrollbar-track{
-  display: none;
+  background-color:#000;
 }
 ::webkit-scrollbar-thumb{
   background-color: #0cd;
@@ -70,7 +70,8 @@ window {
   touch-action: none;
   border-radius: 5px;
   overflow: scroll;
-  width: 100px;
+  width: 50vw;
+  height:25vw
 }
 taskbar {
   display: block;
