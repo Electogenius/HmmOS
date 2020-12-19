@@ -136,7 +136,7 @@ function openWindow(appID, custom) {
   
   interact(node).resizable({
     edges: {
-      top: true,
+      top: false,
       left: true,
       bottom: true,
       right: true
