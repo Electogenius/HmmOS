@@ -252,7 +252,6 @@ $('body').bind('contextmenu', function() { //i think it removes the right click 
   return false;
 });
 if (document.referrer == 'https://liimee.github.io') {
-	alert('Well that command was wrong');
-	window.history.back();
+	window.location = 'https://aaronos.dev';
 }
 
