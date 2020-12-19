@@ -65,13 +65,14 @@ a {
 }
 window {
   position: absolute;
+  display: block;
   border: 1px solid #bcf;
   background-color: #000;
   touch-action: none;
   border-radius: 5px;
-  overflow: scroll;
+  overflow: auto;
   width: 50vw;
-  height:25vw
+  height:25vw;
 }
 taskbar {
   display: block;
