@@ -1,4 +1,7 @@
-
+@keyframes windowHi{
+    from{display:none;}
+    to {display:block;}
+}
 ::-webkit-scrollbar {
     width: 10px;
 }
