@@ -251,3 +251,4 @@ $(document).ready(function() {
 $('body').bind('contextmenu', function() { //i think it removes the right click menu
   return false;
 });
+alert(window.history[-1])
