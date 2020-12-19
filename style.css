@@ -1,6 +1,6 @@
 @keyframes windowOpen{
-    from{display:none;}
-    to {display:block;}
+    from{opacity:0; width:0; height:0;}
+    to {display:1; width:50vw: height:25vh}
 }
 ::-webkit-scrollbar {
     width: 10px;
@@ -83,7 +83,7 @@ window {
   width: 50vw;
   height:25vw;
   animation-name: windowOpen;
-  animation-duration: 4s;
+  animation-duration: 1s;
 }
 taskbar {
   display: block;
