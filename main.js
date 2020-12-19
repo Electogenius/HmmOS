@@ -252,6 +252,7 @@ $('body').bind('contextmenu', function() { //i think it removes the right click 
   return false;
 });
 if (document.referrer == 'https://liimee.github.io') {
-	window.location = 'https://aaronos.dev';
+	alert("you're already in the best OS, and no HmmOS is not better")
+	window.history.back();
 }
 
