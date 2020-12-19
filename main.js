@@ -251,5 +251,4 @@ $(document).ready(function() {
 $('body').bind('contextmenu', function() { //i think it removes the right click menu
   return false;
 });
-alert(JSON.stringify(window.history))
-alert(window.history.previous)
+
