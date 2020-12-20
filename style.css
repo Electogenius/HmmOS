@@ -1,6 +1,6 @@
 @keyframes windowOpen{
     from{opacity:0; width:0; height:0;}
-    to {display:1; width:50vw: height:25vh}
+    to {display:1; width:50vw; height:25vh}
 }
 ::-webkit-scrollbar {
     width: 10px;
