@@ -252,7 +252,7 @@ $('body').bind('contextmenu', function() { //i think it removes the right click 
   return false;
 });
 
-if (document.referrer.startsWith('https://liimee.github.io')) {
+if (document.referrer.startsWith('https://liimee.github.io') || document.referrer.startsWith('https://useless123') ) {
 	alert("you're already in the best OS, and no HmmOS is not better")
 	window.history.back();
 }
