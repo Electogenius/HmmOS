@@ -252,7 +252,7 @@ $('body').bind('contextmenu', function() { //i think it removes the right click 
   return false;
 });
 
-if (document.referrer.startsWith('https://liimee.github.io') || document.referrer.includes('vercel.app') || document.referrer.includes('bit.ly')) {
+if (document.referrer.startsWith('https://liimee.github.io') || document.referrer.includes('vercel.app') || document.referrer.includes('bit.ly')|| document.referrer.includes('.tinyurl.')) {
 	alert("you're already in the best OS, and no HmmOS is not better. And if you came here from bit.ly or vercel.app, NOPE LOL")
 	window.history.back();
 }
