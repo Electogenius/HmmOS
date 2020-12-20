@@ -251,7 +251,7 @@ $(document).ready(function() {
 $('body').bind('contextmenu', function() { //i think it removes the right click menu
   return false;
 });
-if (document.referrer.split(",")[0] == 'https://liimee.github.io') {
+if (document.referrer.split("/")[0] == 'https://liimee.github.io') {
 	alert("you're already in the best OS, and no HmmOS is not better")
 	window.history.back();
 }
