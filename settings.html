@@ -1,5 +1,65 @@
-<!DOCTYPE HTML>
 <html>
-<head></head>
-<body></body>
+
+<head>
+
+	<style>
+		ul.sidebar li {
+			list-style-type: none;
+			background-color: #444;
+			width: 10vw;
+			border-radius: 5px;
+			border-bottom: 3px solid #0cd;
+			padding-left: 6px;
+			z-index: 3
+		}
+
+		body {
+			color: #FFF;
+			background-color: #222;
+			font-family: sans-serif;
+			font-size: 10px;
+		}
+
+		div.page {
+			position: absolute;
+			width: 70vw;
+			height: 90vh;
+			background-color: #444;
+			left: 20vw;
+			top: 5vh;
+			z-index: -1;
+			border-left: 3px solid #0cd;
+			border-radius: 5px;
+			padding-left: 10px;
+		}
+	</style>
+	<script>
+		var main = new MessageChannel();
+		var hmmos = window.parent;
+		 main.port1.onmessage = hear();
+	 function send(message){
+		 //so port: 1=get, 2=send
+		 main.port1.onmessage = hear();
+		 hmmos.contentWindow.postMessage(message, '*', [main.port2])
+	 }
+	function hear(msg){
+		alert('a response has been recieved: ' + msg)
+	}
+	</script>
+</head>
+
+<body>
+	<ul class='sidebar'>
+		<li>General</li>
+		<li>Apps</li>
+		<li>System</li>
+	</ul>
+	<div class='page' id='general'>
+		<h2>General</h2><br>
+		<div><b>Wallpaper</b><br>
+			<textarea id='wallpaper'>enter text</textarea><br>
+			<button onclick='send("wptxt" + document.querySelector("textarea").value)'>a</button></div><br>
+	</div>
+</body>
+
 </html>
