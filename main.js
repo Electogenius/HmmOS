@@ -108,17 +108,17 @@ function openWindow(appID, custom) {
   var classCount = 0;
   var windowname;
   var windowcode;
-  if (!custom) {
+  if (custom == false) {
     windowcode = appcodes[appID];
   } else {
     windowcode = appID;
-    windowname = "";
+    windowname = custom;
   }
   var windowname = appID;
   var node = document.createElement("window"); //make a node (for the app)
   //decode the windowcode
   //title bar (named taskbar)
-  const position = { x: 0, y: 0 };
+  const position = { x: Math.round(100 * Math.random), y: 0 };
 
   interact(node).draggable({
     allowFrom: "taskbar",
@@ -139,7 +139,7 @@ function openWindow(appID, custom) {
       top: false,
       left: true,
       bottom: true,
-      right: true
+      right: false
     }
   }).on('resizemove', event => {
     let { x, y } = event.target.dataset;
