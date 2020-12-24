@@ -2,12 +2,26 @@ class appWindow {
   constructor(title, content) {
     this.title = title;
     this.content = content;
-    this.compiledContent =  "<titlebar>" + this.title + "</titlebar>" + this.content
   }
+  
   display() {
-    alert()
     var node = document.createElement('window');
-    node.innerHTML = this.compiledContent;
+    let g = document.createElement('taskbar');
+    let taskbar = document.createTextNode("X");
+
+    let taskbardiv = document.createElement("close");
+
+    taskbardiv.appendChild(taskbar);
+    taskbardiv.onclick = function() {
+      windowsOpened--;
+      this.parentNode.remove();
+    };
+    g.appendChild(taskbardiv);
+    g.innerHTML += this.title;
+    node.appendChild(g);
+    let y = document.createElement('div');
+    y.innerHTML = this.content;
+    node.appendChild(y);
     document.getElementById("windows").appendChild(node); // add to window container
   }
 }
@@ -289,6 +303,6 @@ function onMessage(e) {
 //\copied
 //modern app maker
 function openApp(code, name) {
-  var openwin = new appWindow()
+  var openwin = new appWindow(name, code);
   openwin.display();
 }
