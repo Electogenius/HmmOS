@@ -39,7 +39,7 @@
 		 main.port1.onmessage = hear();
 	 function send(message){
 		 //so port: 1=get, 2=send
-		 main.port1.onmessage = hear();
+		 main.port1.onmessage = hear;
 		 hmmos.contentWindow.postMessage(message, '*', [main.port2])
 	 }
 	function hear(msg){

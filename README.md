@@ -22,4 +22,4 @@ hwa
 
 uh thanks for reading, here's some pijin:
 
-for tweni an sev yer ago, us's das mek in tis kontinent, wan nu kantri, tink fridu, and masduas tu mebiment dat aal gai did be mek semamaunt.
+fo twenni an sev yer bifo, as's das mek in tis landeri, wan nu kantri, tink fridu, and masduent tu mebiment: aal gai dit be mek sem.

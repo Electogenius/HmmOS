@@ -22,13 +22,17 @@
 
     </div>
     <div class="bar" id='bar'>
-      <baritem class='start' onclick="$('ul.menu').toggle();">«</baritem>
+      <baritem class='start' onclick="$('ul.menu').toggle();">«</baritem><script>this.addEventListener('keypress', event => {
+  if (event.keyCode == 13) {
+    $('ul.menu').toggle();
+  }
+})</script>
     </div>
     <ul class="menu hidden" id='menu'>
       <li onclick="openWindow('test', false)">Test app</li>
       <li onclick="openWindow('fileExplorer', false)">File explorer</li>
       <li onclick="openWindow('tempJS', false)">System modifier</li>
-
+      <li onclick="openApp(appcodes.hub, 'HmmOS hub');"
     </ul>
     <hi>HmmOS</hi>
     </div>

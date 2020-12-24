@@ -1,7 +1,20 @@
+class appWindow {
+  constructor(title, content) {
+    this.title = title;
+    this.content = content;
+    this.compiledContent =  "<titlebar>" + this.title + "</titlebar>" + this.content
+  }
+  display() {
+    alert()
+    var node = document.createElement('window');
+    node.innerHTML = this.compiledContent;
+    document.getElementById("windows").appendChild(node); // add to window container
+  }
+}
 //file system
 var storage = {
   private: {
-    "version.str": "alpha 4"
+    "version.str": "alpha 5.4"
   },
   appData: {
     tempJS: {
@@ -53,17 +66,7 @@ var appcodes = {
 		`
   var feDirectory = storage
   var feContainer = document.getElementById('0offileExplorer');
-
 feGetFilesaddElements();
-$('fefolder').onclick = function(){
-  feDirectory = feDirectory[this.innerHTML];
-  feGetFilesaddElements();
-  feGetFilesaddElements();
-}
-$('fefile').onclick = function(){
-  alert(feDirectory[this.innerHTML]);
-  feGetFilesaddElements();
-}
   `
 	],
   //TEMPJS
@@ -89,7 +92,10 @@ document.getElementById('4oftempJS').onclick = function(){
 `,
 		"button",
 		"Enter"
-	]
+	],
+  hub: `
+hello world <i>italics</i> and <b>bold</b>
+  `
 };
 var windowsOpened = 0;
 var xOffset, yOffset;
@@ -133,13 +139,13 @@ function openWindow(appID, custom) {
       }
     }
   })
-  
+
   interact(node).resizable({
     edges: {
       top: false,
-      left: true,
+      left: false,
       bottom: true,
-      right: false
+      right: true
     }
   }).on('resizemove', event => {
     let { x, y } = event.target.dataset;
@@ -228,6 +234,15 @@ function feGetFilesaddElements() {
       appendNewElement("fefolder", fefile, feContainer);
     }
   }
+  $('fefolder').onclick = function(){
+    feDirectory = feDirectory[this.innerHTML];
+    feGetFilesaddElements();
+    feGetFilesaddElements();
+  }
+  $('fefile').onclick = function(){
+    alert(feDirectory[this.innerHTML]);
+    feGetFilesaddElements();
+  }
 }
 
 function addToBar(atb_name, atb_color, atb_iconhtm) {
@@ -252,11 +267,12 @@ $(document).ready(function() {
 $('body').bind('contextmenu', function() { //i think it removes the right click menu
   return false;
 });
-
+//redirect from Nothing
 if (document.referrer.startsWith('https://liimee.github.io') || document.referrer.includes('vercel.app') || document.referrer.includes('bit.ly')|| document.referrer.includes('.tinyurl.')) {
 	alert("you're already in the best OS, and no HmmOS is not better. And if you came here from bit.ly or vercel.app, NOPE LOL")
 	window.history.back();
 }
+///copied from moz://a-dev
 var channel = new MessageChannel();
 var output = document.querySelector('.output');
 var iframe = document.querySelector('iframe');
@@ -269,4 +285,10 @@ var iframe = document.querySelector('iframe');
 // Handle messages received on port1
 function onMessage(e) {
   output.innerHTML = e.data;
+}
+//\copied
+//modern app maker
+function openApp(code, name) {
+  var openwin = new appWindow()
+  openwin.display();
 }
