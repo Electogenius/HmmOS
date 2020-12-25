@@ -3,26 +3,59 @@ class appWindow {
     this.title = title;
     this.content = content;
   }
-  
+
   display() {
     var node = document.createElement('window');
     let g = document.createElement('taskbar');
-    let taskbar = document.createTextNode("X");
-
-    let taskbardiv = document.createElement("close");
-
+    var taskbar = document.createTextNode("X");
+    var taskbardiv = document.createElement("close");
     taskbardiv.appendChild(taskbar);
-    taskbardiv.onclick = function() {
-      windowsOpened--;
-      this.parentNode.remove();
-    };
     g.appendChild(taskbardiv);
     g.innerHTML += this.title;
     node.appendChild(g);
-    let y = document.createElement('div');
+    let y = document.createElement('windowcontent');
     y.innerHTML = this.content;
     node.appendChild(y);
+    //draggy resizo
+    const position = { x: 0, y: 0 };
+
+    interact(node).draggable({
+      allowFrom: "taskbar",
+      modifiers: [],
+      listeners: {
+        start(event) {},
+        move(event) {
+          position.x += event.dx;
+          position.y += event.dy;
+
+          event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
+        }
+      }
+    })
+
+    interact(node).resizable({
+      edges: {
+        top: false,
+        left: false,
+        bottom: true,
+        right: true
+      }
+    }).on('resizemove', event => {
+      let { x, y } = event.target.dataset;
+
+      Object.assign(event.target.style, {
+        width: `${event.rect.width}px`,
+        height: `${event.rect.height}px`
+      })
+
+      Object.assign(event.target.dataset, { x, y })
+    });
     document.getElementById("windows").appendChild(node); // add to window container
+    document.querySelector('close').onclick = function() {
+      windowsOpened--;
+      this.parentNode.parentNode.remove();
+    };
+    windowsOpened++
   }
 }
 //file system
@@ -138,7 +171,7 @@ function openWindow(appID, custom) {
   var node = document.createElement("window"); //make a node (for the app)
   //decode the windowcode
   //title bar (named taskbar)
-  const position = { x: Math.round(100 * Math.random), y: 0 };
+  const position = { x: 0, y: 0 };
 
   interact(node).draggable({
     allowFrom: "taskbar",

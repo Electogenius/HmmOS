@@ -1,22 +1,22 @@
 @keyframes windowOpen{
     from{opacity:0; width:0; height:0;}
-    to {display:1; width:50vw; height:25vh}
+    to {opacity:1; width: 91vw; height:99.5vh}
 }
 ::-webkit-scrollbar {
     width: 10px;
 }
- 
+
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 1px rgba(255,255,255,1); 
+    -webkit-box-shadow: inset 0 0 1px rgba(255,255,255,1);
     border-radius: 1px;
 }
- 
+
 ::-webkit-scrollbar-thumb {
     border-radius: 3px;
-    -webkit-box-shadow: inset 0 0 15px #0cd; 
+    -webkit-box-shadow: inset 0 0 15px #0cd;
 }
 :root {
-  --pointer: ;
+  --cursor: url("/assets/cursors-arrow.png");
 }
 body {
   background-color: #222;
@@ -26,6 +26,7 @@ body {
   font-size: 20px;
   user-select: none;
   overflow: hidden;
+  cursor: var(--cursor), auto;
 }
 .popup {
   background-color: #333;
@@ -80,10 +81,13 @@ window {
   touch-action: none;
   border-radius: 5px;
   overflow: auto;
-  width: 50vw;
-  height:25vw;
+  width: 91vw;
+  height: 99.5vh;
   animation-name: windowOpen;
   animation-duration: 1s;
+  top: 0px;
+  left:0px;
+  box-sizing: border-box;
 }
 taskbar {
   display: block;
@@ -156,4 +160,6 @@ button:hover {
 }
 button:active {
   border: 1px solid #fff;
+}
+windowcontent{
 }
