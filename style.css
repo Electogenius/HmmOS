@@ -16,8 +16,8 @@
     -webkit-box-shadow: inset 0 0 15px #0cd;
 }
 :root {
-  --cursor: url("https://github.com/Electogenius/HmmOS/cursors-arrow.png");
-  --move: url("https://github.com/Electogenius/HmmOS/cursors-move.png")
+  --cursor: url("https://github.com/Electogenius/HmmOS/tree/blob/cursors-arrow.png");
+  --move: url("https://github.com/Electogenius/HmmOS/tree/blob/cursors-move.png")
 }
 body {
   background-color: #222;
