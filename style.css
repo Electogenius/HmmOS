@@ -16,7 +16,8 @@
     -webkit-box-shadow: inset 0 0 15px #0cd;
 }
 :root {
-  --cursor: url("/assets/cursors-arrow.png");
+  --cursor: url("https://github.com/Electogenius/cursors-arrow.png");
+  --move: url("https://github.com/Electogenius/cursors-move.png")
 }
 body {
   background-color: #222;
@@ -92,7 +93,7 @@ window {
 taskbar {
   display: block;
   background-color: #05f;
-  cursor: move;
+  cursor: var(--move);
   touch-action: none;
   padding-left: 15px;
   border-radius: 3px;
