@@ -5,15 +5,19 @@
 @keyframes notif{
    0%{
       left: -100vw;
+      opacity: 1;
    }
    25% {
       left: 10px;
+      opacity: 1;
    }
    75%{
       left: 10px;
+      opacity: 1;
    }
    100%{
       left: -100vw;
+      opacity: 1;
    }
 }
 ::-webkit-scrollbar {
@@ -191,6 +195,7 @@ notif{
    animation-duration: 4s;
    animation-name: notif;
    font-size: 10px;
+   opacity: 0;
 }
 .block{
    display: block;
