@@ -140,8 +140,10 @@ document.getElementById('4oftempJS').onclick = function(){
 		"button",
 		"Enter"
 	],
+	/*yay new method*/
   hub: `
-hello world <i>italics</i> and <b>bold</b>
+<h1>Hub thingy<h1>
+<div id='hhtabs'></div>
   `
 };
 var windowsOpened = 0;
@@ -319,23 +321,17 @@ if (document.referrer.startsWith('https://liimee.github.io') || document.referre
 	alert("you're already in the best OS, and no HmmOS is not better. And if you came here from bit.ly or vercel.app, NOPE LOL")
 	window.history.back();
 }
-///copied from moz://a-dev
-var channel = new MessageChannel();
-var output = document.querySelector('.output');
-var iframe = document.querySelector('iframe');
 
-// Wait for the iframe to load
-
-
-
-
-// Handle messages received on port1
-function onMessage(e) {
-  output.innerHTML = e.data;
-}
-//\copied
 //modern app maker
 function openApp(code, name) {
   var openwin = new appWindow(name, code);
   openwin.display();
 }
+function newNotif(heading, body){
+  var node = document.createElement('notif')
+  node.innerHTML = '<mb class="block">' + heading + '</mb>' + body
+  document.getElementById('notifs').appendChild(node)
+}
+$(document).ready(function() {
+newNotif('Welcome!', 'Hello there, this is a bad OS');
+})
