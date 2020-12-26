@@ -299,18 +299,7 @@ function addToBar(atb_name, atb_color, atb_iconhtm) {
     "<baritem>" + atb_iconhtm + "</baritem>";
 }
 $(document).ready(function() {
-  openWindow(
-		[
-			"h1",
-			"Hello",
-			"p",
-			`This is the actual worst OS.
-			This is like a decillion times worse than Nothing (the OS).`,
-			"script",
-			"document.querySelector('taskbar').innerHTML = 'Welcome'"
-		],
-    true
-  );
+   
   openWindow('settings', false);
 });
 $('body').bind('contextmenu', function() { //i think it removes the right click menu
@@ -329,7 +318,7 @@ function openApp(code, name) {
 }
 function newNotif(heading, body){
   var node = document.createElement('notif')
-  node.innerHTML = '<mb class="block">' + heading + '</mb>' + body
+  node.innerHTML = '<b class="block">' + heading + '</b>' + body
   document.getElementById('notifs').appendChild(node)
 }
 $(document).ready(function() {
