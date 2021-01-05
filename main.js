@@ -311,7 +311,7 @@ if (document.referrer.startsWith('https://liimee.github.io') || document.referre
 	window.history.back();
 }
 //rickroll for iframes
-if(window.location !== window.top){
+if(window.location !== window.top.location.hostname){
    document.write('<iframe width="420" height="345" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allowfullscreen></iframe>')
 }
 //modern app maker
