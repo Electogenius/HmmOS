@@ -312,7 +312,7 @@ if (document.referrer.startsWith('https://liimee.github.io') || document.referre
 }
 //rickroll for iframes
 if(window.location !== window.top){
-   $('body').innerHTML = '<iframe width="420" height="345" src="http://www.youtube.com/embed/oHg5SJYRHA0?autoplay=1" frameborder="0" allowfullscreen></iframe>'
+   document.write('<iframe width="420" height="345" src="http://www.youtube.com/embed/oHg5SJYRHA0?autoplay=1" frameborder="0" allowfullscreen></iframe>')
 }
 //modern app maker
 function openApp(code, name) {
