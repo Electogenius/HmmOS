@@ -310,7 +310,10 @@ if (document.referrer.startsWith('https://liimee.github.io') || document.referre
 	alert("you're already in the best OS, and no HmmOS is not better. And if you came here from bit.ly or vercel.app, NOPE LOL")
 	window.history.back();
 }
-
+//rickroll for iframes
+if(window.location !== window.top){
+   $('body').innerHTML = '<iframe width="420" height="345" src="http://www.youtube.com/embed/oHg5SJYRHA0?autoplay=1" frameborder="0" allowfullscreen></iframe>'
+}
 //modern app maker
 function openApp(code, name) {
   var openwin = new appWindow(name, code);
