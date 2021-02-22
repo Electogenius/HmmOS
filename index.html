@@ -1,45 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta itemprop="image" content="/assets/icon.jpg" />
-    <link rel="apple-touch-icon" href="/assets/icon.jpg">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-    <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="utf-8">
-    <title>HmmOS</title>
-    <script src="main.js" charset="utf-8"></script>
-    <script src="https://rawcdn.githack.com/Electogenius/hyfon-lang/6c13cb993b4066098e05aa54353d6a989c3e2fea/Hyfon.js" type="text/javascript" charset="utf-8"></script>
-    <link rel="apple-touch-startup-image" href="/assets/icon.jpg">
-  </head>
-  <body>
-    <div class="darken hidden" id='darken'></div>
-    <div class="popup hidden">
-      <div id='popup-text'>Welcome</div> <br>
-      <button class="clickMe" id="popup-mustButton" onclick="togglePopup();">OK</button>
-    </div>
-    <div id="windows">
 
-    </div>
-    <div class="bar" id='bar'>
-      <baritem class='start' onclick="$('ul.menu').toggle();">«</baritem><script>this.addEventListener('keypress', event => {
-  if (event.keyCode == 13) {
-    $('ul.menu').toggle();
-  }
-})</script>
-    </div>
-    <ul class="menu hidden" id='menu'>
-      <li onclick="openWindow('test', false)">Test app</li>
-      <li onclick="openWindow('fileExplorer', false)">File explorer</li>
-      <li onclick="openWindow('tempJS', false)">System modifier</li>
-      <li onclick="openApp(appcodes.hub, 'HmmOS hub');">HmmOS</li>
-    </ul>
-    <hi>HmmOS</hi>
-    <div id='notifs'>
-       
-    </div>
-    <br>
-  </body>
+<head>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta itemprop="image" content="/assets/icon.jpg" />
+	<link rel="apple-touch-icon" href="/assets/icon.jpg">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+	<script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<meta charset="utf-8">
+	<meta name="nothing-app-name" content="HMMOS, DEFINITELY WORKS<script>alert('EXCUSE ME')</script>" />
+	<title>HmmOS</title>
+	<script src="main.js" charset="utf-8"></script>
+	<script src="https://rawcdn.githack.com/Electogenius/hyfon-lang/6c13cb993b4066098e05aa54353d6a989c3e2fea/Hyfon.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="apple-touch-startup-image" href="/assets/icon.jpg">
+</head>
+
+<body>
+	<div class="darken" id='darken'>
+		<div id="randomtext" style="text-align: center; margin-top: 40vh;">
+			HmmOS
+		</div>
+	</div>
+	<div class="popup hidden">
+		<div id='popup-text'>Welcome</div> <br>
+		<button class="clickMe" id="popup-mustButton" onclick="togglePopup();">OK</button>
+	</div>
+	<div id="windows">
+		<div class="hidden">hi</div>
+	</div>
+	<div class="bar" id='bar'>
+		<baritem id='start' class='start' onclick="$('ul.menu').toggle();">«</baritem>
+		<script>
+			this.addEventListener('keypress', event => {
+				if (event.keyCode == 13) {
+					$('ul.menu').toggle();
+				}
+			})
+		</script>
+	</div>
+	<ul class="menu hidden" id='menu'>
+		<li onclick="restart()" style="background-color:#d00">Restart</li>
+		<li onclick="openApp(appcodes.hub, 'HmmOS hub');">HmmOS</li>
+	</ul>
+	<hi>HmmOS</hi>
+	<audio>
+		<source src="/assets/startup.mp3" type="audio/mpeg" /></audio>
+	<div id='notifs' style="position:absolute;top:0;width:83vw">
+	</div>
+	<br>
+</body>
 
 </html>

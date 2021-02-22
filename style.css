@@ -1,203 +1,255 @@
-@keyframes windowOpen{
-    from{opacity: 0; width:0; height:0;}
-    to {opacity: 1; width: 350px; height: 200px}
+@keyframes windowOpen {
+	from {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
+	to {
+		width: 350px;
+		height: 200px
+	}
 }
-@keyframes notif{
-   0%{
-      left: -100vw;
-      display: block;
-   }
-   25% {
-      left: 10px;
-      display: block;
-   }
-   75%{
-      left: 10px;
-      display: block;
-   }
-   100%{
-      left: -100vw;
-      display: block;
-   }
+
+@keyframes notif {
+	0% {
+		left: -100vw;
+		display: block;
+	}
+
+	25% {
+		left: 10px;
+		display: block;
+	}
+
+	75% {
+		left: 10px;
+		display: block;
+	}
+
+	100% {
+		left: -100vw;
+		display: block;
+	}
 }
+
 ::-webkit-scrollbar {
-    width: 10px;
+	width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 1px rgba(255,255,255,1);
-    border-radius: 1px;
+	-webkit-box-shadow: inset 0 0 1px rgba(255, 255, 255, 1);
+	border-radius: 1px;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    -webkit-box-shadow: inset 0 0 15px #0cd;
+	border-radius: 3px;
+	-webkit-box-shadow: inset 0 0 15px #0cd;
 }
+
 :root {
-  --cursor: url("cursors-arrow.png");
-  --move: url("cursors-move.png");
+	--cursor: url("cursors-arrow.png");
+	--move: url("cursors-move.png");
 }
+
 body {
-  background-color: #222;
-  color: white;
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 20px;
-  user-select: none;
-  overflow: hidden;
-  cursor: var(--cursor), auto;
+	background-color: #222;
+	color: white;
+	font-family: system-ui;
+	font-weight: 300;
+	font-size: 20px;
+	user-select: none;
+	overflow: hidden;
+	cursor: var(--cursor), auto;
 }
+
 .popup {
-  background-color: #333;
-  color: #acd;
-  display: inline;
-  padding: 3vw;
-  border: 3px solid #000;
-  margin-left: 40vw;
-  margin-top: 40vh;
-  border-radius: 9px;
-  position: fixed;
-  font-size: 3vw;
+	background-color: #333;
+	color: #acd;
+	display: inline;
+	padding: 3vw;
+	border: 3px solid #000;
+	margin-left: 40vw;
+	margin-top: 40vh;
+	border-radius: 9px;
+	position: fixed;
+	font-size: 3vw;
 }
+
 button.clickMe {
-  background-color: #0cd;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  color: #fff;
+	background-color: #0cd;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	color: #fff;
 }
+
 .darken {
-  padding-left: 50vw;
-  padding-right: 50vw;
-  padding-bottom: 50vh;
-  padding-top: 50vh;
-  background-color: #000;
-  opacity: 0.5;
-  position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-color: #000;
+	opacity: 1;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 200
+}
+#randomtext{
+	z-index: 201;
+	opacity:3;
+	color: white;
 }
 .fullWidth {
-  width: 98vw;
+	width: 98vw;
 }
+
 .halfWidth {
-  width: 50vw;
+	width: 50vw;
 }
+
 .floatRight {
-  float: right;
+	float: right;
 }
+
 .noBorder {
-  border: none;
+	border: none;
 }
+
 a {
-  color: #0cf;
+	color: #0cf;
 }
+
 .hidden {
-  display: none;
+	display: none;
 }
+
 window {
-  position: absolute;
-  display: block;
-  border: 1px solid #bcf;
-  background-color: #000;
-  touch-action: none;
-  border-radius: 5px;
-  overflow: auto;
-  width: 350px;
-  height: 200px;
-  animation-name: windowOpen;
-  animation-duration: 1s;
-  top: 0px;
-  left:0px;
-  box-sizing: border-box;
+	position: absolute;
+	display: block;
+	border: 1px solid #bcf;
+	background-color: #000;
+	touch-action: none;
+	border-radius: 5px;
+	overflow: auto;
+	width: 350px;
+	height: 200px;
+	animation-name: windowOpen;
+	animation-duration: 1s;
+	top: 0px;
+	left: 0px;
+	box-sizing: border-box;
 }
+
 taskbar {
-  display: block;
-  background-color: #05f;
-  cursor: var('--move');
-  touch-action: none;
-  padding-left: 15px;
-  border-radius: 3px;
+	display: block;
+	background-color: #05f;
+	cursor: var('--move');
+	touch-action: none;
+	padding-left: 15px;
+	border-radius: 3px;
 }
 
 div.bar {
-  float: right;
-  background-color: #aab;
-  position: static;
-  width: 30px;
-  height: 98vh;
+	float: right;
+	background-color: #aab;
+	position: static;
+	width: 30px;
+	height: 98vh;
 }
+
 baritem {
-  border-bottom: 1px solid #000;
-  padding-left: 10px;
-  padding-right: 10px;
-  display: block;
+	border-bottom: 1px solid #000;
+	padding-left: 10px;
+	padding-right: 10px;
+	display: block;
 }
 
 baritem.start {
-  font-weight: bolder;
-  font-size: 25px;
-  border-bottom: 2px solid #05f;
-  padding-right: 6px;
-  background-color: #aad;
+	font-weight: bolder;
+	font-size: 25px;
+	border-bottom: 2px solid #05f;
+	padding-right: 6px;
+	background-color: #aad;
 }
+
 baritem.start:hover {
-  background-color: #fff;
-  color: #0cd;
+	background-color: #fff;
+	color: #0cd;
 }
+
 ul.menu {
-  position: absolute;
-  right: 40px;
-  width: 100px;
-  background-color: #333;
-  font-size: 10px;
+	position: absolute;
+	right: 40px;
+	width: 100px;
+	background-color: #333;
+	font-size: 10px;
 }
+
 ul li {
-  list-style-type: none;
-  left: -20px;
+	list-style-type: none;
+	left: -20px;
 }
+
 hin {
-  width: 150px;
-  height: 150px;
-  padding: 0.5em;
+	width: 150px;
+	height: 150px;
+	padding: 0.5em;
 }
+
 close {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  color: #f10;
-  background-color: #000;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	color: #f10;
+	background-color: #000;
 }
+
 close:hover {
-  color: #f10;
-  background-color: #fff;
+	color: #f10;
+	background-color: #fff;
 }
+
 button {
-  border: 1px solid #00f;
-  background-color: #333;
-  color: #fff;
+	border: 1px solid #00f;
+	background-color: #333;
+	color: #fff;
 }
+
 button:hover {
-  background-color: #555;
+	background-color: #555;
 }
+
 button:active {
-  border: 1px solid #fff;
+	border: 1px solid #fff;
 }
-windowcontent{
-   display: block;
-   overflow: auto;
+
+windowcontent {
+	display: block;
+	overflow: auto;
 }
-notif{
-   background-color: #223;
-   border: 2px solid #444;
-   border-radius: 7px;
-   position: absolute;
-   top: 0;
-   left: -100vw;
-   animation-duration: 4s;
-   animation-name: notif;
-   font-size: 10px;
+
+notif {
+	background-color: #223;
+	border: 2px solid #444;
+	border-radius: 7px;
+	position: absolute;
+	top: 0;
+	left: -100vw;
+	animation-duration: 4s;
+	animation-name: notif;
+	font-size: 10px;
 }
-.block{
-   display: block;
+
+notif.open {
+	display: block;
+	margin-top: 10px;
+	position: relative;
+	left: 0;
 }
-mb{
-   font-weight: bolder;
+
+.block {
+	display: block;
+}
+
+mb {
+	font-weight: bold;
 }

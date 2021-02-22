@@ -20,6 +20,4 @@ THWACC
 ## wh
 hwa
 
-uh thanks for reading, here's some pijin:
-
-fo twenni an sev yer bifo, as's das mek in tis landeri, wan nu kantri, tink fridu, and masduent tu mebiment: aal gai dit be mek sem.
+uh thanks for reading

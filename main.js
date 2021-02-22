@@ -1,3 +1,5 @@
+const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 class appWindow {
 	constructor(title, content) {
 		this.title = title;
@@ -18,7 +20,7 @@ class appWindow {
 		node.appendChild(y);
 		//draggy resizo
 		const position = { x: 0, y: 0 };
-
+		const positiona = { x: 0, y: 0 }
 		interact(node).draggable({
 			allowFrom: "taskbar",
 			modifiers: [],
@@ -27,7 +29,6 @@ class appWindow {
 				move(event) {
 					position.x += event.dx;
 					position.y += event.dy;
-
 					event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
 				}
 			}
@@ -83,63 +84,8 @@ const errtxt = document.getElementById("popup-text");
 const blur = document.getElementById("darken");
 const windowContainer = document.getElementById("windows");
 var active = "";
+var isnotifsopen = false;
 var appcodes = {
-	test: [
-		"button",
-		"Click me",
-		"h1",
-		"wwwwwwwww",
-		"script",
-		"document.querySelector('window button').onclick = function(){alert('you got hacked LOL'); document.querySelector('*').innerHTML = 'hi'};"
-	],
-	fileExplorer: [
-		"div",
-		"",
-		"style",
-		`
-  fefile{
-    display: block;
-    font-size: 15px;
-    background-color: #333;
-  }
-  fefolder{
-    display: block;
-    font-size: 15px;
-    background-color: #fa0;
-    border-bottom: 1px solid #000;
-  }
-  `,
-		"script",
-		`
-  var feDirectory = storage
-  var feContainer = document.getElementById('0offileExplorer');
-feGetFilesaddElements();
-  `
-	],
-	//TEMPJS
-	tempJS: [
-		"style",
-		"tjsconsole{height: 50px; overflow: scroll}",
-		"tjsconsole",
-		"",
-		"form",
-		"",
-		"script",
-		`
-var tjs_form = document.getElementById('2oftempJS');
-tjs_form.innerHTML = '<input>'
-tjs_form.style.display = 'inline'
-document.getElementById('1oftempJS').style.overflow = 'none'
-document.getElementById('1oftempJS').style.height = '50px'
-document.getElementById('4oftempJS').onclick = function(){
-	appendNewElement('script', tjs_form.elements[0].value, document.querySelector('head'));
-	document.querySelector('tjsconsole').innerHTML += tjs_form.elements[0].value + '<br>';
-	storage.appData.tempJS['commands.str'] += tjs_form.elements[0].value + '<br>';
-}
-`,
-		"button",
-		"Enter"
-	],
 	/*yay new method*/
 	hub: `
 <h1>Hub thingy<h1>
@@ -310,9 +256,9 @@ if (document.referrer.startsWith('https://liimee.github.io') || document.referre
 	alert("you're already in the best OS, and no HmmOS is not better. And if you came here from bit.ly or vercel.app, NOPE LOL")
 	window.history.back();
 }
-
 //rickroll for iframes
-if (window.location !== window.parent.location) {
+aaa = window.location.href
+if (window.location !== window.parent.location && !aaa.startsWith("http://localhost:")) {
 	document.write('<iframe width="420" height="345" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allowfullscreen></iframe>')
 }
 //modern app maker
@@ -320,12 +266,49 @@ function openApp(code, name) {
 	var openwin = new appWindow(name, code);
 	openwin.display();
 }
-
 function newNotif(heading, body) {
 	var node = document.createElement('notif')
 	node.innerHTML = '<b class="block">' + heading + '</b>' + body
 	document.getElementById('notifs').appendChild(node)
 }
-$(document).ready(function() {
-	newNotif('Welcome!', 'Hello there, this is a bad OS');
-})
+$(document).ready(function() {})
+document.onclick = function() {
+	document.querySelector('audio').play()
+	document.onclick = function() {}
+	newNotif('Welcome!', 'Hello there, this is the worst OS');
+}
+window.onload = function() {
+	document.querySelector('#start').ondblclick = function() {
+		if (!isnotifsopen) {
+			$('notif').addClass('open')
+		} else {
+			$('notif').removeClass('open')
+		}
+		isnotifsopen = !isnotifsopen
+	}
+	// "boot"
+	var xa = 0;
+	setTimeout(function(){
+	document.getElementById('darken').onclick = function(){
+			setInterval(function(){
+				document.querySelector('#darken').style.opacity = 1-xa
+					xa += 0.1
+				if (false) {
+					document.getElementById('darken').style.display = 'none'
+				}
+			}, 50)
+		}
+	}, 100)
+}
+function restart() {
+	document.querySelector('#darken').style.display = 'block'
+	var xa = 0
+	setInterval(function() {
+		document.querySelector('#darken').style.opacity = xa
+		xa += 0.05
+		if (xa = 0) {
+			document.querySelector('#darken').style.opacity = 1;
+		}
+	}, 30)
+}
+console.log('hello')
