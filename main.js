@@ -276,6 +276,10 @@ document.onclick = function() {
 	document.querySelector('audio').play()
 	document.onclick = function() {}
 	newNotif('Welcome!', 'Hello there, this is the worst OS');
+	anime({
+		target: "#darken",
+		opacity: 1
+	})
 }
 window.onload = function() {
 	document.querySelector('#start').ondblclick = function() {
@@ -287,18 +291,11 @@ window.onload = function() {
 		isnotifsopen = !isnotifsopen
 	}
 	// "boot"
-	var xa = 0;
-	setTimeout(function(){
-	document.getElementById('darken').onclick = function(){
-			setInterval(function(){
-				document.querySelector('#darken').style.opacity = 1-xa
-					xa += 0.1
-				if (false) {
-					document.getElementById('darken').style.display = 'none'
-				}
-			}, 50)
-		}
-	}, 100)
+	anime({
+		target: "div",
+		opacity: 0
+	})
+	
 }
 function restart() {
 	document.querySelector('#darken').style.display = 'block'
@@ -311,4 +308,3 @@ function restart() {
 		}
 	}, 30)
 }
-console.log('hello')
