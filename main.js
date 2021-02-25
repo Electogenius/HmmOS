@@ -109,7 +109,7 @@ function openWindow(appID, custom) {
 	var classCount = 0;
 	var windowname;
 	var windowcode;
-	if (custom == false) {
+	if (custom) {
 		windowcode = appcodes[appID];
 	} else {
 		windowcode = appID;
@@ -178,7 +178,7 @@ function openWindow(appID, custom) {
 	node.appendChild(taskbardiv);
 	//aaa
 	var line;
-	for (i = 0; i < windowcode.length; i++) {
+	for (var i = 0; i < windowcode.length; i++) {
 		line = windowcode[i];
 		var textnode = document.createTextNode(line);
 		if (i % 2 == 0) {
