@@ -259,7 +259,7 @@ if (document.referrer.startsWith('https://liimee.github.io') || document.referre
 //rickroll for iframes
 aaa = window.location.href
 if (window.location !== window.parent.location && !aaa.startsWith("http://localhost:")) {
-	document.write('<iframe width="420" height="345" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allowfullscreen></iframe>')
+	document.body.innerHTML = ('<iframe width="420" height="345" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allowfullscreen></iframe>')
 }
 //modern app maker
 function openApp(code, name) {
