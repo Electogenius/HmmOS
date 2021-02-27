@@ -1,5 +1,5 @@
 @keyframes windowOpen {
-	from {
+	from {/* */
 		display: none;
 		width: 0;
 		height: 0;
