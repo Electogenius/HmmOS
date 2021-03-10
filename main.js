@@ -5,10 +5,11 @@ class appWindow {
 		this.title = title;
 		this.content = content;
 	}
-
 	display() {
+		//title thing
 		var node = document.createElement('window');
 		let g = document.createElement('taskbar');
+		//close btn
 		var taskbar = document.createTextNode("X");
 		var taskbardiv = document.createElement("close");
 		taskbardiv.appendChild(taskbar);
@@ -52,10 +53,11 @@ class appWindow {
 			Object.assign(event.target.dataset, { x, y })
 		});
 		document.getElementById("windows").appendChild(node); // add to window container
-		document.querySelector('close').onclick = function() {
+		document.querySelectorAll('close').forEach( (x) => x.onclick = function() {
 			windowsOpened--;
+			//console.log(this.parentNode.parentNode)
 			this.parentNode.parentNode.remove();
-		};
+		});
 		windowsOpened++
 	}
 }
@@ -129,7 +131,6 @@ function openWindow(appID, custom) {
 			move(event) {
 				position.x += event.dx;
 				position.y += event.dy;
-
 				event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
 			}
 		}

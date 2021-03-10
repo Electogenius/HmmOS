@@ -91,7 +91,8 @@ button.clickMe {
 	position: fixed;
 	top: 0;
 	left:0;
-	z-index: 200
+	z-index: 200;
+	display: none;
 }
 #randomtext{
 	z-index: 201;
@@ -252,4 +253,11 @@ notif.open {
 
 mb {
 	font-weight: bold;
+}
+div.skiptranslate{
+	transform: scale(0);
+	height: 0;
+}
+.goog-te-gadget{
+	transform: scale(1)!important
 }
