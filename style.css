@@ -126,7 +126,7 @@ a {
 window {
 	position: absolute;
 	display: block;
-	border: 1px solid #bcf;
+	border: 1px solid #333;
 	background-color: #000;
 	touch-action: none;
 	border-radius: 5px;
@@ -135,20 +135,25 @@ window {
 	height: 200px;
 	animation-name: windowOpen;
 	animation-duration: 1s;
-	top: 0px;
-	left: 0px;
 	box-sizing: border-box;
+	padding: 3px
 }
 
 taskbar {
-	display: block;
-	background-color: #05f;
+	display: inline-block;
+	position: absolute;
+	background-color: #05d;
 	cursor: var('--move');
 	touch-action: none;
-	padding-left: 15px;
 	border-radius: 3px;
+	padding-left: 10px;
+	overflow-x: auto;
+	opacity: 0.2;
+	transition: opacity 0.2s;
 }
-
+taskbar:hover {
+	opacity: 0.9;
+}
 div.bar {
 	float: right;
 	background-color: #aab;
@@ -197,16 +202,21 @@ hin {
 }
 
 close {
-	position: absolute;
+	/*position: absolute;*/
 	top: 0px;
 	left: 0px;
 	color: #f10;
-	background-color: #000;
+	float: right;
+	margin-right: 10px;
+	font-weight: 20em;
+	font-size: 25px;
+	margin-left: 20px;
 }
 
 close:hover {
 	color: #f10;
 	background-color: #fff;
+	border-radius: 5px;
 }
 
 button {
@@ -237,7 +247,7 @@ notif {
 	left: -100vw;
 	animation-duration: 4s;
 	animation-name: notif;
-	font-size: 10px;
+	font-size: 10px
 }
 
 notif.open {

@@ -9,10 +9,11 @@
 	<script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
 	<link rel="stylesheet" href="style.css">
 	<meta charset="utf-8">
-	<meta name="nothing-app-name" content="HMMOS, DEFINITELY WORKS<script>alert('EXCUSE ME')</script>" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<meta name="hmm" content="yes" />
 	<title>HmmOS</title>
 	<script src="main.js" charset="utf-8"></script>
-	<script src="https://rawcdn.githack.com/Electogenius/hyfon-lang/6c13cb993b4066098e05aa54353d6a989c3e2fea/Hyfon.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="https://rawcdn.githack.com/Electogenius/hyfon-lang/6c13cb993b4066098e05aa54353d6a989c3e2fea/Hyfon.js" type="text/javascript" charset="utf-8"></script>-->
 	<link rel="apple-touch-startup-image" href="/assets/icon.jpg">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -41,8 +42,8 @@
 		</script>
 	</div>
 	<ul class="menu hidden" id='menu'>
-		<li onclick="restart()" style="background-color:#d00">Restart</li>
-		<li onclick="openApp(appcodes.hub, 'HmmOS hub');">HmmOS</li>
+		<li onclick="hmm.restart()" style="background-color:#d00">Restart</li>
+		<li onclick="openApp('test');">test</li>
 	</ul>
 	<hi>HmmOS</hi>
 	<audio>
@@ -51,7 +52,7 @@
 	</div>
 	<br>
 	<!--translate test-->
-	<div id="google_translate_element">Hello</div>
+	<!--<div id="google_translate_element">Hello</div>-->
 
 <script type="text/javascript">
 function googleTranslateElementInit() {
