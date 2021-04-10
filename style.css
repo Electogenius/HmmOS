@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 @keyframes windowOpen {
 	from {/* */
 		display: none;
@@ -55,7 +56,7 @@
 body {
 	background-color: #222;
 	color: white;
-	font-family: system-ui;
+	font-family: "Roboto Condensed";
 	font-weight: 300;
 	font-size: 20px;
 	user-select: none;
@@ -141,7 +142,7 @@ window {
 
 taskbar {
 	display: inline-block;
-	position: absolute;
+	position: fixed;
 	background-color: #05d;
 	cursor: var('--move');
 	touch-action: none;
@@ -209,7 +210,7 @@ close {
 	float: right;
 	margin-right: 10px;
 	font-weight: 20em;
-	font-size: 25px;
+	font-size: 20px;
 	margin-left: 20px;
 }
 

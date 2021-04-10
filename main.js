@@ -7,7 +7,7 @@ hmm.storage = {
 	apps:{
 		test: {
 			title: "test app",
-			code: "Hello world <b>yes</b><I>yes</I>"
+			code: "Hello world <b>yes</b><I>yes</I><h1>Welcome to HmmOS!</h1>why are you here this is terribly made and buggy"
 		},
 	},
 }
