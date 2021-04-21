@@ -131,8 +131,8 @@ window {
 	background-color: #000;
 	touch-action: none;
 	border-radius: 5px;
-	overflow: auto;
-	width: 350px;
+	overflow: hidden;
+	width: 300;
 	height: 200px;
 	animation-name: windowOpen;
 	animation-duration: 1s;
@@ -141,26 +141,23 @@ window {
 }
 
 taskbar {
-	display: inline-block;
-	position: fixed;
+	display: block;
 	background-color: #05d;
 	cursor: var('--move');
 	touch-action: none;
 	border-radius: 3px;
 	padding-left: 10px;
 	overflow-x: auto;
-	opacity: 0.2;
-	transition: opacity 0.2s;
+	height: 15%;
 }
-taskbar:hover {
-	opacity: 0.9;
-}
+
 div.bar {
 	float: right;
 	background-color: #aab;
 	position: static;
 	width: 30px;
 	height: 98vh;
+	border-radius: 5px;
 }
 
 baritem {
@@ -176,6 +173,7 @@ baritem.start {
 	border-bottom: 2px solid #05f;
 	padding-right: 6px;
 	background-color: #aad;
+	border-radius: 5px
 }
 
 baritem.start:hover {
@@ -211,7 +209,7 @@ close {
 	margin-right: 10px;
 	font-weight: 20em;
 	font-size: 20px;
-	margin-left: 20px;
+	margin-left: 10px;
 }
 
 close:hover {
@@ -237,6 +235,11 @@ button:active {
 windowcontent {
 	display: block;
 	overflow: auto;
+	height: 80%;
+	margin: 5px;
+	background-color: #222;
+	border-radius: 5px;
+	padding: 5px;
 }
 
 notif {
@@ -245,7 +248,6 @@ notif {
 	border-radius: 7px;
 	position: absolute;
 	top: 0;
-	left: -100vw;
 	animation-duration: 4s;
 	animation-name: notif;
 	font-size: 10px
@@ -271,4 +273,7 @@ div.skiptranslate{
 }
 .goog-te-gadget{
 	transform: scale(1)!important
+}
+fullscreen{
+	float: right;
 }
