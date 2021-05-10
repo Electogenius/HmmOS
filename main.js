@@ -1,16 +1,52 @@
+function e(query) {
+	return document.querySelector(query)
+}
 var hmm = {
 	restart: function() {
 		window.location = window.location.href
+	},
+	opts: {
+		lang: "en"
 	}
 }
 hmm.storage = {
 	apps: {
-		test: {
+		"test.hmm": {
 			title: "testapp",
+			type: "html",
 			code: "Hello world <b>yes</b><I>yes</I><h1>Welcome to HmmOS!</h1>why are you here this is terribly made and buggy"
 		},
-		
-	},
+		"cmd.hmm": {
+			title: "Terminal",
+			type: 0,
+			code: ``
+		}
+	}
+}
+hmm.bar = document.getElementById("bar")
+hmm.bar.toggle = function() {
+	if (!hmm.bar.isOpen) {
+		anime({
+			targets: "#menu",
+			width: "99vw",
+			opacity: 0.9,
+			padding: 1,
+			easing: "easeInOutQuad",
+			duration: 500,
+			fontSize: "20px"
+		})
+	} else {
+		anime({
+			targets: "#menu",
+			width: 0,
+			opacity: 0,
+			padding: 0,
+			easing: "easeInOutQuad",
+			duration: 500,
+			fontSize: 0
+		})
+	}
+	hmm.bar.isOpen = !hmm.bar.isOpen
 }
 hmm.openApp = function(app) {
 	var a = new hmm.App(app)
@@ -18,8 +54,8 @@ hmm.openApp = function(app) {
 }
 hmm.App = class {
 	constructor(name) {
-		this.code = hmm.storage.apps[name].code
-		this.title = hmm.storage.apps[name].title
+		this.code = hmm.storage.apps[name + ".hmm"].code
+		this.title = hmm.storage.apps[name + ".hmm"].title
 	}
 	open() {
 		var node = document.createElement("window")
@@ -31,7 +67,6 @@ hmm.App = class {
 			event.target.parentNode.parentNode.remove()
 			//console.log(event.target.parentNode)
 		}
-		
 		tb.appendChild(cls)
 		node.appendChild(tb)
 		var fs = document.createElement("fullscreen")
@@ -39,11 +74,10 @@ hmm.App = class {
 		fs.innerHTML = "fullscreen"
 		tb.appendChild(fs)
 		fs.onclick = function(event) {
-			console.log("fullscreen");
 			event.target.parentNode.parentNode.style.height = "90vh"
 			event.target.parentNode.parentNode.style.width = "95vw"
 			event.target.parentNode.parentNode.style.transform = "translate(0, 0)"
-			position = {x:0,y:0}
+			position = { x: 0, y: 0 }
 		}
 		var content = document.createElement("windowcontent")
 		content.innerHTML = this.code
@@ -55,8 +89,8 @@ hmm.App = class {
 			listeners: {
 				start(event) {},
 				move(event) {
-					position.x = Math.max(position.x+event.dx, 0);
-					position.y = Math.max(position.y+event.dy, 0);
+					position.x = Math.max(position.x + event.dx, 0);
+					position.y = Math.max(position.y + event.dy, 0);
 					event.target.style.transform = `translate(${Math.max(0,position.x)}px, ${Math.max(0,position.y)}px)`;
 				}
 			}
@@ -79,3 +113,31 @@ hmm.App = class {
 		document.getElementById("windows").appendChild(node)
 	}
 }
+setInterval(e=>{
+	document.querySelectorAll(".h-time").forEach(e=>{
+		e.innerText = new Date().toLocaleTimeString(hmm.opts.lang)
+	})
+	document.querySelectorAll(".h-date").forEach(e=>{
+		e.innerText = new Date().toLocaleDateString(hmm.opts.lang)//.toLocaleDateString(hmm.opts.lang)
+	})
+},1e3)
+hmm.setMenu=()=>{
+	Object.keys(hmm.storage.apps).sort().forEach(app=>{
+		let ap = hmm.storage.apps[app]
+		var el = document.createElement("t")
+		el.classList.add("menu-app")
+		el.innerText = ap.title
+		document.getElementById("apps")?.appendChild(el)
+		//console.log(e("#menu"));
+	})
+}
+//setup
+document.getElementById("menu").innerHTML = `
+<close onclick="hmm.bar.toggle()">✕</close>
+<h1><span class="h-time"></span><br><span class="h-date"></span></h1>
+<h2>Apps</h2>
+<div id="apps">
+</div>
+
+`
+hmm.setMenu()

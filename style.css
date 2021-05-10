@@ -1,17 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
-@keyframes windowOpen {
-	from {/* */
-		display: none;
-		width: 0;
-		height: 0;
-	}
-
-	to {
-		width: 350px;
-		height: 200px
-	}
-}
-
 @keyframes notif {
 	0% {
 		left: -100vw;
@@ -63,7 +50,9 @@ body {
 	overflow: hidden;
 	cursor: var(--cursor), auto;
 }
-
+*{
+	border-radius: 5px
+}
 .popup {
 	background-color: #333;
 	color: #acd;
@@ -134,8 +123,6 @@ window {
 	overflow: hidden;
 	width: 300;
 	height: 200px;
-	animation-name: windowOpen;
-	animation-duration: 1s;
 	box-sizing: border-box;
 	padding: 3px
 }
@@ -154,26 +141,25 @@ taskbar {
 div.bar {
 	float: right;
 	background-color: #aab;
-	position: static;
-	width: 30px;
+	position: block;
+	width: 2.5rem;
 	height: 98vh;
 	border-radius: 5px;
 }
 
 baritem {
 	border-bottom: 1px solid #000;
-	padding-left: 10px;
-	padding-right: 10px;
+	text-align: center;
 	display: block;
+	width: 100%;
 }
 
 baritem.start {
 	font-weight: bolder;
 	font-size: 25px;
 	border-bottom: 2px solid #05f;
-	padding-right: 6px;
 	background-color: #aad;
-	border-radius: 5px
+	border-radius: 5px;
 }
 
 baritem.start:hover {
@@ -181,17 +167,17 @@ baritem.start:hover {
 	color: #0cd;
 }
 
-ul.menu {
+#menu {
 	position: absolute;
-	right: 40px;
-	width: 100px;
+	left: 0;
+	top: 0;
+	width: 0;
 	background-color: #333;
 	font-size: 10px;
-}
-
-ul li {
-	list-style-type: none;
-	left: -20px;
+	opacity: 0;
+	overflow: auto;
+	height: 90vh;
+	margin: auto auto;
 }
 
 hin {
@@ -250,7 +236,7 @@ notif {
 	top: 0;
 	animation-duration: 4s;
 	animation-name: notif;
-	font-size: 10px
+	font-size: 10px;
 }
 
 notif.open {
@@ -276,4 +262,19 @@ div.skiptranslate{
 }
 fullscreen{
 	float: right;
+}
+#apps{
+	display: flex;
+	scroll-snap-type: x mandatory;
+	overflow: scroll;
+	width: 99%;
+	height: 30vh;
+}
+.menu-app{
+	padding: 50px;
+	margin-right: 50px;
+	display: inline-block;
+	scroll-snap-align: center;
+	height: 10%;
+	background-color: black;
 }

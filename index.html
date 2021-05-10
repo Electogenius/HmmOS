@@ -5,18 +5,18 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta itemprop="image" content="/assets/icon.jpg" />
 	<link rel="apple-touch-icon" href="/assets/icon.jpg">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 	<script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
 	<link rel="stylesheet" href="style.css">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 	<meta name="hmm" content="yes" />
 	<title>HmmOS</title>
-	<script src="main.js" charset="utf-8"></script>
 	<!--<script src="https://rawcdn.githack.com/Electogenius/hyfon-lang/6c13cb993b4066098e05aa54353d6a989c3e2fea/Hyfon.js" type="text/javascript" charset="utf-8"></script>-->
 	<link rel="apple-touch-startup-image" href="/assets/icon.jpg">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -30,22 +30,21 @@
 		<button class="clickMe" id="popup-mustButton" onclick="togglePopup();">OK</button>
 	</div>
 	<div id="windows">
-		<div class="hidden">hi</div>
 	</div>
 	<div class="bar" id='bar'>
-		<baritem id='start' class='start' onclick="$('ul.menu').toggle();">«</baritem>
+		<baritem id='start' class='start material-icons' onclick="hmm.bar.toggle()">menu</baritem>
 		<script>
 			this.addEventListener('keypress', event => {
 				if (event.keyCode == 13) {
-					$('ul.menu').toggle();
+					hmm.bar.toggle()
 				}
 			})
 		</script>
 	</div>
-	<ul class="menu hidden" id='menu'>
-		<li onclick="hmm.restart()" style="background-color:#d00">Restart</li>
-		<li onclick="hmm.openApp('test');">test</li>
-	</ul>
+	<div class="menu" id='menu'>
+		<option onclick="hmm.restart()" style="background-color:#d00">Restart</li>
+		<option onclick="hmm.openApp('test');">test</li>
+	</div>
 	<hi>HmmOS</hi>
 	<audio>
 		<source src="/assets/startup.wav" type="audio/mpeg" /></audio>
@@ -53,7 +52,7 @@
 	</div>
 	<br>
 	<!--translate test-->
-	<!--<div id="google_translate_element">Hello</div>-->
+	<!--<div id="google_translate_element">Hello</div>
 
 <script type="text/javascript">
 function googleTranslateElementInit() {
@@ -61,7 +60,8 @@ function googleTranslateElementInit() {
 }
 </script>
 
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>-->
+<script src="main.js" charset="utf-8"></script>
 </body>
 
 </html>
