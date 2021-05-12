@@ -7,14 +7,15 @@ var hmm = {
 	},
 	opts: {
 		lang: "en"
-	}
+	},
+	safe: {}
 }
 hmm.storage = {
 	apps: {
 		"test.hmm": {
 			title: "testapp",
-			type: "html",
-			code: "Hello world <b>yes</b><I>yes</I><h1>Welcome to HmmOS!</h1>why are you here this is terribly made and buggy"
+			type: "js",
+			code: "	"
 		},
 		"cmd.hmm": {
 			title: "Terminal",
@@ -49,13 +50,16 @@ hmm.bar.toggle = function() {
 	hmm.bar.isOpen = !hmm.bar.isOpen
 }
 hmm.openApp = function(app) {
-	var a = new hmm.App(app)
-	a.open()
+	if(app in hmm.storage.apps && app.endsWith(".hmm")){
+		var a = new hmm.App(app)
+		a.open()
+	}
 }
 hmm.App = class {
 	constructor(name) {
-		this.code = hmm.storage.apps[name + ".hmm"].code
-		this.title = hmm.storage.apps[name + ".hmm"].title
+		this.code = hmm.storage.apps[name].code
+		this.title = hmm.storage.apps[name].title
+		this.type = hmm.storage.apps[name].type
 	}
 	open() {
 		var node = document.createElement("window")
@@ -80,7 +84,12 @@ hmm.App = class {
 			position = { x: 0, y: 0 }
 		}
 		var content = document.createElement("windowcontent")
-		content.innerHTML = this.code
+		if(this.type === undefined){
+			content.innerHTML = this.code
+		}else if(this.type="js"){
+			var x = new Function("document", "window", this.code)
+			setTimeout(()=>x(content, node),100)
+		}
 		node.appendChild(content)
 		var position = { x: 0, y: 0 }
 		interact(node).draggable({
@@ -127,8 +136,12 @@ hmm.setMenu=()=>{
 		var el = document.createElement("t")
 		el.classList.add("menu-app")
 		el.innerText = ap.title
+		el.filename = app
+		el.onclick = e=>{
+			hmm.openApp(e.target.filename);
+			hmm.bar.toggle()
+		}
 		document.getElementById("apps")?.appendChild(el)
-		//console.log(e("#menu"));
 	})
 }
 //setup
