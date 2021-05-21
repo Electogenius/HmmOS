@@ -8,19 +8,34 @@ var hmm = {
 	opts: {
 		lang: "en"
 	},
-	safe: {}
+	safe: {},
+	perms: {
+		iframe: {
+			"nosandbox": "vscodish.hmm "
+		}
+	},
+	hasPerms: (name, filename)=>{
+		return eval("hmm.perms."+name).includes(filename + " ")
+	}
 }
 hmm.storage = {
 	apps: {
-		"test.hmm": {
+		"app.hmm": {
 			title: "testapp",
 			type: "js",
-			code: "	"
+			code: `
+
+`
 		},
 		"cmd.hmm": {
 			title: "Terminal",
 			type: 0,
 			code: ``
+		},
+		"vscodish.hmm":{
+			title: "VSCode (ish)",
+			type: "iframe",
+			code: "<script>location='https://github1s.com/Electogenius/HmmOS'</script>"
 		}
 	}
 }
@@ -60,11 +75,13 @@ hmm.App = class {
 		this.code = hmm.storage.apps[name].code
 		this.title = hmm.storage.apps[name].title
 		this.type = hmm.storage.apps[name].type
+		this.filename = name
 	}
 	open() {
 		var node = document.createElement("window")
 		var tb = document.createElement("taskbar")
-		tb.innerText = this.title
+		tb.appendChild(document.createElement("span"))
+		tb.children[0].innerText = this.title
 		var cls = document.createElement("close")
 		cls.innerText = "✕"
 		cls.onclick = (event) => {
@@ -78,18 +95,30 @@ hmm.App = class {
 		fs.innerHTML = "fullscreen"
 		tb.appendChild(fs)
 		fs.onclick = function(event) {
-			event.target.parentNode.parentNode.style.height = "90vh"
+			event.target.parentNode.parentNode.style.height = "95vh"
 			event.target.parentNode.parentNode.style.width = "95vw"
 			event.target.parentNode.parentNode.style.transform = "translate(0, 0)"
 			position = { x: 0, y: 0 }
 		}
 		var content = document.createElement("windowcontent")
-		if(this.type === undefined){
-			content.innerHTML = this.code
-		}else if(this.type="js"){
-			var x = new Function("document", "window", this.code)
-			setTimeout(()=>x(content, node),100)
+		
+		if(this.type=="js"){
+			var x = new Function("document", "window", "hmm", "$", "with(hmm){"+this.code+"}")
+				setTimeout(()=>x({}, {}, hmm.hmmVar(content, this.filename), hmm.hmmVar(content, this.filename).el), 100)
+		}else if(this.type==0){
+			var n = document.createElement("div")
+			content.appendChild(n)
+			content.style.backgroundColor = "white"
+			hmm.console(n)
+		}else if(this.type == "iframe"){
+			var n = document.createElement("iframe")
+			if(!hmm.hasPerms("iframe.nosandbox", "vscodish.hmm"))n.sandbox = "allow-scripts allow-forms allow-presentation allow-modals"
+			n.srcdoc = this.code
+			n.classList.add("win")
+			content.style.overflow = "hidden"
+			content.appendChild(n)
 		}
+		
 		node.appendChild(content)
 		var position = { x: 0, y: 0 }
 		interact(node).draggable({
@@ -114,8 +143,8 @@ hmm.App = class {
 		}).on('resizemove', event => {
 			let { x, y } = event.target.dataset;
 			Object.assign(event.target.style, {
-				width: `${Math.max(event.rect.width,50)}px`,
-				height: `${Math.max(event.rect.height,50)}px`
+				width: `${Math.max(event.rect.width,100)}px`,
+				height: `${Math.max(event.rect.height,100)}px`
 			})
 			Object.assign(event.target.dataset, { x, y })
 		});
@@ -144,6 +173,36 @@ hmm.setMenu=()=>{
 		document.getElementById("apps")?.appendChild(el)
 	})
 }
+hmm.console=(e,run)=>{
+	$(e).terminal((c,t)=>{
+		if(c=="help"){
+			t.echo("Valid commands:\n")
+			t.echo(["help","run"])
+		}
+	},{
+		greetings: "HmmOS terminal (broken)",
+		prompt: "|"
+	})
+	e.style = "height: 100%; overflow: scroll !important"
+}
+hmm.hmmVar=(c, n)=>{
+	return {
+		set title(t){
+			c.parentNode.children[0].children[0].innerText = t
+		},
+		newElement: function(e){
+			if(e!=="script")return document.createElement(e)
+		},
+		el: function(q, m){
+			if(m==undefined) return c.querySelector(q)
+			if(m=="all"||m=="*") return c.querySelectorAll(q)
+		},
+		append: function(e){
+			c.appendChild(e)
+		},
+		wait: (time,fnc)=>{setTimeout(fnc,time)}
+	}
+}
 //setup
 document.getElementById("menu").innerHTML = `
 <close onclick="hmm.bar.toggle()">✕</close>
@@ -154,3 +213,5 @@ document.getElementById("menu").innerHTML = `
 
 `
 hmm.setMenu()
+//very useful BUT BREAKS CODE FOR SOME REASON:
+//Object.prototype.with=function(k,v){var x=this;x[k]=v;return x}
