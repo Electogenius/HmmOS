@@ -51,7 +51,8 @@ body {
 	cursor: var(--cursor), auto;
 }
 *{
-	border-radius: 5px
+	border-radius: 5px;
+	cursor: var(--cursor), auto;
 }
 .popup {
 	background-color: #333;

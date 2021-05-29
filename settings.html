@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style type="text/css" media="all">
+    	body{
+    		background-color: black;
+    		color: white;
+    		font-family: system-ui, sans-serif
+    	}
+    </style>
+</head>
+
+<body>
+	<!--<div id="dmode">
+		<label for="dm"></label><input type="checkbox" name="dm" id="dm" />
+	</div>-->
+<h1 data-t="name"></h1>
+<div id="language">
+	<label for="lang" data-t="lang"></label><select name="lang" id="lang">
+		<option value="en">English</option>
+		<option value="cd">Compressed Undardese (surknangdlardizõ)</option>
+		
+	</select>
+</div>
+<script>
+	let e=q=>document.getElementById(q)
+	if(window.top!==window.self ){
+		let w = {}
+		try{w = window.top.hmm}catch(e){document.body.innerHTML = "oops"}
+		console.log(w)
+		e("lang").value = w.opts.lang
+		e("lang").onchange =()=>{
+			w.opts.lang = e("lang").value
+			w.setup();t(w)
+		}
+		function t(w){
+			document.querySelectorAll("[data-t]").forEach(e=>{
+				e.innerHTML = w.t("apps.settings."+e.getAttribute("data-t"))
+			})
+		}
+		t(w)
+	}else{
+		document.body.innerHTML = "oops"
+	}
+</script>
+</body>
+
+</html>

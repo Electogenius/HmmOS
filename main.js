@@ -1,7 +1,10 @@
 function e(query) {
 	return document.querySelector(query)
 }
-var hmm = {
+window.hmm = {
+	testcommand: function(){
+		hmm.openApp("opts.hmm")
+	},
 	restart: function() {
 		window.location = window.location.href
 	},
@@ -11,13 +14,41 @@ var hmm = {
 	safe: {},
 	perms: {
 		iframe: {
-			"nosandbox": "vscodish.hmm "
+			"nosandbox": "vscodish.hmm opts.hmm "
 		}
 	},
 	hasPerms: (name, filename)=>{
 		return eval("hmm.perms."+name).includes(filename + " ")
+	},
+	l: {},
+	t: phrase=>{
+		return hmm.l[hmm.opts.lang]?.t(phrase)
 	}
 }
+hmm.l.en = new Polyglot({locale: "en", phrases: {
+	"welcome": "Welcome to HmmOS!",
+	"menu":{
+		"apps-label": "Apps"
+	},
+	"apps":{
+		"settings":{
+			"lang": "System language",
+			"name": "Settings"
+		}
+	}
+}})
+hmm.l.cd = new Polyglot({locale: "cd", phrases: {
+	welcome: "HmmOS kwangõ!",
+	menu: {
+		"apps-label": "selinge"
+	},
+	apps:{
+		settings:{
+			lang: "kãiod moi",
+			name: "māthrdhnge"
+		}
+	}
+}})
 hmm.storage = {
 	apps: {
 		"app.hmm": {
@@ -36,7 +67,12 @@ hmm.storage = {
 			title: "VSCode (ish)",
 			type: "iframe",
 			code: "<script>location='https://github1s.com/Electogenius/HmmOS'</script>"
-		}
+		},
+		"opts.hmm":{
+			title: "settings",
+			type: "iframe",
+			code: "<script>location = '/settings.html'</script>",
+		},
 	}
 }
 hmm.bar = document.getElementById("bar")
@@ -204,14 +240,21 @@ hmm.hmmVar=(c, n)=>{
 	}
 }
 //setup
+hmm.setup=()=>{
 document.getElementById("menu").innerHTML = `
 <close onclick="hmm.bar.toggle()">✕</close>
 <h1><span class="h-time"></span><br><span class="h-date"></span></h1>
-<h2>Apps</h2>
+<h2>${hmm.t("menu.apps-label")}</h2>
 <div id="apps">
 </div>
 
 `
 hmm.setMenu()
+	
+}
 //very useful BUT BREAKS CODE FOR SOME REASON:
 //Object.prototype.with=function(k,v){var x=this;x[k]=v;return x}
+if(location.href.startsWith("http://localhost:7700")){
+	hmm.testcommand()
+}
+hmm.setup()
