@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <style type="text/css" media="all">
-    	body{
-    		background-color: black;
-    		color: white;
+    	*{
+    		background-color: black !important;
+    		color: white !important;
     		font-family: system-ui, sans-serif
     	}
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js" integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
 </head>
 
 <body>
@@ -20,18 +23,16 @@
 	</div>-->
 <h1 data-t="name"></h1>
 <div id="language">
-	<label for="lang" data-t="lang"></label><select name="lang" id="lang">
+	<label for="lang" data-t="lang"></label><select name="lang" id="lang" class="form-select">
 		<option value="en">English</option>
 		<option value="cd">Compressed Undardese (surknangdlardizõ)</option>
-		
 	</select>
 </div>
 <script>
 	let e=q=>document.getElementById(q)
-	if(window.top!==window.self ){
+	if(window.top!==window.self){
 		let w = {}
-		try{w = window.top.hmm}catch(e){document.body.innerHTML = "oops"}
-		console.log(w)
+		w=window.top.hmm
 		e("lang").value = w.opts.lang
 		e("lang").onchange =()=>{
 			w.opts.lang = e("lang").value
