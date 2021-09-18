@@ -3,7 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function() {
-		hmm.openApp("app.hmm")
+		hmm.openApp("cmd.hmm")
 		/*var x = new hmm.El("div", "hello")
 		try{
 			window.onerror = (e,f,g,h,i,j,k)=>console.log([e,f,g,h,i,j,k])
@@ -41,7 +41,8 @@ hmm.l.en = new Polyglot({
 		"apps": {
 			"settings": {
 				"lang": "System language",
-				"name": "Settings"
+				"name": "Settings",
+				_name: "Settings"
 			}
 		}
 	}
@@ -56,7 +57,8 @@ hmm.l.cd = new Polyglot({
 		apps: {
 			settings: {
 				lang: "kãiod moi",
-				name: "māthrdhng"
+				name: "māthrdhng",
+				_name: "māthrdhng"
 			}
 		}
 	}
@@ -209,10 +211,18 @@ hmm.App = class {
 			allowFrom: "taskbar",
 			modifiers: [],
 			listeners: {
-				start(event) {},
+				start(event) {
+					if(Math.abs(position.y-window.innerHeight)<30){
+						position.y-=90
+						event.target.style.transform = `translate(${Math.max(0,position.x)}px, ${Math.max(0,position.y)}px)`;
+					}
+				},
 				move(event) {
 					position.x = Math.max(position.x + event.dx, 0);
 					position.y = Math.max(position.y + event.dy, 0);
+					if(position.y>window.innerHeight-50){
+						position.y=window.innerHeight-30
+					}
 					event.target.style.transform = `translate(${Math.max(0,position.x)}px, ${Math.max(0,position.y)}px)`;
 				}
 			}
@@ -260,14 +270,45 @@ hmm.setMenu = () => {
 	})
 }
 hmm.console = (e, run) => {
+	e.ln=0
+	let p=1,torun=""
+	EGCode.resetVals()
 	$(e).terminal((c, t) => {
-		if (c == "help") {
-			t.echo("Valid commands:\n")
-			t.echo(["help", "run"])
+		let run=e=>Function("console", EGCode.compileToJS(e).slice(19))({
+			log: t.echo
+		})
+		function ask(r) {
+			if (r === null) {
+				ask();
+			} else {
+				if (r.endsWith("{") || r.endsWith("[")) p++;
+				if (r.startsWith("]") || r.startsWith("}")) p--;
+				if (p > 1) {
+					torun += r + "\n";
+				}
+				if (p === 1) {
+					if (r !== "}" && r !== "]") {
+						run(r);
+					} else {
+						run(torun + r);
+						torun = "";
+					}
+				}
+				if(c.trim()=="clear()")t.clear()
+				// ask();
+				//t.echo(p)
+			}
 		}
+		if (c == "help") {
+			t.echo("This terminal runs EGCode\nso any EGC command works.\nenter clear() to clear console")
+		}else{
+			
+		}
+		ask(c)
+		t.set_prompt("-".repeat(p)+" ")
 	}, {
-		greetings: "HmmOS terminal (broken)",
-		prompt: "|"
+		greetings: "|HmmOS terminal (useless)	|\n|enter 'help' for help		|",
+		prompt: "- "
 	})
 	e.style = "height: 100%; overflow: scroll !important"
 }
@@ -306,3 +347,5 @@ hmm.setup = () => {
 }
 //very useful BUT BREAKS CODE FOR SOME REASON:
 //Object.prototype.with=function(k,v){var x=this;x[k]=v;return x}
+//hide menu:
+document.getElementById("menu").style.width="0"
