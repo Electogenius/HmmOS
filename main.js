@@ -3,7 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function() {
-		hmm.openApp("cmd.hmm")
+		hmm.openApp("cmd.hmm");
 		/*var x = new hmm.El("div", "hello")
 		try{
 			window.onerror = (e,f,g,h,i,j,k)=>console.log([e,f,g,h,i,j,k])
@@ -66,22 +66,9 @@ hmm.l.cd = new Polyglot({
 hmm.storage = {
 	apps: {
 		"app.hmm": {
-			title: "testapp",
-			type: "egc-canvas",
-			code: `
-log(YES)
-var x 0
-var frame do {
-after(1000){
-cset fillStyle(#fff)
-var e[hmmget( width )]
-var y[$x / 2]
-cdo fillText [$e] [$y] [$x]
-$x + 10
-frame()
-}
-}
-frame()
+			title: "testapp with a particularly long title",
+			type: "iframe",
+			code: `Lorem ipsum<button>dolor</button> sit amet<div class=bar>Test</div><hr>Some text <button class=clickme>BUTTON AAA
 `
 		},
 		"cmd.hmm": {
@@ -147,6 +134,9 @@ hmm.App = class {
 		this.title = hmm.storage.apps[name].title
 		this.type = hmm.storage.apps[name].type
 		this.filename = name
+		this.obj = hmm.storage.apps[name]
+		this.baritem = document.createElement("baritem")
+		this.baritem.innerText = this.title[0]
 	}
 	open() {
 		var node = document.createElement("window")
@@ -157,6 +147,7 @@ hmm.App = class {
 		cls.innerText = "✕"
 		cls.onclick = (event) => {
 			event.target.parentNode.parentNode.remove()
+			this.baritem.remove()
 			// console.log(event.target.parentNode)
 		}
 		tb.appendChild(cls)
@@ -173,16 +164,18 @@ hmm.App = class {
 			me.width = Number(event.target.parentNode.parentNode.style.width.slice(0, -2))
 		}
 		var content = document.createElement("windowcontent")
-		if (this.type == "js") {
+		/*if (this.type == "js") {
 			var x = new Function("document", "window", "hmm", "$", "with(hmm){" + this.code + "}")
 			setTimeout(() => x({}, {}, hmm.hmmVar(content, this.filename), hmm.hmmVar(content, this.filename).el), 100)
-		} else if (this.type == 0) {
+		} else */
+		if (this.type == 0) {
 			var n = document.createElement("div")
 			content.appendChild(n)
 			content.style.backgroundColor = "black"
 			hmm.console(n)
 
-		} else if (this.type == "egc-canvas") {
+		}
+		/*else if (this.type == "egc-canvas") {
 			EGCode.setup = "EGCode.resetVals();EGCode.context=cont;EGCode.stdFuns.hmmget=hg"
 			let c = document.createElement("canvas")
 			new Function("cont", "hg", EGCode.compileToJS(this.code))(c.getContext("2d"), (q) => {
@@ -196,10 +189,11 @@ hmm.App = class {
 			content.style.overflow = "hidden"
 			content.appendChild(c)
 
-		} else if (this.type == "iframe") {
+		} else */
+		if (this.type == "iframe") {
 			var n = document.createElement("iframe")
-			if (!hmm.hasPerms("iframe.nosandbox", "vscodish.hmm")) n.sandbox = "allow-scripts allow-forms allow-presentation allow-modals"
-			n.srcdoc = this.code
+			if (!hmm.hasPerms("iframe.nosandbox", this.name)) n.sandbox = "allow-scripts allow-forms allow-presentation allow-modals"
+			n.srcdoc = "<link rel=stylesheet href=style.css />"+this.code
 			n.classList.add("win")
 			content.style.overflow = "hidden"
 			content.appendChild(n)
@@ -212,16 +206,16 @@ hmm.App = class {
 			modifiers: [],
 			listeners: {
 				start(event) {
-					if(Math.abs(position.y-window.innerHeight)<30){
-						position.y-=90
+					if (Math.abs(position.y - window.innerHeight) < 30) {
+						position.y -= 90
 						event.target.style.transform = `translate(${Math.max(0,position.x)}px, ${Math.max(0,position.y)}px)`;
 					}
 				},
 				move(event) {
 					position.x = Math.max(position.x + event.dx, 0);
 					position.y = Math.max(position.y + event.dy, 0);
-					if(position.y>window.innerHeight-50){
-						position.y=window.innerHeight-30
+					if (position.y > window.innerHeight - 50) {
+						position.y = window.innerHeight - 30
 					}
 					event.target.style.transform = `translate(${Math.max(0,position.x)}px, ${Math.max(0,position.y)}px)`;
 				}
@@ -245,6 +239,7 @@ hmm.App = class {
 		});
 		this.width = Math.min(window.innerWidth, 300)
 		document.getElementById("windows").appendChild(node)
+		document.getElementById("bar").appendChild(this.baritem)
 	}
 }
 setInterval(e => {
@@ -270,13 +265,11 @@ hmm.setMenu = () => {
 	})
 }
 hmm.console = (e, run) => {
-	e.ln=0
-	let p=1,torun=""
-	EGCode.resetVals()
-	$(e).terminal((c, t) => {
-		let run=e=>Function("console", EGCode.compileToJS(e).slice(19))({
-			log: t.echo
-		})
+	e.ln = 0
+	let p = 1,
+		torun = ""
+	let term = $(e).terminal((c, t) => {
+		let run = e=>hmm.$({echo:t.echo,err:t.error},e)
 		function ask(r) {
 			if (r === null) {
 				ask();
@@ -294,42 +287,37 @@ hmm.console = (e, run) => {
 						torun = "";
 					}
 				}
-				if(c.trim()=="clear()")t.clear()
+				if (c.trim() == "clear()") t.clear()
 				// ask();
 				//t.echo(p)
 			}
 		}
-		if (c == "help") {
-			t.echo("This terminal runs EGCode\nso any EGC command works.\nenter clear() to clear console")
-		}else{
-			
-		}
 		ask(c)
-		t.set_prompt("-".repeat(p)+" ")
 	}, {
-		greetings: "|HmmOS terminal (useless)	|\n|enter 'help' for help		|",
-		prompt: "- "
+		greetings: "[[g;white;]HmmOS terminal (useless)\nenter 'help' for help]",
+		prompt: "[[bg;#05d;]| ]"
 	})
 	e.style = "height: 100%; overflow: scroll !important"
+	term.css("fontFamily","ui-monospace,menlo,monospace")
 }
-hmm.hmmVar = (c, n) => {
-	return {
-		set title(t) {
-			c.parentNode.children[0].children[0].innerText = t
-		},
-		createElement: function(e, f) {
-			if (e !== "script") return new hmm.El(e, f)
-		},
-		el: function(q, m) {
-			if (m == undefined) return c.querySelector(q)
-			if (m == "all" || m == "*") return c.querySelectorAll(q)
-		},
-		append: function(e) {
-			c.appendChild(e)
-		},
-		wait: (time, fnc) => { setTimeout(fnc, time) }
-	}
-}
+// hmm.hmmVar = (c, n) => {
+// 	return {
+// 		set title(t) {
+// 			c.parentNode.children[0].children[0].innerText = t
+// 		},
+// 		createElement: function(e, f) {
+// 			if (e !== "script") return new hmm.El(e, f)
+// 		},
+// 		el: function(q, m) {
+// 			if (m == undefined) return c.querySelector(q)
+// 			if (m == "all" || m == "*") return c.querySelectorAll(q)
+// 		},
+// 		append: function(e) {
+// 			c.appendChild(e)
+// 		},
+// 		wait: (time, fnc) => { setTimeout(fnc, time) }
+// 	}
+// }
 //setup
 hmm.setup = () => {
 	document.getElementById("menu").innerHTML = `
@@ -348,4 +336,4 @@ hmm.setup = () => {
 //very useful BUT BREAKS CODE FOR SOME REASON:
 //Object.prototype.with=function(k,v){var x=this;x[k]=v;return x}
 //hide menu:
-document.getElementById("menu").style.width="0"
+document.getElementById("menu").style.width = "0"
