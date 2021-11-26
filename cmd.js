@@ -27,22 +27,22 @@ hmm.$.token=(e)=>{
 	return l
 }
 hmm.storage.cmd={
-	help(c){
-		c.echo(`Commands:
-echo: displays text
-err: displays an error
-open: opens an app`)
-	},
-	echo(c,e){
-		c.echo(e.join(" "))
-	},
-	err(c,e){
-		c.err(e.join(" "))
-	},
-	open(c,e){
-		hmm.openApp(e[0]+".hmm")
-	},
-	"#"(){},
+// 	help(c){
+// 		c.echo(`Commands:
+// echo: displays text
+// err: displays an error
+// open: opens an app`)
+// 	},
+// 	echo(c,e){
+// 		c.echo(e.join(" "))
+// 	},
+// 	err(c,e){
+// 		c.err(e.join(" "))
+// 	},
+// 	open(c,e){
+// 		hmm.openApp(e[0]+".hmm")
+// 	},
+// 	"#"(){},
 }
 hmm.storage.env=[{
 	

@@ -2,16 +2,10 @@ function e(query) {
 	return document.querySelector(query)
 }
 window.hmm = {
-	testcommand: function() {
+	testcommand: function () {
 		hmm.openApp("cmd.hmm");
-		/*var x = new hmm.El("div", "hello")
-		try{
-			window.onerror = (e,f,g,h,i,j,k)=>console.log([e,f,g,h,i,j,k])
-			console.log(x)
-			
-		}catch(e){console.log(e)}*/
 	},
-	restart: function() {
+	restart: function () {
 		window.location = window.location.href
 	},
 	opts: {
@@ -88,8 +82,19 @@ hmm.storage = {
 		},
 	}
 }
+
+window.onload = () => {
+	localforage.getItem("hmm-fs").then((val) => {
+		console.log(val)
+		if (null !== val) {
+			hmm.storage = val
+		}else{
+			localforage.setItem('hmm-fs',hmm.storage)
+		}
+	})
+}
 hmm.bar = document.getElementById("bar")
-hmm.bar.toggle = function() {
+hmm.bar.toggle = function () {
 	if (!hmm.bar.isOpen) {
 		anime({
 			targets: "#menu",
@@ -113,7 +118,7 @@ hmm.bar.toggle = function() {
 	}
 	hmm.bar.isOpen = !hmm.bar.isOpen
 }
-hmm.openApp = function(app) {
+hmm.openApp = function (app) {
 	if (app in hmm.storage.apps && app.endsWith(".hmm")) {
 		var a = new hmm.App(app)
 		a.open()
@@ -157,7 +162,7 @@ hmm.App = class {
 		fs.innerHTML = "fullscreen"
 		tb.appendChild(fs)
 		var me = this
-		fs.onclick = function(event) {
+		fs.onclick = function (event) {
 			event.target.parentNode.parentNode.style.height = "100%"
 			event.target.parentNode.parentNode.style.width = window.innerWidth + "px"
 			event.target.parentNode.parentNode.style.transform = "translate(0, 0)"
@@ -192,8 +197,8 @@ hmm.App = class {
 		} else */
 		if (this.type == "iframe") {
 			var n = document.createElement("iframe")
-			if (!hmm.hasPerms("iframe.nosandbox", this.name)) n.sandbox = "allow-scripts allow-forms allow-presentation allow-modals"
-			n.srcdoc = "<link rel=stylesheet href=style.css />"+this.code
+			if (!hmm.hasPerms("iframe.nosandbox", this.name)) n.sandbox = "allow-scripts allow-forms allow-presentation allow-modals allow-same-origin"
+			n.srcdoc = "<link rel=stylesheet href=style.css />" + this.code
 			n.classList.add("win")
 			content.style.overflow = "hidden"
 			content.appendChild(n)
@@ -208,7 +213,7 @@ hmm.App = class {
 				start(event) {
 					if (Math.abs(position.y - window.innerHeight) < 30) {
 						position.y -= 90
-						event.target.style.transform = `translate(${Math.max(0,position.x)}px, ${Math.max(0,position.y)}px)`;
+						event.target.style.transform = `translate(${Math.max(0, position.x)}px, ${Math.max(0, position.y)}px)`;
 					}
 				},
 				move(event) {
@@ -217,7 +222,7 @@ hmm.App = class {
 					if (position.y > window.innerHeight - 50) {
 						position.y = window.innerHeight - 30
 					}
-					event.target.style.transform = `translate(${Math.max(0,position.x)}px, ${Math.max(0,position.y)}px)`;
+					event.target.style.transform = `translate(${Math.max(0, position.x)}px, ${Math.max(0, position.y)}px)`;
 				}
 			}
 		})
@@ -231,8 +236,8 @@ hmm.App = class {
 		}).on('resizemove', event => {
 			let { x, y } = event.target.dataset;
 			Object.assign(event.target.style, {
-				width: `${Math.max(event.rect.width,100)}px`,
-				height: `${Math.max(event.rect.height,100)}px`
+				width: `${Math.max(event.rect.width, 100)}px`,
+				height: `${Math.max(event.rect.height, 100)}px`
 			})
 			Object.assign(event.target.dataset, { x, y })
 			this.width = Number(event.target.style.width.slice(0, -2))
@@ -269,7 +274,7 @@ hmm.console = (e, run) => {
 	let p = 1,
 		torun = ""
 	let term = $(e).terminal((c, t) => {
-		let run = e=>hmm.$({echo:t.echo,err:t.error},e)
+		let run = e => hmm.$({ echo: t.echo, err: t.error }, e)
 		function ask(r) {
 			if (r === null) {
 				ask();
@@ -298,7 +303,7 @@ hmm.console = (e, run) => {
 		prompt: "[[bg;#05d;]| ]"
 	})
 	e.style = "height: 100%; overflow: scroll !important"
-	term.css("fontFamily","ui-monospace,menlo,monospace")
+	term.css("fontFamily", "ui-monospace,menlo,monospace")
 }
 // hmm.hmmVar = (c, n) => {
 // 	return {
@@ -337,3 +342,9 @@ hmm.setup = () => {
 //Object.prototype.with=function(k,v){var x=this;x[k]=v;return x}
 //hide menu:
 document.getElementById("menu").style.width = "0"
+
+//prevent right click
+document.addEventListener('contextmenu', ev => {
+	ev.preventDefault()
+
+});
