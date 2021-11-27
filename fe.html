@@ -1,0 +1,54 @@
+<script>
+	window._AppName = "fe"
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+	body {
+		overflow: auto;
+	}
+
+	div.file {
+		background-color: #000;
+		border-radius: 5px;
+		border: 2px solid #fff;
+		border-bottom: 1px solid #fff;
+		border-top: 1px solid #fff;
+	}
+
+	div.folder::after {
+		content: ">";
+		float: right;
+		color: #aaa;
+	}
+
+	#pathlabel {
+		font-family: menlo, monospace;
+	}
+</style>
+<span id="pathlabel"></span>
+<div id="files"></div>
+<script>
+	hmm = window.top.hmm;
+	path = "/"
+	loadpath=()=>{
+		document.getElementById('pathlabel').innerText = path
+		document.getElementById('files').innerHTML = (path != "/") ? `
+			<div class="file" style="color:#05d" onclick="path=path.slice(0,path.slice(0,-1).lastIndexOf('/')+1);loadpath()">&larr; back</div>
+			`: ''
+		Object.keys(hmm.pathToJs(path)).sort().forEach(e => {
+			var el = document.createElement('div')
+			el.classList.add('file')
+			if (typeof (hmm.pathToJs(path)[e]) == "object") {
+				el.classList.add('folder')
+				el.onclick = () => {
+					path += e + '/'
+					loadpath()
+				}
+			}
+			if (e.startsWith('.')) el.style.color = "#aaa"
+			el.innerText = e
+			document.getElementById('files').appendChild(el)
+		})
+	}
+	loadpath()
+</script>

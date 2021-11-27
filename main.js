@@ -3,7 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () {
-		hmm.openApp("cmd.hmm");
+		hmm.openApp("fe.hmm", "/.pr");
 	},
 	restart: function () {
 		window.location = window.location.href
@@ -12,17 +12,22 @@ window.hmm = {
 		lang: "en"
 	},
 	safe: {},
-	perms: {
-		iframe: {
-			"nosandbox": "vscodish.hmm opts.hmm "
-		}
-	},
 	hasPerms: (name, filename) => {
-		return eval("hmm.perms." + name).includes(filename + " ")
+		return eval("hmm.storage['.pr'].perms." + name).includes(filename + " ")
 	},
 	l: {},
 	t: phrase => {
 		return hmm.l[hmm.storage.opts.lang]?.t(phrase)
+	},
+	reset() {
+		hmm.storage = null
+		localforage.setItem('hmm-fs', hmm.storage)
+		location = location.href
+	},
+	pathToJs(p) {
+		var cr = hmm.storage;
+		(p.match(/\/[^/]+/g) || []).forEach((e) => cr = cr[e.slice(1)])
+		return cr
 	}
 }
 hmm.l.en = new Polyglot({
@@ -70,19 +75,36 @@ hmm.storage = {
 			type: 0,
 			code: ``
 		},
-		"vscodish.hmm": {
-			title: "VSCode (ish)",
-			type: "iframe",
-			code: "<script>location='https://github1s.com/Electogenius/HmmOS'</script>"
-		},
 		"opts.hmm": {
 			title: "settings",
 			type: "iframe",
-			code: "<script>location = './settings.html'</script>",
+			code: "<script>location='./settings.html'</script>",
 		},
+		"fe.hmm": {
+			title: "Files",
+			type: "iframe",
+			code: `<script id=start>
+			onmessage=e=>window.arg=e.data
+			fetch('./fe.html').then(e=>e.text()).then(e=>{
+				console.log(e)
+				document.body.innerHTML=e
+				document.querySelectorAll('script:not(#start)').forEach(e=>{eval(e.innerHTML)})
+			})
+			</script>`
+		}
 	},
-	opts:{
-		lang:'en'
+	opts: {
+		lang: 'en'
+	},
+	".pr": {
+		perms: {
+			iframe: {
+				"nosandbox": "vscodish.hmm opts.hmm fe.hmm "
+			}
+		},
+		handlers: {
+			'/': 'fe.hmm'
+		}
 	}
 }
 
@@ -90,8 +112,8 @@ window.onload = () => {
 	localforage.getItem("hmm-fs").then((val) => {
 		if (null !== val) {
 			hmm.storage = val
-		}else{
-			localforage.setItem('hmm-fs',hmm.storage)
+		} else {
+			localforage.setItem('hmm-fs', hmm.storage)
 		}
 		hmm.setup()
 	})
@@ -121,10 +143,10 @@ hmm.bar.toggle = function () {
 	}
 	hmm.bar.isOpen = !hmm.bar.isOpen
 }
-hmm.openApp = function (app) {
+hmm.openApp = function (app, arg) {
 	if (app in hmm.storage.apps && app.endsWith(".hmm")) {
 		var a = new hmm.App(app)
-		a.open()
+		a.open(arg)
 	}
 }
 hmm.El = class {
@@ -146,7 +168,7 @@ hmm.App = class {
 		this.baritem = document.createElement("baritem")
 		this.baritem.innerText = this.title[0]
 	}
-	open() {
+	open(arg) {
 		var node = document.createElement("window")
 		var tb = document.createElement("taskbar")
 		tb.appendChild(document.createElement("span"))
@@ -205,6 +227,7 @@ hmm.App = class {
 			n.classList.add("win")
 			content.style.overflow = "hidden"
 			content.appendChild(n)
+			postMessage(arg, n.contentWindow)
 		}
 
 		node.appendChild(content)
@@ -337,12 +360,12 @@ hmm.setup = () => {
 
 `
 	hmm.setMenu()
-	if (location.href.startsWith("http://localhost:7700")) {
+	if (location.href.startsWith("http://localhost:")) {
 		hmm.testcommand()
 	}
-	setInterval(()=>{ //periodically update localforage
-		localforage.setItem('hmm-fs',hmm.storage)
-	},1000)
+	setInterval(() => { //periodically update localforage
+		localforage.setItem('hmm-fs', hmm.storage)
+	}, 1000)
 }
 //very useful BUT BREAKS CODE FOR SOME REASON:
 //Object.prototype.with=function(k,v){var x=this;x[k]=v;return x}
