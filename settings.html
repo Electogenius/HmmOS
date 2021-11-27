@@ -32,19 +32,19 @@
 <script>
 	let e=q=>document.getElementById(q)
 	if(window.top!==window.self){
-		let w = {}
-		w=window.top.hmm
-		e("lang").value = w.opts.lang
+		let hmm = {}
+		hmm=window.top.hmm
+		e("lang").value = hmm.storage.opts.lang
 		e("lang").onchange =()=>{
-			w.opts.lang = e("lang").value
-			w.setup();t(w)
+			hmm.storage.opts.lang = e("lang").value
+			hmm.setup();t(hmm)
 		}
 		function t(w){
 			document.querySelectorAll("[data-t]").forEach(e=>{
 				e.innerHTML = w.t("apps.settings."+e.getAttribute("data-t"))
 			})
 		}
-		t(w)
+		t(hmm)
 	}else{
 		document.body.innerHTML = "oops"
 	}

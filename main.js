@@ -22,7 +22,7 @@ window.hmm = {
 	},
 	l: {},
 	t: phrase => {
-		return hmm.l[hmm.opts.lang]?.t(phrase)
+		return hmm.l[hmm.storage.opts.lang]?.t(phrase)
 	}
 }
 hmm.l.en = new Polyglot({
@@ -80,17 +80,20 @@ hmm.storage = {
 			type: "iframe",
 			code: "<script>location = './settings.html'</script>",
 		},
+	},
+	opts:{
+		lang:'en'
 	}
 }
 
 window.onload = () => {
 	localforage.getItem("hmm-fs").then((val) => {
-		console.log(val)
 		if (null !== val) {
 			hmm.storage = val
 		}else{
 			localforage.setItem('hmm-fs',hmm.storage)
 		}
+		hmm.setup()
 	})
 }
 hmm.bar = document.getElementById("bar")
@@ -249,10 +252,10 @@ hmm.App = class {
 }
 setInterval(e => {
 	document.querySelectorAll(".h-time").forEach(e => {
-		e.innerText = new Date().toLocaleTimeString(hmm.opts.lang)
+		e.innerText = new Date().toLocaleTimeString(hmm.storage.opts.lang)
 	})
 	document.querySelectorAll(".h-date").forEach(e => {
-		e.innerText = new Date().toLocaleDateString(hmm.opts.lang) //.toLocaleDateString(hmm.opts.lang)
+		e.innerText = new Date().toLocaleDateString(hmm.storage.opts.lang) //.toLocaleDateString(hmm.storage.opts.lang)
 	})
 }, 1e3)
 hmm.setMenu = () => {
@@ -337,6 +340,9 @@ hmm.setup = () => {
 	if (location.href.startsWith("http://localhost:7700")) {
 		hmm.testcommand()
 	}
+	setInterval(()=>{ //periodically update localforage
+		localforage.setItem('hmm-fs',hmm.storage)
+	},1000)
 }
 //very useful BUT BREAKS CODE FOR SOME REASON:
 //Object.prototype.with=function(k,v){var x=this;x[k]=v;return x}
