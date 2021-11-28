@@ -26,47 +26,16 @@ window.hmm = {
 		(p.match(/\/[^/]+/g) || []).forEach((e) => cr = cr[e.slice(1)])
 		return cr
 	},
-	pathToDot(p){
-		return "hmm.storage[atob('"+p.replace(/^\//,"").split('/').map(btoa).join("')][atob('")+"')]"
+	pathToDot(p) {
+		return "hmm.storage[atob('" + p.replace(/^\//, "").split('/').map(btoa).join("')][atob('") + "')]"
 	}
 }
-hmm.l.en = new Polyglot({
-	locale: "en",
-	phrases: {
-		"welcome": "Welcome to HmmOS!",
-		"menu": {
-			"apps-label": "Apps"
-		},
-		"apps": {
-			"settings": {
-				"lang": "System language",
-				"name": "Settings",
-				_name: "Settings"
-			}
-		}
-	}
-})
-hmm.l.cd = new Polyglot({
-	locale: "cd",
-	phrases: {
-		welcome: "HmmOSk wangõ!",
-		menu: {
-			"apps-label": "selīng"
-		},
-		apps: {
-			settings: {
-				lang: "kãiod moi",
-				name: "māthrdhng",
-				_name: "māthrdhng"
-			}
-		}
-	}
-})
+
 hmm.storage = {
-	name:"HmmOS (tm)",
+	name: "HmmOS (tm)",
 	apps: {
 		"app.hmm": {
-			title: "testapp with a particularly long title",
+			title: { en: "Test app", cd: "edhō" },
 			type: "iframe",
 			code: `
 <script>
@@ -76,18 +45,18 @@ hmm.storage = {
 </script>
 `
 		},
-		"cmd.hmm": {
-			title: "Terminal",
+		"terminal.hmm": {
+			title: { en: "Terminal" },
 			type: 0,
 			code: ``
 		},
-		"opts.hmm": {
-			title: "settings",
+		"settings.hmm": {
+			title: { en: "settings", cd:"māthrdhng" },
 			type: "iframe",
 			code: "<script>location='./settings.html'</script>",
 		},
 		"fe.hmm": {
-			title: "Files",
+			title: { en: "Files", cd:"kōpnge" },
 			type: "iframe",
 			code: `<script id=start>
 			window.onmessage=e=>window.arg=e.data
@@ -97,10 +66,10 @@ hmm.storage = {
 			})
 			</script>`
 		},
-		"textpad.hmm":{
-			title:"TextPad",
-			type:"iframe",
-			code:`
+		"textpad.hmm": {
+			title: { en: "TextPad" },
+			type: "iframe",
+			code: `
 			<textarea id=t contenteditable=true style="
 			font-family:menlo,monospace;
 			border:1px solid #fff;
@@ -194,13 +163,13 @@ hmm.App = class {
 		this.filename = name
 		this.obj = hmm.storage.apps[name]
 		this.baritem = document.createElement("baritem")
-		this.baritem.innerText = this.title[0]
+		this.baritem.innerText = (this.title[hmm.storage.opts.lang] || this.filename.slice(0, -4))[0]
 	}
 	open(arg) {
 		var node = document.createElement("window")
 		var tb = document.createElement("taskbar")
 		tb.appendChild(document.createElement("span"))
-		tb.children[0].innerText = this.title
+		tb.children[0].innerText = this.title[hmm.storage.opts.lang] || this.filename.slice(0, -4)
 		var cls = document.createElement("close")
 		cls.innerText = "✕"
 		cls.onclick = (event) => {
@@ -255,7 +224,7 @@ hmm.App = class {
 			n.classList.add("win")
 			content.style.overflow = "hidden"
 			content.appendChild(n)
-			setTimeout(()=>{n.contentWindow.arg=arg},100)
+			setTimeout(() => { n.contentWindow.arg = arg }, 100)
 		}
 
 		node.appendChild(content)
@@ -263,7 +232,7 @@ hmm.App = class {
 		interact(node).draggable({
 			allowFrom: "taskbar",
 			modifiers: [],
-			inertia:true,
+			inertia: true,
 			listeners: {
 				start(event) {
 					if (Math.abs(position.y - window.innerHeight) < 30) {
@@ -315,7 +284,7 @@ hmm.setMenu = () => {
 		let ap = hmm.storage.apps[app]
 		var el = document.createElement("t")
 		el.classList.add("menu-app")
-		el.innerText = ap.title
+		el.innerText = ap.title[hmm.storage.opts.lang] || app.slice(0, -4)
 		el.filename = app
 		el.onclick = e => {
 			hmm.openApp(e.target.filename);
