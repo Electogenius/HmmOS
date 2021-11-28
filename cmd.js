@@ -39,10 +39,12 @@ open: opens an app`)
 	err(c, e) {
 		c.err(e.join(" "))
 	},
-	open(c, e) {
-		if (c) {
-
-		}
+	open(_, e) {
+		let fname=e.join` `,h=true
+		Object.keys(hmm.storage['.pr'].handlers).forEach(e=>{
+			if(fname.endsWith(e)){hmm.openApp(hmm.storage['.pr'].handlers[e],"$open "+fname);h=false}
+		})
+		if(h)hmm.openApp('textpad.hmm',"$open "+fname)
 	},
 	"#"() { },
 }

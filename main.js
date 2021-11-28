@@ -3,13 +3,10 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () {
-		hmm.openApp("fe.hmm", "/.pr");
+		hmm.openApp("textpad.hmm", "$open /apps/textpad.hmm/code");
 	},
 	restart: function () {
 		window.location = window.location.href
-	},
-	opts: {
-		lang: "en"
 	},
 	safe: {},
 	hasPerms: (name, filename) => {
@@ -28,6 +25,9 @@ window.hmm = {
 		var cr = hmm.storage;
 		(p.match(/\/[^/]+/g) || []).forEach((e) => cr = cr[e.slice(1)])
 		return cr
+	},
+	pathToDot(p){
+		return "hmm.storage[atob('"+p.replace(/^\//,"").split('/').map(btoa).join("')][atob('")+"')]"
 	}
 }
 hmm.l.en = new Polyglot({
@@ -63,11 +63,17 @@ hmm.l.cd = new Polyglot({
 	}
 })
 hmm.storage = {
+	name:"HmmOS (tm)",
 	apps: {
 		"app.hmm": {
 			title: "testapp with a particularly long title",
 			type: "iframe",
-			code: `Lorem ipsum<button>dolor</button> sit amet<div class=bar>Test</div><hr>Some text <button class=clickme>BUTTON AAA
+			code: `
+<script>
+	onload=()=>{
+		console.log(window.parent)
+	}
+</script>
 `
 		},
 		"cmd.hmm": {
@@ -84,13 +90,35 @@ hmm.storage = {
 			title: "Files",
 			type: "iframe",
 			code: `<script id=start>
-			onmessage=e=>window.arg=e.data
+			window.onmessage=e=>window.arg=e.data
 			fetch('./fe.html').then(e=>e.text()).then(e=>{
-				console.log(e)
 				document.body.innerHTML=e
 				document.querySelectorAll('script:not(#start)').forEach(e=>{eval(e.innerHTML)})
 			})
 			</script>`
+		},
+		"textpad.hmm":{
+			title:"TextPad",
+			type:"iframe",
+			code:`
+			<textarea id=t contenteditable=true style="
+			font-family:menlo,monospace;
+			border:1px solid #fff;
+			white-space:nowrap;
+			overflow:auto;
+			resize:none;
+			position:absolute;
+			top:0;left:0;
+			height:95%;
+			width:95%
+			"></textarea>
+			<script>setTimeout(()=>{if((window.arg||'').startsWith("$open ")){
+				t.value=window.parent.hmm.pathToJs(window.arg)
+				t.oninput=()=>{
+					eval("window.top."+window.parent.hmm.pathToDot(window.arg.slice(6))+"=t.value")
+				}
+			}},100)</script>
+			`
 		}
 	},
 	opts: {
@@ -223,11 +251,11 @@ hmm.App = class {
 		if (this.type == "iframe") {
 			var n = document.createElement("iframe")
 			if (!hmm.hasPerms("iframe.nosandbox", this.name)) n.sandbox = "allow-scripts allow-forms allow-presentation allow-modals allow-same-origin"
-			n.srcdoc = "<link rel=stylesheet href=style.css />" + this.code
+			n.srcdoc = "<link rel=stylesheet href=style.css /><style>body{overflow:auto}</style>" + this.code
 			n.classList.add("win")
 			content.style.overflow = "hidden"
 			content.appendChild(n)
-			postMessage(arg, n.contentWindow)
+			setTimeout(()=>{n.contentWindow.arg=arg},100)
 		}
 
 		node.appendChild(content)
@@ -235,6 +263,7 @@ hmm.App = class {
 		interact(node).draggable({
 			allowFrom: "taskbar",
 			modifiers: [],
+			inertia:true,
 			listeners: {
 				start(event) {
 					if (Math.abs(position.y - window.innerHeight) < 30) {
@@ -295,7 +324,7 @@ hmm.setMenu = () => {
 		document.getElementById("apps").appendChild(el)
 	})
 }
-hmm.console = (e, run) => {
+hmm.console = (e, run) => {//TODO: fix this mess
 	e.ln = 0
 	let p = 1,
 		torun = ""

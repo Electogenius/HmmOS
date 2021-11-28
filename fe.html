@@ -44,11 +44,21 @@
 					path += e + '/'
 					loadpath()
 				}
+			}else{
+				el.onclick=(ev)=>{
+					hmm.$("open "+path+ev.target.innerText)
+				}
 			}
 			if (e.startsWith('.')) el.style.color = "#aaa"
 			el.innerText = e
 			document.getElementById('files').appendChild(el)
 		})
 	}
+	setTimeout(()=>{
+		if((window.arg||'').startsWith("$open ")){
+			path=window.arg.slice(6)
+			loadpath()
+		}
+	},100)
 	loadpath()
 </script>
