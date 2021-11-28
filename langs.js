@@ -8,6 +8,9 @@ hmm.storage.i18n.en = {
 		"settings": {
 			"lang": "System language",
 			"name": "Settings"
+		},
+		"fe":{
+			goback:"back"
 		}
 	}
 }
@@ -20,6 +23,9 @@ hmm.storage.i18n.cd = {
 		settings: {
 			lang: "kãiod moi",
 			name: "māthrdhng"
+		},
+		fe:{
+			goback:"pnād"
 		}
 	}
 }

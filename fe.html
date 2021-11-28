@@ -1,5 +1,6 @@
 <script>
 	window._AppName = "fe"
+	back=window.parent.hmm.t("apps.fe.goback")
 </script>
 <link rel="stylesheet" href="style.css">
 <style>
@@ -28,12 +29,12 @@
 <span id="pathlabel"></span>
 <div id="files"></div>
 <script>
-	hmm = window.top.hmm;
+	hmm = window.parent.hmm;
 	path = "/"
 	loadpath=()=>{
 		document.getElementById('pathlabel').innerText = path
 		document.getElementById('files').innerHTML = (path != "/") ? `
-			<div class="file" style="color:#05d" onclick="path=path.slice(0,path.slice(0,-1).lastIndexOf('/')+1);loadpath()">&larr; back</div>
+			<div class="file" style="color:#05d" onclick="path=path.slice(0,path.slice(0,-1).lastIndexOf('/')+1);loadpath()">&larr; ${back}</div>
 			`: ''
 		Object.keys(hmm.pathToJs(path)).sort().forEach(e => {
 			var el = document.createElement('div')

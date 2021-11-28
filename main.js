@@ -3,7 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () {
-		hmm.openApp("textpad.hmm", "$open /apps/textpad.hmm/code");
+		hmm.openApp("fe.hmm");
 	},
 	restart: function () {
 		window.location = window.location.href
@@ -58,13 +58,14 @@ hmm.storage = {
 		"fe.hmm": {
 			title: { en: "Files", cd:"kōpnge" },
 			type: "iframe",
-			code: `<script id=start>
+			code: `<script class=ev>
 			window.onmessage=e=>window.arg=e.data
-			fetch('./fe.html').then(e=>e.text()).then(e=>{
+			window.onload=()=>{fetch('./fe.html').then(e=>e.text()).then(e=>{
 				document.body.innerHTML=e
-				document.querySelectorAll('script:not(#start)').forEach(e=>{eval(e.innerHTML)})
+				document.querySelectorAll('script:not(.ev)').forEach(e=>{eval(e.innerHTML)})
 			})
-			</script>`
+			}
+			</script><body></body>`
 		},
 		"textpad.hmm": {
 			title: { en: "TextPad" },
@@ -84,7 +85,7 @@ hmm.storage = {
 			<script>setTimeout(()=>{if((window.arg||'').startsWith("$open ")){
 				t.value=window.parent.hmm.pathToJs(window.arg)
 				t.oninput=()=>{
-					eval("window.top."+window.parent.hmm.pathToDot(window.arg.slice(6))+"=t.value")
+					eval("window.parent."+window.parent.hmm.pathToDot(window.arg.slice(6))+"=t.value")
 				}
 			}},100)</script>
 			`
@@ -104,7 +105,6 @@ hmm.storage = {
 		}
 	}
 }
-
 window.onload = () => {
 	localforage.getItem("hmm-fs").then((val) => {
 		if (null !== val) {
