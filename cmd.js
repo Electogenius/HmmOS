@@ -47,12 +47,15 @@ open: opens an app`)
 		if(h)hmm.openApp('textpad.hmm',"$open "+fname)
 	},
 	"#"() { },
+	shmm(c,e){//default hmm shell
+
+	}
 }
 for (const cmd in hmm.storage.cmd) {
 	hmm.storage.cmd[cmd] = String(hmm.storage.cmd[cmd])
 }
-window.onmessage = (ev) => {
-	if ('_AppName' in ev.source) {
-		console.log(ev.source)
-	}
-}
+// window.onmessage = (ev) => {
+// 	if ('_AppName' in ev.source) {
+// 		console.log(ev.source)
+// 	}
+// }

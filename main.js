@@ -28,6 +28,10 @@ window.hmm = {
 	},
 	pathToDot(p) {
 		return "hmm.storage[atob('" + p.replace(/^\//, "").split('/').map(btoa).join("')][atob('") + "')]"
+	},
+	mtt:{//empty shell interface
+		err(){},
+		echo(){}
 	}
 }
 
@@ -48,7 +52,7 @@ hmm.storage = {
 		"terminal.hmm": {
 			title: { en: "Terminal" },
 			type: 0,
-			code: ``
+			code: `shmm`
 		},
 		"settings.hmm": {
 			title: { en: "settings", cd:"māthrdhng" },
@@ -196,11 +200,8 @@ hmm.App = class {
 			setTimeout(() => x({}, {}, hmm.hmmVar(content, this.filename), hmm.hmmVar(content, this.filename).el), 100)
 		} else */
 		if (this.type == 0) {
-			var n = document.createElement("div")
-			content.appendChild(n)
-			content.style.backgroundColor = "black"
-			hmm.console(n)
-
+			hmm.$(this.code,hmm.mtt)
+			return
 		}
 		/*else if (this.type == "egc-canvas") {
 			EGCode.setup = "EGCode.resetVals();EGCode.context=cont;EGCode.stdFuns.hmmget=hg"
