@@ -2,7 +2,9 @@ hmm.$ = (cm, c) => {
 	let l = hmm.$.token(cm)
 	if (l[0] == "") return;
 	if (l[0] in hmm.storage.cmd) {
-		return new Function("return {" + hmm.storage.cmd[l[0]] + "}")()[l[0]](c, l.slice(1))
+		let fn=hmm.storage.cmd[l[0]]
+		,e=l.slice(1)
+		return eval(fn.slice(fn.indexOf("{")+1,-1))
 	} else {
 		c.err("Command not found")
 	}
@@ -39,7 +41,7 @@ open: opens an app`)
 	err(c, e) {
 		c.err(e.join(" "))
 	},
-	open(_, e) {
+	open(c, e) {
 		let fname=e.join` `,h=true
 		Object.keys(hmm.storage['.pr'].handlers).forEach(e=>{
 			if(fname.endsWith(e)){hmm.openApp(hmm.storage['.pr'].handlers[e],"$open "+fname);h=false}

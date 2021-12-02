@@ -31,9 +31,9 @@
 </div>
 <script>
 	let e=q=>document.getElementById(q)
-	if(window.top!==window.self){
+	if(true){
 		let hmm = {}
-		hmm=window.top.hmm
+		hmm=window.parent.hmm
 		e("lang").value = hmm.storage.opts.lang
 		e("lang").onchange =()=>{
 			hmm.storage.opts.lang = e("lang").value
