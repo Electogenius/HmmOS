@@ -49,8 +49,8 @@ open: opens an app`)
 		if(h)hmm.openApp('textpad.hmm',"$open "+fname)
 	},
 	"#"() { },
-	shmm(c,e){//default hmm shell
-
+	ptbye(c,e){//like PTY but much worse
+		new hmm.App("/.shmm/app.hmm").open("")
 	}
 }
 for (const cmd in hmm.storage.cmd) {

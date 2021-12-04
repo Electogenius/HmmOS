@@ -3,7 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () {
-		hmm.openApp("fe.hmm");
+		hmm.openApp("terminal.hmm");
 	},
 	restart: function () {
 		window.location = window.location.href
@@ -52,7 +52,7 @@ hmm.storage = {
 		"terminal.hmm": {
 			title: { en: "Terminal" },
 			type: 0,
-			code: `shmm`
+			code: `ptbye`
 		},
 		"settings.hmm": {
 			title: { en: "settings", cd:"māthrdhng" },
@@ -107,6 +107,13 @@ hmm.storage = {
 		handlers: {
 			'/': 'fe.hmm'
 		}
+	},
+	".shmm":{
+		"app.hmm":{
+			title:{en:"Terminal"},
+			type:"iframe",
+			code:"<script>window.location='./ptbye.html'</script>"
+		}
 	}
 }
 window.onload = () => {
@@ -146,7 +153,7 @@ hmm.bar.toggle = function () {
 }
 hmm.openApp = function (app, arg) {
 	if (app in hmm.storage.apps && app.endsWith(".hmm")) {
-		var a = new hmm.App(app)
+		var a = new hmm.App("/apps/"+app)
 		a.open(arg)
 	}
 }
@@ -161,9 +168,9 @@ hmm.El = class {
 }
 hmm.App = class {
 	constructor(name) {
-		this.code = hmm.storage.apps[name].code
-		this.title = hmm.storage.apps[name].title
-		this.type = hmm.storage.apps[name].type
+		this.code = hmm.pathToJs(name).code
+		this.title = hmm.pathToJs(name).title
+		this.type = hmm.pathToJs(name).type
 		this.filename = name
 		this.obj = hmm.storage.apps[name]
 		this.baritem = document.createElement("baritem")
