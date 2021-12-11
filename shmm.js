@@ -14,7 +14,6 @@
 			lines.push({
 				t,
 				fg: '#fff',
-				bg: '#000',
 				x: tx,
 				y: ty
 			})
@@ -25,11 +24,11 @@
 			lines.push({
 				t,
 				fg: '#f00',
-				bg: '#000',
 				x: tx,
 				y: ty
 			})
-		}
+		},
+		eval(c){return eval(c)}
 	}
 	function r(o) {
 		rText(o.t, o.fg, o.bg, o.x, o.y)
@@ -41,7 +40,6 @@
 			lines[0] = ({
 				t: cwd + " $",
 				fg: "#48f",
-				bg: "#000",
 				x: tx,
 				y: ty + 1
 			})
@@ -49,7 +47,6 @@
 			lines[1] = ({
 				t: v.cmd,
 				fg: "#fff",
-				bg: "#000",
 				x: tx,
 				y: ty + 1
 			})
@@ -76,7 +73,6 @@
 				lines.push({
 					t: cwd + " $",
 					fg: "#48f",
-					bg: "#000",
 					x: tx,
 					y: ty + 1
 				})
@@ -84,7 +80,6 @@
 				lines.push({
 					t: v.cmd,
 					fg: "#fff",
-					bg: "#000",
 					x: tx,
 					y: ty + 1
 				})

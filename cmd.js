@@ -1,6 +1,6 @@
 hmm.$ = (cm, c) => {
 	let l = hmm.$.token(cm)
-	if (l[0] == "") return;
+	if (l[0] == "") return new Promise(r => r());
 	if (l[0] in hmm.storage.cmd) {
 		let fn = hmm.storage.cmd[l[0]]
 			, e = l.slice(1)
@@ -29,24 +29,34 @@ hmm.$.token = (e) => {
 	})
 	return l
 }
+hmm.pathToPath=(p,cwd)=>{
+	if(p=='/')return p
+	if(p.startsWith('~'))return '/user'+p.slice(1)
+	if(!p.startsWith('/'))return (cwd=='/'?cwd:cwd+'/')+p
+	return p
+}
 hmm.storage.cmd = {
 	help(c) {
-		c.echo(`Commands:
+		`Built-in commands:
 echo: displays text
 err: displays an error
-open: opens an app`)
+open: opens an file or path
+ptbye: opens a terminal window
+wait: wait a certain amount of milliseconds
+cd: change current directory
+ls: lists folders and files in the current directory`.split('\n').forEach(c.echo)
 	},
-	echo(c, e) {
+	echo() {
 		(function () {
 			c.echo(e.join(" "))
 			return new Promise(res => res())
 		})()
 	},
-	err(c, e) {
+	err() {
 		c.err(e.join(" "))
 	},
-	open(c, e) {
-		let fname = e.join` `, h = true
+	open() {
+		let fname = hmm.pathToPath(e.join` `,c.eval('cwd')), h = true
 		Object.keys(hmm.storage['.pr'].handlers).forEach(e => {
 			if (fname.endsWith(e)) { hmm.openApp(hmm.storage['.pr'].handlers[e], "$open " + fname); h = false }
 		})
@@ -58,6 +68,15 @@ open: opens an app`)
 	},
 	wait() {
 		new Promise(r => setTimeout(r, Number(e[0])))
+	},
+	cd(){
+		c.eval('cwd=atob("'+btoa(hmm.pathToPath(e.join``,c.eval('cwd')))+'")')
+		,new Promise(r => r())
+	},
+	ls(){
+		var f=hmm.pathToJs(hmm.pathToPath(e.join``,c.eval('cwd')))
+		Object.keys(f).sort().forEach(c.echo)
+		,new Promise(r => r())
 	}
 }
 for (const cmd in hmm.storage.cmd) {

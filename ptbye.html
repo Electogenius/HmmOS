@@ -14,7 +14,7 @@
 		let x = Math.round(gx), y = Math.round(gy)
 		ct.font = textSize + "px menlo,monospace"
 		ct.fillStyle = bg
-		ct.fillRect(x * charWidth, (y) * charHeight, charWidth, charHeight)
+		if(bg)ct.fillRect(x * charWidth, (y) * charHeight, charWidth, charHeight)
 		ct.fillStyle = fg
 		ct.fillText(ch[0],x * charWidth, (y + 1) * charHeight)
 	}
