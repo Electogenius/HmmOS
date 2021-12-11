@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <canvas id=can><span style="color:white">Wow this is a terrible browser</span></canvas>
-<textarea id="ta"></textarea>
+<textarea id="ta" autocapitalize="off" spellcheck="false" oninput="this.innerText=''"></textarea>
 <script>
 	onresize = () => {
 		can.width = window.innerWidth
