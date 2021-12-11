@@ -38,13 +38,14 @@ hmm.pathToPath=(p,cwd)=>{
 hmm.storage.cmd = {
 	help(c) {
 		`Built-in commands:
+cd: change current directory
 echo: displays text
 err: displays an error
+ls: lists folders and files in the current directory
 open: opens an file or path
 ptbye: opens a terminal window
 wait: wait a certain amount of milliseconds
-cd: change current directory
-ls: lists folders and files in the current directory`.split('\n').forEach(c.echo)
+`.split('\n').slice(0,-1).forEach(c.echo)
 	},
 	echo() {
 		(function () {
@@ -77,7 +78,8 @@ ls: lists folders and files in the current directory`.split('\n').forEach(c.echo
 		var f=hmm.pathToJs(hmm.pathToPath(e.join``,c.eval('cwd')))
 		Object.keys(f).sort().forEach(c.echo)
 		,new Promise(r => r())
-	}
+	},
+	clear(){c.eval('lines=[];ty=-1'),0[0]}
 }
 for (const cmd in hmm.storage.cmd) {
 	hmm.storage.cmd[cmd] = String(hmm.storage.cmd[cmd])
