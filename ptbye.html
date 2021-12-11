@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <canvas id=can><span style="color:white">Wow this is a terrible browser</span></canvas>
+<textarea id="ta"></textarea>
 <script>
 	onresize = () => {
 		can.width = window.innerWidth
@@ -33,6 +34,13 @@
 		top: 0;
 		left: 0;
 		background-color: #000;
+	}
+	textarea{
+		width:100vw;
+		height:100vh;
+		position: absolute;
+		top:0;left:0;
+		opacity:0.01;
 	}
 </style>
 <link rel="stylesheet" href="style.css">
