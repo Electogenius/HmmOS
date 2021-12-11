@@ -56,7 +56,7 @@ ls: lists folders and files in the current directory`.split('\n').forEach(c.echo
 		c.err(e.join(" "))
 	},
 	open() {
-		let fname = hmm.pathToPath(e.join` `,c.eval('cwd')), h = true
+		let fname = hmm.pathToPath(e.join` `,(c?c.eval('cwd'):'/')), h = true
 		Object.keys(hmm.storage['.pr'].handlers).forEach(e => {
 			if (fname.endsWith(e)) { hmm.openApp(hmm.storage['.pr'].handlers[e], "$open " + fname); h = false }
 		})
