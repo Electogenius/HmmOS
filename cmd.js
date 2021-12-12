@@ -39,6 +39,7 @@ hmm.storage.cmd = {
 	help(c) {
 		`Built-in commands:
 cd: change current directory
+clear: clears screen
 echo: displays text
 err: displays an error
 ls: lists folders and files in the current directory
@@ -72,14 +73,14 @@ wait: wait a certain amount of milliseconds
 	},
 	cd(){
 		c.eval('cwd=atob("'+btoa(hmm.pathToPath(e.join``,c.eval('cwd')))+'")')
-		,new Promise(r => r())
+		,0[0]
 	},
 	ls(){
 		var f=hmm.pathToJs(hmm.pathToPath(e.join``,c.eval('cwd')))
 		Object.keys(f).sort().forEach(c.echo)
-		,new Promise(r => r())
+		,0[0]
 	},
-	clear(){c.eval('lines=[];ty=-1'),0[0]}
+	clear(){c.eval('lines=[];ty=-1;yOffset=0'),0[0]}
 }
 for (const cmd in hmm.storage.cmd) {
 	hmm.storage.cmd[cmd] = String(hmm.storage.cmd[cmd])

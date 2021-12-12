@@ -7,6 +7,7 @@
 		, hmm = window.parent.hmm
 		, v = { cmd: "", pathY: 0 }
 		, lines = []
+		, yOffset = 0
 	const ti = {//terminal interface
 		echo(t) {
 			tx = 0
@@ -28,10 +29,10 @@
 				y: ty
 			})
 		},
-		eval(c){return eval(c)}
+		eval(c) { return eval(c) }
 	}
 	function r(o) {
-		rText(o.t, o.fg, o.bg, o.x, o.y)
+		rText(o.t, o.fg, o.bg, o.x, o.y + yOffset)
 	}
 	requestAnimationFrame(function draw() {
 		clear()
@@ -83,9 +84,9 @@
 					x: tx,
 					y: ty + 1
 				})
-				tx=0
+				tx = 0
 				ty++
-				lines[2].bg="#333"
+				lines[2].bg = "#333"
 				hmm.$(v.cmd, ti)
 					.then(e => {
 						path = true
@@ -95,5 +96,10 @@
 				v.cmd += (ev.key.length == 1) ? ev.key : ''
 			}
 		}
+	}
+	window.onwheel = window.onmousewheel = (ev) => {
+		yOffset -= ev.deltaY / 15
+		if (yOffset > 0) yOffset = 0
+		if (yOffset < -ty-1) yOffset = -ty-1
 	}
 })()
