@@ -61,7 +61,6 @@ window.hmm = {
 		}
 	}
 }
-
 hmm.storage = {
 	name: "HmmOS",
 	version:0,
@@ -152,6 +151,10 @@ window.onload = () => {
 			hmm.storage = val
 		} else {
 			localforage.setItem('hmm-fs', hmm.storage)
+		}
+		if(!('version' in hmm.storage)){
+			alert("Say goodbye to your current file system. Migrating to new 'software update' system. Your files will be removed. Hope you don't have anything important on there.")
+			hmm.reset()
 		}
 		for(upd in hmm.updates){
 			if(Number(upd)>hmm.storage.version){
