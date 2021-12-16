@@ -1,0 +1,14 @@
+.hmm-choose{
+	background-color: #222;
+	border-radius: 5px;
+	padding: 5px;
+	max-height:100px;
+	overflow: auto;
+	min-height: 20px;
+}
+.hmm-choose p{
+	margin: none;
+	background-color: #000;
+	padding: 5px;
+	border-radius: 5px;
+}

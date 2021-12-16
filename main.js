@@ -3,7 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () {
-		hmm.openApp("terminal.hmm");
+		//hmm.openApp("settings.hmm");
 	},
 	restart: function () {
 		window.location = window.location.href
@@ -29,14 +29,42 @@ window.hmm = {
 	pathToDot(p) {
 		return "hmm.storage[atob('" + p.replace(/^\//, "").split('/').map(btoa).join("')][atob('") + "')]"
 	},
-	mtt:{//empty shell interface
-		err(){},
-		echo(){}
+	mtt: {//empty shell interface
+		err() { },
+		echo() { }
+	},
+	ui: {//oh no
+		choose(c,def=c[0]) {
+			let el=document.createElement('details')
+			el.classList.add('hmm-choose')
+			let sum=document.createElement('summary')
+			Object.defineProperty(el,'value',{
+				set(h){
+					sum.innerText=h
+				},
+				get(){
+					return sum.innerText
+				}
+			})
+			el.value=def
+			el.appendChild(sum)
+			c.forEach(e=>{
+				let choice=document.createElement("p")
+				choice.innerText=e
+				choice.onclick=ev=>{
+					sum.innerText=ev.target.innerText
+					el.dispatchEvent(new Event('change'))
+				}
+				el.appendChild(choice)
+			})
+			return el
+		}
 	}
 }
 
 hmm.storage = {
-	name: "HmmOS (tm)",
+	name: "HmmOS",
+	version:0,
 	apps: {
 		"app.hmm": {
 			title: { en: "Test app", cd: "edhō" },
@@ -55,12 +83,12 @@ hmm.storage = {
 			code: `ptbye`
 		},
 		"settings.hmm": {
-			title: { en: "settings", cd:"māthrdhng" },
+			title: { en: "settings", cd: "māthrdhng" },
 			type: "iframe",
 			code: "<script>location='./settings.html'</script>",
 		},
 		"fe.hmm": {
-			title: { en: "Files", cd:"kōpnge" },
+			title: { en: "Files", cd: "kōpnge" },
 			type: "iframe",
 			code: `<script class=ev>
 			window.onmessage=e=>window.arg=e.data
@@ -108,20 +136,31 @@ hmm.storage = {
 			'/': 'fe.hmm'
 		}
 	},
-	".shmm":{
-		"app.hmm":{
-			title:{en:"Terminal"},
-			type:"iframe",
-			code:"<script>window.location='./ptbye.html'</script>"
+	".shmm": {
+		"app.hmm": {
+			title: { en: "Terminal" },
+			type: "iframe",
+			code: "<script>window.location='./ptbye.html'</script>"
 		}
 	}
 }
+//-------------ugh-------------
 window.onload = () => {
 	localforage.getItem("hmm-fs").then((val) => {
+		let init=hmm.storage
 		if (null !== val) {
 			hmm.storage = val
 		} else {
 			localforage.setItem('hmm-fs', hmm.storage)
+		}
+		for(upd in hmm.updates){
+			if(Number(upd)>hmm.storage.version){
+				hmm.updates[upd]().forEach(e=>{
+					eval(hmm.pathToDot(e)+'=init'+hmm.pathToDot(e).slice(11))
+				})
+				console.log("Updated HmmOS to version "+upd)
+				hmm.storage.version=Number(upd)
+			}
 		}
 		hmm.setup()
 	})
@@ -153,7 +192,7 @@ hmm.bar.toggle = function () {
 }
 hmm.openApp = function (app, arg) {
 	if (app in hmm.storage.apps && app.endsWith(".hmm")) {
-		var a = new hmm.App("/apps/"+app)
+		var a = new hmm.App("/apps/" + app)
 		a.open(arg)
 	}
 }
@@ -207,7 +246,7 @@ hmm.App = class {
 			setTimeout(() => x({}, {}, hmm.hmmVar(content, this.filename), hmm.hmmVar(content, this.filename).el), 100)
 		} else */
 		if (this.type == 0) {
-			hmm.$(this.code,hmm.mtt)
+			hmm.$(this.code, hmm.mtt)
 			return
 		}
 		/*else if (this.type == "egc-canvas") {
@@ -301,42 +340,7 @@ hmm.setMenu = () => {
 		document.getElementById("apps").appendChild(el)
 	})
 }
-hmm.console = (e, run) => {//TODO: fix this mess
-	e.ln = 0
-	let p = 1,
-		torun = ""
-	let term = $(e).terminal((c, t) => {
-		let run = e => hmm.$({ echo: t.echo, err: t.error }, e)
-		function ask(r) {
-			if (r === null) {
-				ask();
-			} else {
-				if (r.endsWith("{") || r.endsWith("[")) p++;
-				if (r.startsWith("]") || r.startsWith("}")) p--;
-				if (p > 1) {
-					torun += r + "\n";
-				}
-				if (p === 1) {
-					if (r !== "}" && r !== "]") {
-						run(r);
-					} else {
-						run(torun + r);
-						torun = "";
-					}
-				}
-				if (c.trim() == "clear()") t.clear()
-				// ask();
-				//t.echo(p)
-			}
-		}
-		ask(c)
-	}, {
-		greetings: "[[g;white;]HmmOS terminal (useless)\nenter 'help' for help]",
-		prompt: "[[bg;#05d;]| ]"
-	})
-	e.style = "height: 100%; overflow: scroll !important"
-	term.css("fontFamily", "ui-monospace,menlo,monospace")
-}
+
 // hmm.hmmVar = (c, n) => {
 // 	return {
 // 		set title(t) {

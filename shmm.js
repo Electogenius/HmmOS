@@ -97,6 +97,7 @@
 			}
 		}
 	}
+	//todo make mobile friendly (if not possible render scroll arrows as part of shell)
 	window.onwheel = window.onmousewheel = (ev) => {
 		yOffset -= ev.deltaY / 15
 		if (yOffset > 0) yOffset = 0
