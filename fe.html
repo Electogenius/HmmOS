@@ -21,6 +21,10 @@
 		float: right;
 		color: #aaa;
 	}
+	
+	div.add{
+		color:#05d;
+	}
 
 	#pathlabel {
 		font-family: menlo, monospace;
@@ -28,9 +32,22 @@
 </style>
 <span id="pathlabel"></span>
 <div id="files"></div>
+<div id="add" onclick="
+//TODO: i18n
+hmm.popup(`Enter a name for your file<br>
+<input id=n><button default>create</button><button id=no>cancel</button>`).then(e=>{
+//window.parent.console.log(e)
+	if(e.button=='no')return
+	var n=e.popup.querySelector('#n').value
+	if(n in hmm.pathToJs(path)){hmm.popup('File already exists<br><button default>OK');return}
+	eval(hmm.pathToDot(path+n)+'=``')
+	loadpath()
+})
+" class="add file"></div>
 <script>
-	hmm = window.parent.hmm;
+	window.hmm = window.parent.hmm;
 	path = "/"
+	document.getElementById("add").innerText=hmm.t("apps.fe.addfile")
 	loadpath=()=>{
 		document.getElementById('pathlabel').innerText = path
 		document.getElementById('files').innerHTML = (path != "/") ? `

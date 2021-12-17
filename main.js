@@ -2,10 +2,10 @@ function e(query) {
 	return document.querySelector(query)
 }
 window.hmm = {
-	testcommand: function () {
-		//hmm.openApp("settings.hmm");
+	testcommand: function() {
+		hmm.openApp("fe.hmm")
 	},
-	restart: function () {
+	restart: function() {
 		window.location = window.location.href
 	},
 	safe: {},
@@ -29,41 +29,55 @@ window.hmm = {
 	pathToDot(p) {
 		return "hmm.storage[atob('" + p.replace(/^\//, "").split('/').map(btoa).join("')][atob('") + "')]"
 	},
-	mtt: {//empty shell interface
-		err() { },
-		echo() { }
+	mtt: { //empty shell interface
+		err() {},
+		echo() {}
 	},
-	ui: {//oh no
-		choose(c,def=c[0]) {
-			let el=document.createElement('details')
+	ui: { //oh no
+		choose(c, def = c[0]) {
+			let el = document.createElement('details')
 			el.classList.add('hmm-choose')
-			let sum=document.createElement('summary')
-			Object.defineProperty(el,'value',{
-				set(h){
-					sum.innerText=h
+			let sum = document.createElement('summary')
+			Object.defineProperty(el, 'value', {
+				set(h) {
+					sum.innerText = h
 				},
-				get(){
+				get() {
 					return sum.innerText
 				}
 			})
-			el.value=def
+			el.value = def
 			el.appendChild(sum)
-			c.forEach(e=>{
-				let choice=document.createElement("p")
-				choice.innerText=e
-				choice.onclick=ev=>{
-					sum.innerText=ev.target.innerText
+			c.forEach(e => {
+				let choice = document.createElement("p")
+				choice.innerText = e
+				choice.onclick = ev => {
+					sum.innerText = ev.target.innerText
 					el.dispatchEvent(new Event('change'))
 				}
 				el.appendChild(choice)
 			})
 			return el
 		}
+	},
+	popup(html) {
+		return new Promise(res => {
+			darken.style.display = "block"
+			var popup = document.createElement("div")
+			popup.classList.add("popup")
+			popup.innerHTML = html
+			popups.appendChild(popup)
+			popup.querySelectorAll("button").forEach(e => e.onclick=()=>{
+				res({button:e.id,popup})
+				popup.remove()
+				darken.style.display="none"
+			})
+		})
 	}
 }
 hmm.storage = {
 	name: "HmmOS",
-	version:0,
+	version: 0,
 	apps: {
 		"app.hmm": {
 			title: { en: "Test app", cd: "edhō" },
@@ -141,35 +155,36 @@ hmm.storage = {
 			type: "iframe",
 			code: "<script>window.location='./ptbye.html'</script>"
 		}
-	}
+	},
+	user: {} //user files
 }
 //-------------ugh-------------
 window.onload = () => {
 	localforage.getItem("hmm-fs").then((val) => {
-		let init=hmm.storage
+		let init = hmm.storage
 		if (null !== val) {
 			hmm.storage = val
 		} else {
 			localforage.setItem('hmm-fs', hmm.storage)
 		}
-		if(!('version' in hmm.storage)){
+		if (!('version' in hmm.storage)) {
 			alert("Say goodbye to your current file system. Migrating to new 'software update' system. Your files will be removed. Hope you don't have anything important on there.")
 			hmm.reset()
 		}
-		for(upd in hmm.updates){
-			if(Number(upd)>hmm.storage.version){
-				hmm.updates[upd]().forEach(e=>{
-					eval(hmm.pathToDot(e)+'=init'+hmm.pathToDot(e).slice(11))
+		for (upd in hmm.updates) {
+			if (Number(upd) > hmm.storage.version) {
+				hmm.updates[upd]().forEach(e => {
+					eval(hmm.pathToDot(e) + '=init' + hmm.pathToDot(e).slice(11))
 				})
-				console.log("Updated HmmOS to version "+upd)
-				hmm.storage.version=Number(upd)
+				console.log("Updated HmmOS to version " + upd)
+				hmm.storage.version = Number(upd)
 			}
 		}
 		hmm.setup()
 	})
 }
 hmm.bar = document.getElementById("bar")
-hmm.bar.toggle = function () {
+hmm.bar.toggle = function() {
 	if (!hmm.bar.isOpen) {
 		anime({
 			targets: "#menu",
@@ -193,7 +208,7 @@ hmm.bar.toggle = function () {
 	}
 	hmm.bar.isOpen = !hmm.bar.isOpen
 }
-hmm.openApp = function (app, arg) {
+hmm.openApp = function(app, arg) {
 	if (app in hmm.storage.apps && app.endsWith(".hmm")) {
 		var a = new hmm.App("/apps/" + app)
 		a.open(arg)
@@ -237,7 +252,7 @@ hmm.App = class {
 		fs.innerHTML = "fullscreen"
 		tb.appendChild(fs)
 		var me = this
-		fs.onclick = function (event) {
+		fs.onclick = function(event) {
 			event.target.parentNode.parentNode.style.height = "100%"
 			event.target.parentNode.parentNode.style.width = window.innerWidth + "px"
 			event.target.parentNode.parentNode.style.transform = "translate(0, 0)"
