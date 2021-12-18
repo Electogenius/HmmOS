@@ -379,6 +379,10 @@ hmm.setMenu = () => {
 // }
 //setup
 hmm.setup = () => {
+	if(document.referrer.includes(":3000")){
+		alert("HmmOS denies dominance over another nothing.")
+		window.history.back()
+	}
 	document.getElementById("menu").innerHTML = `
 <close onclick="hmm.bar.toggle()">✕</close>
 <h1><span class="h-time"></span><br><span class="h-date"></span></h1>
@@ -403,5 +407,4 @@ document.getElementById("menu").style.width = "0"
 //prevent right click
 document.addEventListener('contextmenu', ev => {
 	ev.preventDefault()
-
 });
