@@ -14,7 +14,8 @@ hmm.storage.i18n.en = {
 			"name": "Settings"
 		},
 		"fe":{
-			goback:"back"
+			goback:"back",
+			addfile:"Create file"
 		}
 	}
 }
@@ -29,7 +30,8 @@ hmm.storage.i18n.cd = {
 			name: "māthrdhng"
 		},
 		fe:{
-			goback:"pnād"
+			goback:"pnād",
+			addfile:"kōp sei"
 		}
 	}
 }
