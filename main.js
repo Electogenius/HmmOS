@@ -30,8 +30,8 @@ window.hmm = {
 		return "hmm.storage[atob('" + p.replace(/^\//, "").split('/').map(btoa).join("')][atob('") + "')]"
 	},
 	mtt: { //empty shell interface
-		err() {},
-		echo() {}
+		err() { },
+		echo() { }
 	},
 	ui: { //oh no
 		choose(c, def = c[0]) {
@@ -67,10 +67,10 @@ window.hmm = {
 			popup.classList.add("popup")
 			popup.innerHTML = html
 			popups.appendChild(popup)
-			popup.querySelectorAll("button").forEach(e => e.onclick=()=>{
-				res({button:e.id,popup})
+			popup.querySelectorAll("button").forEach(e => e.onclick = () => {
+				res({ button: e.id, popup })
 				popup.remove()
-				darken.style.display="none"
+				darken.style.display = "none"
 			})
 		})
 	}
@@ -184,7 +184,7 @@ window.onload = () => {
 	})
 }
 hmm.bar = document.getElementById("bar")
-hmm.bar.toggle = function() {
+hmm.bar.toggle = function () {
 	if (!hmm.bar.isOpen) {
 		anime({
 			targets: "#menu",
@@ -208,7 +208,7 @@ hmm.bar.toggle = function() {
 	}
 	hmm.bar.isOpen = !hmm.bar.isOpen
 }
-hmm.openApp = function(app, arg) {
+hmm.openApp = function (app, arg) {
 	if (app in hmm.storage.apps && app.endsWith(".hmm")) {
 		var a = new hmm.App("/apps/" + app)
 		a.open(arg)
@@ -231,13 +231,13 @@ hmm.App = class {
 		this.filename = name
 		this.obj = hmm.storage.apps[name]
 		this.baritem = document.createElement("baritem")
-		this.baritem.innerText = (this.title[hmm.storage.opts.lang] || this.filename.slice(0, -4))[0]
+		this.baritem.innerText = (this.title[hmm.storage.opts.lang] || this.title.en || this.filename.slice(0, -4))[0]
 	}
 	open(arg) {
 		var node = document.createElement("window")
 		var tb = document.createElement("taskbar")
 		tb.appendChild(document.createElement("span"))
-		tb.children[0].innerText = this.title[hmm.storage.opts.lang] || this.filename.slice(0, -4)
+		tb.children[0].innerText = this.title[hmm.storage.opts.lang] || this.title.en || this.filename.slice(0, -4)
 		var cls = document.createElement("close")
 		cls.innerText = "✕"
 		cls.onclick = (event) => {
@@ -252,7 +252,7 @@ hmm.App = class {
 		fs.innerHTML = "fullscreen"
 		tb.appendChild(fs)
 		var me = this
-		fs.onclick = function(event) {
+		fs.onclick = function (event) {
 			event.target.parentNode.parentNode.style.height = "100%"
 			event.target.parentNode.parentNode.style.width = window.innerWidth + "px"
 			event.target.parentNode.parentNode.style.transform = "translate(0, 0)"
@@ -289,7 +289,8 @@ hmm.App = class {
 			n.classList.add("win")
 			content.style.overflow = "hidden"
 			content.appendChild(n)
-			setTimeout(() => { n.contentWindow.arg = arg }, 100)
+			n.onload = () =>
+				n.contentWindow.arg = arg
 		}
 
 		node.appendChild(content)
@@ -379,7 +380,7 @@ hmm.setMenu = () => {
 // }
 //setup
 hmm.setup = () => {
-	if(document.referrer.includes(":3000")){
+	if (document.referrer.includes(":3000")) {
 		alert("HmmOS denies dominance over another nothing.")
 		window.history.back()
 	}

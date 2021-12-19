@@ -49,13 +49,12 @@ wait: wait a certain amount of milliseconds
 `.split('\n').slice(0,-1).forEach(c.echo)
 	},
 	echo() {
-		(function () {
-			c.echo(e.join(" "))
-			return new Promise(res => res())
-		})()
+		c.echo(e.join(" "))
+		,0
 	},
 	err() {
 		c.err(e.join(" "))
+		,0
 	},
 	open() {
 		let fname = hmm.pathToPath(e.join` `,(c?c.eval('cwd'):'/')), h = true
@@ -73,14 +72,17 @@ wait: wait a certain amount of milliseconds
 	},
 	cd(){
 		c.eval('cwd=atob("'+btoa(hmm.pathToPath(e.join``,c.eval('cwd')))+'")')
-		,0[0]
+		,0
 	},
 	ls(){
 		var f=hmm.pathToJs(hmm.pathToPath(e.join``,c.eval('cwd')))
 		Object.keys(f).sort().forEach(c.echo)
-		,0[0]
+		,0
 	},
-	clear(){c.eval('lines=[];ty=-1;yOffset=0'),0[0]}
+	clear(){c.eval('lines=[];ty=-1;yOffset=0'),0},
+	$(){
+		hmm.$(hmm.pathToJs(hmm.pathToPath(e.join``,c.eval('cwd'))),c),0
+	}
 }
 for (const cmd in hmm.storage.cmd) {
 	hmm.storage.cmd[cmd] = String(hmm.storage.cmd[cmd])

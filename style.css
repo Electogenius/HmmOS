@@ -340,6 +340,8 @@ textarea{
 input{
 	background: #000;
 	border: 1px solid white;
+	color:#fff;
+	caret-color: #fff;
 }
 
 input:focus{
