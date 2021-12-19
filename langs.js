@@ -4,19 +4,27 @@ hmm.langNames={
 	"Compressed Undardese (surknangdārdyizõ)":"cd"
 }
 hmm.storage.i18n.en = {
-	"welcome": "Welcome to HmmOS!",
-	"menu": {
+	welcome: "Welcome to HmmOS!",
+	menu: {
 		"apps-label": "Apps"
 	},
-	"apps": {
-		"settings": {
-			"lang": "System language",
-			"name": "Settings"
+	apps: {
+		settings: {
+			lang: "System language",
+			name: "Settings"
 		},
-		"fe":{
+		fe:{
 			goback:"back",
 			addfile:"Create file"
 		}
+	},
+	ui:{ //general ui related things
+		cancel:"Cancel",
+		ok:"OK",
+		save:"Save",
+		delete:"Delete",
+		yes:"Yes",
+		no:"No"
 	}
 }
 hmm.storage.i18n.cd = {
@@ -33,6 +41,14 @@ hmm.storage.i18n.cd = {
 			goback:"pnād",
 			addfile:"kōp sei"
 		}
+	},
+	ui:{
+		cancel:"vænã",
+		ok:"ser",
+		save:"padhpī",
+		delete:"ałi",
+		yes:"ā~",
+		no:"lle"
 	}
 }
 for (lang in hmm.storage.i18n) {
