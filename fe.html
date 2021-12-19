@@ -35,7 +35,7 @@
 <div id="add" onclick="
 //TODO: i18n
 hmm.popup(`Enter a name for your file<br>
-<input id=n><button default>create</button><button id=no>cancel</button>`).then(e=>{
+<input id=n><br><button default>create</button><button id=no>cancel</button>`).then(e=>{
 //window.parent.console.log(e)
 	if(e.button=='no')return
 	var n=e.popup.querySelector('#n').value
