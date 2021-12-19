@@ -2,31 +2,31 @@ function e(query) {
 	return document.querySelector(query)
 }
 window.hmm = {
-	testcommand: function () {
+	testcommand: function () {//runs when in development
 		//hmm.openApp("settings.hmm");
 	},
-	restart: function () {
+	restart: function () {//refresh page
 		window.location = window.location.href
 	},
 	safe: {},
-	hasPerms: (name, filename) => {
+	hasPerms: (name, filename) => {//deprecated
 		return eval("hmm.storage['.pr'].perms." + name).includes(filename + " ")
 	},
 	l: {},
-	t: phrase => {
+	t: phrase => {//translates key to current language
 		return hmm.l[hmm.storage.opts.lang]?.t(phrase)
 	},
-	reset() {
+	reset() {//restart everything
 		hmm.storage = null
 		localforage.setItem('hmm-fs', hmm.storage)
 		location = location.href
 	},
-	pathToJs(p) {
+	pathToJs(p) {//evaluates path and returns value
 		var cr = hmm.storage;
 		(p.match(/\/[^/]+/g) || []).forEach((e) => cr = cr[e.slice(1)])
 		return cr
 	},
-	pathToDot(p) {
+	pathToDot(p) {//returns javascript dot notation as string from path
 		return "hmm.storage[atob('" + p.replace(/^\//, "").split('/').map(btoa).join("')][atob('") + "')]"
 	},
 	mtt: {//empty shell interface

@@ -1,4 +1,8 @@
 hmm.storage.i18n = {}
+hmm.langNames={
+	"English":"en",
+	"Compressed Undardese (surknangdārdyizõ)":"cd"
+}
 hmm.storage.i18n.en = {
 	"welcome": "Welcome to HmmOS!",
 	"menu": {
