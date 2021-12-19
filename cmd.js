@@ -1,3 +1,12 @@
+hmm.$$=(cm,c)=>{//run more than 1 command
+	let i=0;
+	(function run(){
+		hmm.$(cm.split`\n`[i],c).then(()=>{
+			i++
+			run()
+		})
+	})()
+}
 hmm.$ = (cm, c) => {
 	let l = hmm.$.token(cm)
 	if (l[0] == "") return new Promise(r => r());
@@ -81,7 +90,7 @@ wait: wait a certain amount of milliseconds
 	},
 	clear(){c.eval('lines=[];ty=-1;yOffset=0'),0},
 	$(){
-		hmm.$(hmm.pathToJs(hmm.pathToPath(e.join``,c.eval('cwd'))),c),0
+		hmm.$$(hmm.pathToJs(hmm.pathToPath(e.join``,c.eval('cwd'))),c),0
 	}
 }
 for (const cmd in hmm.storage.cmd) {

@@ -264,7 +264,7 @@ hmm.App = class {
 			setTimeout(() => x({}, {}, hmm.hmmVar(content, this.filename), hmm.hmmVar(content, this.filename).el), 100)
 		} else */
 		if (this.type == 0) {
-			hmm.$(this.code, hmm.mtt)
+			hmm.$$(this.code, hmm.mtt)
 			return
 		}
 		/*else if (this.type == "egc-canvas") {
