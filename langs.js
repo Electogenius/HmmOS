@@ -40,7 +40,8 @@ hmm.storage.i18n.cd = {
 		},
 		fe:{
 			goback:"pnād",
-			addfile:"kōp sei"
+			addfile:"kōp sey",
+			adddir: "kōpure sey"
 		}
 	},
 	ui:{
