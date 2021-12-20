@@ -21,7 +21,7 @@
 		float: right;
 		color: #aaa;
 	}
-	
+
 	div.add{
 		color:#05d;
 	}
@@ -44,10 +44,23 @@ hmm.popup(`Enter a name for your file<br>
 	loadpath()
 })
 " class="add file"></div>
+<div id="mkdir" onclick="
+//TODO: i18n
+hmm.popup(`Enter a name for your directory<br>
+<input id=n><br><button default>create</button><button id=no>cancel</button>`).then(e=>{
+//window.parent.console.log(e)
+	if(e.button=='no')return
+	var n=e.popup.querySelector('#n').value
+	if(n in hmm.pathToJs(path)){hmm.popup('File already exists<br><button default>OK');return}
+	eval(hmm.pathToDot(path+n)+'={}')
+	loadpath()
+})
+" class="add file"></div>
 <script>
 	window.hmm = window.parent.hmm;
 	path = "/"
 	document.getElementById("add").innerText=hmm.t("apps.fe.addfile")
+	document.getElementById("mkdir").innerText=hmm.t("apps.fe.adddir")
 	loadpath=()=>{
 		document.getElementById('pathlabel').innerText = path
 		document.getElementById('files').innerHTML = (path != "/") ? `

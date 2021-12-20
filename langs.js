@@ -15,7 +15,8 @@ hmm.storage.i18n.en = {
 		},
 		fe:{
 			goback:"back",
-			addfile:"Create file"
+			addfile:"Create file",
+			adddir: "Create directory"
 		}
 	},
 	ui:{ //general ui related things
