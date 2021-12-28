@@ -3,6 +3,6 @@ A very buggy and useless web desktop.
 
 No backend
 
-[No](electogenius.github.io/HmmOS)
+[No](https://electogenius.github.io/HmmOS)
 
 ![woops](woops.png)
