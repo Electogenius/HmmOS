@@ -404,8 +404,3 @@ hmm.setup = () => {
 //Object.prototype.with=function(k,v){var x=this;x[k]=v;return x}
 //hide menu:
 document.getElementById("menu").style.width = "0"
-
-//prevent right click
-document.addEventListener('contextmenu', ev => {
-	ev.preventDefault()
-});

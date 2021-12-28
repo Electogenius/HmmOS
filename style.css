@@ -347,3 +347,18 @@ input{
 input:focus{
 	outline: 3px solid #05d;
 }
+
+#ctx{
+	background-color: #444;
+	padding: 2.5px;
+	position: absolute;
+	font-size: 15px;
+	width: 150px;
+	display: none;
+}
+.ctx-option{
+	padding: 2.5px;
+}
+.ctx-option:hover{
+	background: #05d;
+}
