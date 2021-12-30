@@ -355,9 +355,13 @@ input:focus{
 	font-size: 15px;
 	width: 150px;
 	display: none;
+	top:0;
+	left:0;
 }
 .ctx-option{
 	padding: 2.5px;
+	background: #fff1;
+	transition: background 0.3s
 }
 .ctx-option:hover{
 	background: #05d;
