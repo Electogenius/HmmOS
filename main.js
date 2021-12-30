@@ -3,7 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () {//runs when in development
-		//hmm.openApp("settings.hmm");
+		hmm.openApp("fe.hmm");
 	},
 	restart: function () {//refresh page
 		window.location = window.location.href
@@ -103,14 +103,7 @@ hmm.storage = {
 		"fe.hmm": {
 			title: { en: "Files", cd: "kōpnge" },
 			type: "iframe",
-			code: `<script class=ev>
-			window.onmessage=e=>window.arg=e.data
-			window.onload=()=>{fetch('./fe.html').then(e=>e.text()).then(e=>{
-				document.body.innerHTML=e
-				document.querySelectorAll('script:not(.ev)').forEach(e=>{eval(e.innerHTML)})
-			})
-			}
-			</script><body></body>`
+			code: `<script>location='./fe.html'</script>`
 		},
 		"textpad.hmm": {
 			title: { en: "TextPad" },

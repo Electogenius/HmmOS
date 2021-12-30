@@ -1,8 +1,42 @@
+<body ctx=body>
+	<link rel="stylesheet" href="ui.css" type="text/css" media="all" />
 <script>
+window.hmm=window.parent.hmm
 	window._AppName = "fe"
-	back=window.parent.hmm.t("apps.fe.goback")
+	back = window.parent.hmm.t("apps.fe.goback")
 </script>
 <link rel="stylesheet" href="style.css">
+<script src="ctx.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	window.ctxs = {
+		body: `
+		<div id="add" onclick="
+		//TODO: i18n
+		hmm.popup(\`Enter a name for your file<br>
+		<input id=n><br><button default>create</button><button id=no>cancel</button>\`).then(e=>{
+		//window.parent.console.log(e)
+			if(e.button=='no')return
+			var n=e.popup.querySelector('#n').value
+			if(n in hmm.pathToJs(path)){hmm.popup('File already exists<br><button default>OK');return}
+			eval(hmm.pathToDot(path+n)+'=\`\`')
+			loadpath()
+		})
+		" class="ctx-option">${hmm.t("apps.fe.addfile")}</div>
+		<div id="mkdir" onclick="
+		//TODO: i18n
+		hmm.popup(\`Enter a name for your directory<br>
+		<input id=n><br><button default>create</button><button id=no>cancel</button>\`).then(e=>{
+		//window.parent.console.log(e)
+			if(e.button=='no')return
+			var n=e.popup.querySelector('#n').value
+			if(n in hmm.pathToJs(path)){hmm.popup('File already exists<br><button default>OK');return}
+			eval(hmm.pathToDot(path+n)+'={}')
+			loadpath()
+		})
+		" class="ctx-option">${hmm.t("apps.fe.adddir")}</div>
+		`//todo delete current folder
+	}
+</script>
 <style>
 	body {
 		overflow: auto;
@@ -22,8 +56,8 @@
 		color: #aaa;
 	}
 
-	div.add{
-		color:#05d;
+	div.add {
+		color: #05d;
 	}
 
 	#pathlabel {
@@ -32,52 +66,26 @@
 </style>
 <span id="pathlabel"></span>
 <div id="files"></div>
-<div id="add" onclick="
-//TODO: i18n
-hmm.popup(`Enter a name for your file<br>
-<input id=n><br><button default>create</button><button id=no>cancel</button>`).then(e=>{
-//window.parent.console.log(e)
-	if(e.button=='no')return
-	var n=e.popup.querySelector('#n').value
-	if(n in hmm.pathToJs(path)){hmm.popup('File already exists<br><button default>OK');return}
-	eval(hmm.pathToDot(path+n)+'=``')
-	loadpath()
-})
-" class="add file"></div>
-<div id="mkdir" onclick="
-//TODO: i18n
-hmm.popup(`Enter a name for your directory<br>
-<input id=n><br><button default>create</button><button id=no>cancel</button>`).then(e=>{
-//window.parent.console.log(e)
-	if(e.button=='no')return
-	var n=e.popup.querySelector('#n').value
-	if(n in hmm.pathToJs(path)){hmm.popup('File already exists<br><button default>OK');return}
-	eval(hmm.pathToDot(path+n)+'={}')
-	loadpath()
-})
-" class="add file"></div>
 <script>
 	window.hmm = window.parent.hmm;
 	path = "/"
-	document.getElementById("add").innerText=hmm.t("apps.fe.addfile")
-	document.getElementById("mkdir").innerText=hmm.t("apps.fe.adddir")
-	loadpath=()=>{
+	loadpath = () => {
 		document.getElementById('pathlabel').innerText = path
 		document.getElementById('files').innerHTML = (path != "/") ? `
 			<div class="file" style="color:#05d" onclick="path=path.slice(0,path.slice(0,-1).lastIndexOf('/')+1);loadpath()">&larr; ${back}</div>
-			`: ''
+			` : ''
 		Object.keys(hmm.pathToJs(path)).sort().forEach(e => {
 			var el = document.createElement('div')
 			el.classList.add('file')
-			if (typeof (hmm.pathToJs(path)[e]) == "object") {
+			if (typeof(hmm.pathToJs(path)[e]) == "object") {
 				el.classList.add('folder')
 				el.onclick = () => {
 					path += e + '/'
 					loadpath()
 				}
-			}else{
-				el.onclick=(ev)=>{
-					hmm.$("open "+path+ev.target.innerText)
+			} else {
+				el.onclick = (ev) => {
+					hmm.$("open " + path + ev.target.innerText)
 				}
 			}
 			if (e.startsWith('.')) el.style.color = "#aaa"
@@ -85,11 +93,17 @@ hmm.popup(`Enter a name for your directory<br>
 			document.getElementById('files').appendChild(el)
 		})
 	}
-	setTimeout(()=>{
-		if((window.arg||'').startsWith("$open ")){
-			path=window.arg.slice(6)
+	setTimeout(() => {
+		if ((window.arg || '').startsWith("$open ")) {
+			path = window.arg.slice(6)
 			loadpath()
 		}
-	},100)
+	}, 100)
 	loadpath()
 </script>
+<br>
+<br>
+<br>
+<br>
+<br>
+</body>

@@ -14,3 +14,12 @@
 	padding: 5px;
 	border-radius: 5px;
 }
+.ctx-option{
+	padding: 2.5px;
+	background: #fff1;
+	transition: background 0.3s;
+	margin-bottom: 2px;
+}
+.ctx-option:hover{
+	background: #05d;
+}
