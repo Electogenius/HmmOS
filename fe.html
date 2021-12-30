@@ -11,25 +11,23 @@ window.hmm=window.parent.hmm
 	window.ctxs = {
 		body: `
 		<div id="add" onclick="
-		//TODO: i18n
-		hmm.popup(\`Enter a name for your file<br>
-		<input id=n><br><button default>create</button><button id=no>cancel</button>\`).then(e=>{
+		hmm.popup(\`${hmm.t('apps.fe.namefile')}<br>
+		<input id=n><br><button default>${hmm.t('ui.create')}</button><button id=no>${hmm.t('ui.cancel')}</button>\`).then(e=>{
 		//window.parent.console.log(e)
 			if(e.button=='no')return
 			var n=e.popup.querySelector('#n').value
-			if(n in hmm.pathToJs(path)){hmm.popup('File already exists<br><button default>OK');return}
+			if(n in hmm.pathToJs(path)){hmm.popup('${hmm.t('apps.fe.alreadyexists')}<br><button default>${hmm.t('ui.ok')}');return}
 			eval(hmm.pathToDot(path+n)+'=\`\`')
 			loadpath()
 		})
 		" class="ctx-option">${hmm.t("apps.fe.addfile")}</div>
 		<div id="mkdir" onclick="
-		//TODO: i18n
-		hmm.popup(\`Enter a name for your directory<br>
-		<input id=n><br><button default>create</button><button id=no>cancel</button>\`).then(e=>{
+		hmm.popup(\`${hmm.t('apps.fe.namedir')}<br>
+		<input id=n><br><button default>${hmm.t('ui.create')}</button><button id=no>${hmm.t('ui.cancel')}</button>\`).then(e=>{
 		//window.parent.console.log(e)
 			if(e.button=='no')return
 			var n=e.popup.querySelector('#n').value
-			if(n in hmm.pathToJs(path)){hmm.popup('File already exists<br><button default>OK');return}
+			if(n in hmm.pathToJs(path)){hmm.popup('${hmm.t('apps.fe.alreadyexists')}<br><button default>${hmm.t('ui.ok')}');return}
 			eval(hmm.pathToDot(path+n)+'={}')
 			loadpath()
 		})

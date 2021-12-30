@@ -16,7 +16,11 @@ hmm.storage.i18n.en = {
 		fe:{
 			goback:"back",
 			addfile:"Create file",
-			adddir: "Create directory"
+			adddir: "Create folder",
+			deletefolder:"Delete current folder",
+			alreadyexists:"A file/folder with that name already exists",
+			namefile:"Enter a name for your file",
+			namedir:"Enter a name for your folder"
 		}
 	},
 	ui:{ //general ui related things
@@ -25,7 +29,8 @@ hmm.storage.i18n.en = {
 		save:"Save",
 		delete:"Delete",
 		yes:"Yes",
-		no:"No"
+		no:"No",
+		create:"Create"
 	}
 }
 hmm.storage.i18n.cd = {
@@ -41,7 +46,11 @@ hmm.storage.i18n.cd = {
 		fe:{
 			goback:"pnād",
 			addfile:"kōp sey",
-			adddir: "kōpure sey"
+			adddir: "kōpure sey",
+			deletefolder:"ikōpureyałi",
+			alreadyexists:"apērlaor kōplna kōpurærknvērk",
+			namefile:"kōpkor pēr thāng",
+			namedir:"kōpurekor pēr thāng"
 		}
 	},
 	ui:{
@@ -50,7 +59,8 @@ hmm.storage.i18n.cd = {
 		save:"padhpī",
 		delete:"ałi",
 		yes:"ā~",
-		no:"lle"
+		no:"lle",
+		create:"sey"
 	}
 }
 for (lang in hmm.storage.i18n) {
