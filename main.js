@@ -373,7 +373,7 @@ hmm.setMenu = () => {
 // }
 //setup
 hmm.setup = () => {
-	if (document.referrer.includes(":3000")) {
+	if (document.referrer.startsWith("http://localhost:")&&!(location.href.startsWith("http://localhost:"))) {
 		alert("HmmOS denies dominance over another nothing.")
 		window.history.back()
 	}
