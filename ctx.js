@@ -1,9 +1,11 @@
 document.addEventListener('contextmenu', ev => {
+	hmm.ctx(ev,eval("window.ctxs"))
+	ev.preventDefault()
+})
+document.addEventListener('click',ev=>{
 	if (ev.target != document.getElementById("ctx")) {
 		document.getElementById("ctx").style.display = "none"
 	}
-	hmm.ctx(ev,eval("window.ctxs"))
-	ev.preventDefault()
 })
 document.addEventListener('touchstart', ev => {
 	setTimeout(()=>{
