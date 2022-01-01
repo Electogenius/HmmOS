@@ -8,5 +8,6 @@ hmm.updates={
 	0.2031:()=>["/cmd/$"],
 	0.20311:()=>["/cmd/$"],
 	0.204:()=>["/apps/fe.hmm"],
-	0.2041:()=>["/i18n/en/apps/fe","/i18n/cd/apps/fe"]
+	0.2041:()=>["/i18n/en/apps/fe","/i18n/cd/apps/fe"],
+	0.2042:()=>["/apps/browser.hmm"]
 }

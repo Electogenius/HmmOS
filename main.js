@@ -127,6 +127,13 @@ hmm.storage = {
 				}
 			}},100)</script>
 			`
+		},
+		"browser.hmm": {
+			title: { en: "Browser", cd: "ulāwi" },
+			type:"iframe",
+			code:`
+			<script>location='./browser.html'</script>
+			`
 		}
 	},
 	opts: {
@@ -169,7 +176,7 @@ window.onload = () => {
 				//update hmmos
 				hmm.updates[upd]().forEach(e => {
 					eval(hmm.pathToDot(e) + '=init' + hmm.pathToDot(e).slice(11))
-					eval(e.extras||"")
+					eval(e.extras || "")
 				})
 				console.log("Updated HmmOS to version " + upd)
 				hmm.storage.version = Number(upd)
@@ -375,7 +382,7 @@ hmm.setMenu = () => {
 // }
 //setup
 hmm.setup = () => {
-	if (document.referrer.startsWith("http://localhost:")&&!(location.href.startsWith("http://localhost:"))) {
+	if (document.referrer.startsWith("http://localhost:") && !(location.href.startsWith("http://localhost:"))) {
 		alert("HmmOS denies dominance over another nothing.")
 		window.history.back()
 	}

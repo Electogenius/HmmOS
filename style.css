@@ -337,17 +337,6 @@ textarea{
 	color:#fff;
 }
 
-input{
-	background: #000;
-	border: 1px solid white;
-	color:#fff;
-	caret-color: #fff;
-}
-
-input:focus{
-	outline: 3px solid #05d;
-}
-
 #ctx{
 	background-color: #444;
 	padding: 2.5px;

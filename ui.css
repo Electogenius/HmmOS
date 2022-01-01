@@ -23,3 +23,14 @@
 .ctx-option:hover{
 	background: #05d;
 }
+
+input{
+	background: #000;
+	border: 1px solid white;
+	color:#fff;
+	caret-color: #fff;
+}
+
+input:focus{
+	outline: 3px solid #05d;
+}
