@@ -166,8 +166,10 @@ window.onload = () => {
 		}
 		for (upd in hmm.updates) {
 			if (Number(upd) > hmm.storage.version) {
+				//update hmmos
 				hmm.updates[upd]().forEach(e => {
 					eval(hmm.pathToDot(e) + '=init' + hmm.pathToDot(e).slice(11))
+					eval(e.extras||"")
 				})
 				console.log("Updated HmmOS to version " + upd)
 				hmm.storage.version = Number(upd)
