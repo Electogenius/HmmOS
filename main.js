@@ -4,6 +4,7 @@ function e(query) {
 window.hmm = {
 	testcommand: function () {//runs when in development
 		hmm.openApp("fe.hmm");
+		hmm.openApp("settings.hmm")
 	},
 	restart: function () {//refresh page
 		window.location = window.location.href
@@ -78,6 +79,7 @@ window.hmm = {
 hmm.storage = {
 	name: "HmmOS",
 	version: 0,
+	"better-alternative.txt":"Another nothing (https://github.com/liimee/another-nothing) of course.",
 	apps: {
 		"app.hmm": {
 			title: { en: "Test app", cd: "edhō" },
@@ -293,10 +295,15 @@ hmm.App = class {
 			content.appendChild(n)
 			n.onload = () =>
 				n.contentWindow.arg = arg
+			this.if=n
 		}
 
 		node.appendChild(content)
 		var position = { x: 0, y: 0 }
+		function draggy() {
+			document.querySelectorAll("window").forEach(e=>e.style.zIndex=1)
+			node.style.zIndex=2
+		}
 		interact(node).draggable({
 			allowFrom: "taskbar",
 			modifiers: [],
@@ -307,6 +314,7 @@ hmm.App = class {
 						position.y -= 90
 						event.target.style.transform = `translate(${Math.max(0, position.x)}px, ${Math.max(0, position.y)}px)`;
 					}
+					draggy()
 				},
 				move(event) {
 					position.x = Math.max(position.x + event.dx, 0);
@@ -337,6 +345,8 @@ hmm.App = class {
 		this.width = Math.min(window.innerWidth, 300)
 		document.getElementById("windows").appendChild(node)
 		document.getElementById("bar").appendChild(this.baritem)
+		node.addEventListener("mousedown",draggy)
+		this.if.contentWindow.addEventListener("focus",draggy)
 	}
 }
 setInterval(e => {
