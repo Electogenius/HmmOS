@@ -11,5 +11,6 @@ hmm.updates={
 	0.2041:()=>["/i18n/en/apps/fe","/i18n/cd/apps/fe"],
 	0.2042:()=>["/apps/browser.hmm"],
 	0.2043:()=>["/better-alternative.txt"],
-	0.204301:()=>["/apps/fe.hmm","/apps/browser.hmm","/apps/settings.hmm","/.shmm/app.hmm"]
+	0.204301:()=>["/apps/fe.hmm","/apps/browser.hmm","/apps/settings.hmm","/.shmm/app.hmm"],
+	0.2043011:()=>["/apps/fe.hmm","/apps/browser.hmm","/apps/settings.hmm","/.shmm/app.hmm"],//AAAAAA
 }
