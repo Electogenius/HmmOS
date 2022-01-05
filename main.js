@@ -100,12 +100,12 @@ hmm.storage = {
 		"settings.hmm": {
 			title: { en: "settings", cd: "māthrdhng" },
 			type: "iframe",
-			code: "<script>location='./settings.html'</script>",
+			code: "<script>location='./apps/settings.html'</script>",
 		},
 		"fe.hmm": {
 			title: { en: "Files", cd: "kōpnge" },
 			type: "iframe",
-			code: `<script>location='./fe.html'</script>`
+			code: `<script>location='./apps/fe.html'</script>`
 		},
 		"textpad.hmm": {
 			title: { en: "TextPad" },
@@ -134,7 +134,7 @@ hmm.storage = {
 			title: { en: "Browser", cd: "ulāwi" },
 			type:"iframe",
 			code:`
-			<script>location='./browser.html'</script>
+			<script>location='./apps/browser.html'</script>
 			`
 		}
 	},
@@ -155,7 +155,7 @@ hmm.storage = {
 		"app.hmm": {
 			title: { en: "Terminal" },
 			type: "iframe",
-			code: "<script>window.location='./ptbye.html'</script>"
+			code: "<script>window.location='./apps/ptbye.html'</script>"
 		}
 	},
 	user: {} //user files
