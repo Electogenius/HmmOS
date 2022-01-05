@@ -1,0 +1,107 @@
+<body ctx=body>
+	<link rel="stylesheet" href="ui.css" type="text/css" media="all" />
+<script>
+window.hmm=window.parent.hmm
+	window._AppName = "fe"
+	back = window.parent.hmm.t("apps.fe.goback")
+</script>
+<link rel="stylesheet" href="style.css">
+<script src="ctx.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	window.ctxs = {
+		body: `
+		<div id="add" onclick="
+		hmm.popup(\`${hmm.t('apps.fe.namefile')}<br>
+		<input id=n><br><button default>${hmm.t('ui.create')}</button><button id=no>${hmm.t('ui.cancel')}</button>\`).then(e=>{
+		//window.parent.console.log(e)
+			if(e.button=='no')return
+			var n=e.popup.querySelector('#n').value
+			if(n in hmm.pathToJs(path)){hmm.popup('${hmm.t('apps.fe.alreadyexists')}<br><button default>${hmm.t('ui.ok')}');return}
+			eval(hmm.pathToDot(path+n)+'=\`\`')
+			loadpath()
+		})
+		" class="ctx-option">${hmm.t("apps.fe.addfile")}</div>
+		<div id="mkdir" onclick="
+		hmm.popup(\`${hmm.t('apps.fe.namedir')}<br>
+		<input id=n><br><button default>${hmm.t('ui.create')}</button><button id=no>${hmm.t('ui.cancel')}</button>\`).then(e=>{
+		//window.parent.console.log(e)
+			if(e.button=='no')return
+			var n=e.popup.querySelector('#n').value
+			if(n in hmm.pathToJs(path)){hmm.popup('${hmm.t('apps.fe.alreadyexists')}<br><button default>${hmm.t('ui.ok')}');return}
+			eval(hmm.pathToDot(path+n)+'={}')
+			loadpath()
+		})
+		" class="ctx-option">${hmm.t("apps.fe.adddir")}</div>
+		`//todo delete current folder
+	}
+</script>
+<style>
+	body {
+		overflow: auto;
+	}
+
+	div.file {
+		background-color: #000;
+		border-radius: 5px;
+		border: 2px solid #fff;
+		border-bottom: 1px solid #fff;
+		border-top: 1px solid #fff;
+	}
+
+	div.folder::after {
+		content: ">";
+		float: right;
+		color: #aaa;
+	}
+
+	div.add {
+		color: #05d;
+	}
+
+	#pathlabel {
+		font-family: menlo, monospace;
+	}
+</style>
+<span id="pathlabel"></span>
+<div id="files"></div>
+<script>
+	window.hmm = window.parent.hmm;
+	path = "/"
+	loadpath = () => {
+		document.getElementById('pathlabel').innerText = path
+		document.getElementById('files').innerHTML = (path != "/") ? `
+			<div class="file" style="color:#05d" onclick="path=path.slice(0,path.slice(0,-1).lastIndexOf('/')+1);loadpath()">&larr; ${back}</div>
+			` : ''
+		Object.keys(hmm.pathToJs(path)).sort().forEach(e => {
+			var el = document.createElement('div')
+			el.classList.add('file')
+			if (typeof(hmm.pathToJs(path)[e]) == "object") {
+				el.classList.add('folder')
+				el.onclick = () => {
+					path += e + '/'
+					loadpath()
+				}
+			} else {
+				el.onclick = (ev) => {
+					hmm.$("open " + path + ev.target.innerText)
+				}
+			}
+			if (e.startsWith('.')) el.style.color = "#aaa"
+			el.innerText = e
+			document.getElementById('files').appendChild(el)
+		})
+	}
+	setTimeout(() => {
+		if ((window.arg || '').startsWith("$open ")) {
+			path = window.arg.slice(6)
+			loadpath()
+		}
+	}, 100)
+	loadpath()
+</script>
+<br>
+<br>
+<br>
+<br>
+<br>
+</body>

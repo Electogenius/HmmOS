@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" href="style.css">
+	<style type="text/css" media="all">
+		body {
+			background-color: black;
+			color: white;
+			overflow: auto ;
+			font-family: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		}
+		*{
+			font-weight: 400;
+		}
+		h1,h2{
+			margin: 5px;
+		}
+	</style>
+	<link rel="stylesheet" href="ui.css">
+</head>
+
+<body>
+	<!--<div id="dmode">
+		<label for="dm"></label><input type="checkbox" name="dm" id="dm" />
+	</div>-->
+	<h1 data-t="name"></h1>
+	<div id="language">
+		<h2 data-t="lang"></h2>
+
+	</div>
+	<script>
+		let e = q => document.getElementById(q)
+		let hmm = {}
+		hmm = window.parent.hmm
+		const langCodes = hmm.langNames
+		//ui{
+		var el = (hmm.ui.choose(Object.keys(langCodes),hmm.storage.opts.lang))
+		el.id = 'lang'
+		e('language').appendChild(el)
+		//}
+		e("lang").value = Object.keys(langCodes).filter(e=>langCodes[e]==hmm.storage.opts.lang)[0]
+		e("lang").onchange = (ev) => {
+			hmm.storage.opts.lang = langCodes[ev.target.value]//Object.keys(langCodes).filter(e=>langCodes[e]==ev.target.value)[0]
+			hmm.setup(); t(hmm)
+		}
+		function t(w) {
+			document.querySelectorAll("[data-t]").forEach(e => {
+				e.innerHTML = w.t("apps.settings." + e.getAttribute("data-t"))
+			})
+		}
+		t(hmm)
+	</script>
+</body>
+
+</html>
