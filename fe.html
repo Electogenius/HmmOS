@@ -21,10 +21,10 @@ window.hmm=window.parent.hmm
 			loadpath()
 		})
 		" class="ctx-option">${hmm.t("apps.fe.addfile")}</div>
+
 		<div id="mkdir" onclick="
 		hmm.popup(\`${hmm.t('apps.fe.namedir')}<br>
 		<input id=n><br><button default>${hmm.t('ui.create')}</button><button id=no>${hmm.t('ui.cancel')}</button>\`).then(e=>{
-		//window.parent.console.log(e)
 			if(e.button=='no')return
 			var n=e.popup.querySelector('#n').value
 			if(n in hmm.pathToJs(path)){hmm.popup('${hmm.t('apps.fe.alreadyexists')}<br><button default>${hmm.t('ui.ok')}');return}
@@ -32,6 +32,18 @@ window.hmm=window.parent.hmm
 			loadpath()
 		})
 		" class="ctx-option">${hmm.t("apps.fe.adddir")}</div>
+
+		<div id="del" onclick="
+		hmm.popup(\`${hmm.t("ui.delete")}?<br>
+		<button id=yes>${hmm.t('ui.yes')}</button>
+		<button id=no>${hmm.t('ui.cancel')}</button>
+		\`).then(e=>{
+			if(e.button=='no'|| path=='/'||path=='/apps')return;
+			eval('delete '+hmm.pathToDot(path.slice(0,-1)))
+			path=path.split('/').slice(0,-2).join('/')+'/'
+			loadpath()
+		})
+		" class="ctx-option">${hmm.t("apps.fe.deletefolder")}</div>
 		`//todo delete current folder
 	}
 </script>
