@@ -21,6 +21,18 @@
 		* {
 			cursor: var(--cursor) !important;
 		}
+
+		#ace_settingsmenu {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			color: white !important;
+			background-color: #000;
+			content: "<button></button>";
+			width: 80vw;
+			height: 70vh;
+			overflow: scroll;
+		}
 	</style>
 	<link rel="stylesheet" href="ui.css">
 </head>
@@ -30,8 +42,8 @@
 	<script>
 		var e = ace.edit("editor")
 		e.setOptions({
-			fontFamily:"ui-monospace, menlo",
-			fontSize:15
+			fontFamily: "ui-monospace, menlo",
+			fontSize: 15
 		})
 		e.setTheme('ace/theme/nord_dark')
 		var { hmm } = parent
@@ -39,9 +51,9 @@
 			window.arg ||= ""
 			if (window.arg.startsWith('$open ')) {
 				e.setValue('' + hmm.pathToJs(window.arg.slice(6)))
-				if(/\.hmm\/code$/.test(window.arg)){
+				if (/\.hmm\/code$/.test(window.arg)) {
 					e.session.setMode('ace/mode/html')
-				}else if(window.arg.startsWith("$open /cmd/")){
+				} else if (window.arg.startsWith("$open /cmd/")) {
 					e.session.setMode('ace/mode/javascript')
 				}
 			}
@@ -51,8 +63,8 @@
 				}
 			})
 		}, 100)
-		</script>
-		<script src="ctx.js"></script>
+	</script>
+	<script src="ctx.js"></script>
 </body>
 
 </html>
