@@ -58,6 +58,7 @@ ls: lists folders and files in the current directory
 open: opens an file or path
 ptbye: opens a terminal window
 wait: wait a certain amount of milliseconds
+rm: delete a file or folder
 `.split('\n').slice(0, -1).forEach(c.echo)
 	},
 	echo() {
@@ -94,6 +95,10 @@ wait: wait a certain amount of milliseconds
 	clear() { c.eval('lines=[];ty=-1;yOffset=0'), 0 },
 	$() {
 		hmm.$$(hmm.pathToJs(hmm.pathToPath(e.join``, c.eval('cwd'))), c)
+	},
+	rm(){
+		eval("delete "+hmm.pathToDot(hmm.pathToPath(e.join``, c.eval('cwd'))))
+		,0
 	}
 }
 for (const cmd in hmm.storage.cmd) {

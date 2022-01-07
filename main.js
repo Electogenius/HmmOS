@@ -3,7 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () {//runs when in development
-		hmm.openApp("textpad.hmm", "$open /better-alternative.txt");
+		hmm.openApp("textpad.hmm", "$open /apps/fe.hmm/code");
 	},
 	restart: function () {//refresh page
 		window.location = window.location.href
