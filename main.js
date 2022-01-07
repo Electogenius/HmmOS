@@ -3,8 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () {//runs when in development
-		hmm.openApp("fe.hmm");
-		hmm.openApp("settings.hmm")
+		hmm.openApp("textpad.hmm","$open /better-alternative.txt");
 	},
 	restart: function () {//refresh page
 		window.location = window.location.href
@@ -111,23 +110,7 @@ hmm.storage = {
 			title: { en: "TextPad" },
 			type: "iframe",
 			code: `
-			<textarea id=t contenteditable=true style="
-			font-family:menlo,monospace;
-			border:1px solid #fff;
-			white-space:nowrap;
-			overflow:auto;
-			resize:none;
-			position:absolute;
-			top:0;left:0;
-			height:95%;
-			width:95%
-			"></textarea>
-			<script>setTimeout(()=>{if((window.arg||'').startsWith("$open ")){
-				t.value=window.parent.hmm.pathToJs(window.arg)
-				t.oninput=()=>{
-					eval("window.parent."+window.parent.hmm.pathToDot(window.arg.slice(6))+"=t.value")
-				}
-			}},100)</script>
+			<script>location='./textpad.html'</script>
 			`
 		},
 		"browser.hmm": {
@@ -347,6 +330,7 @@ hmm.App = class {
 		document.getElementById("bar").appendChild(this.baritem)
 		node.addEventListener("mousedown",draggy)
 		this.if.contentWindow.addEventListener("focus",draggy)
+		draggy()
 	}
 }
 setInterval(e => {

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"
+		integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q=="
+		crossorigin="anonymous"></script>
+	<style>
+		#editor {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+
+		* {
+			cursor: var(--cursor) !important;
+		}
+	</style>
+	<link rel="stylesheet" href="ui.css">
+</head>
+
+<body>
+	<div id="editor"></div>
+	<script>
+		var e = ace.edit("editor")
+		e.setTheme('ace/theme/nord_dark')
+		var { hmm } = parent
+		setTimeout(() => {
+			window.arg ||= ""
+			if (window.arg.startsWith('$open ')) {
+				e.setValue('' + hmm.pathToJs(window.arg.slice(6)))
+			}
+			e.on('change', () => {
+				if (window.arg.startsWith('$open ')) {
+					eval(hmm.pathToDot(window.arg.slice(6)) + `=decodeURI("${encodeURI(e.getValue())}")`)
+				}
+			})
+		}, 100)
+	</script>
+</body>
+
+</html>

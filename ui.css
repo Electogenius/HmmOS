@@ -34,3 +34,13 @@ input{
 input:focus{
 	outline: 3px solid #05d;
 }
+
+
+:root {
+	--cursor: url("cursors-arrow.png");
+	--move: url("cursors-move.png");
+}
+
+body{
+	cursor: var(--cursor);
+}

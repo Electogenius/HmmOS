@@ -13,4 +13,5 @@ hmm.updates={
 	0.2043:()=>["/better-alternative.txt"],
 	0.204301:()=>["/apps/fe.hmm","/apps/browser.hmm","/apps/settings.hmm","/.shmm/app.hmm"],
 	0.2043011:()=>["/apps/fe.hmm","/apps/browser.hmm","/apps/settings.hmm","/.shmm/app.hmm"],//AAAAAA
+	0.2044:()=>["/apps/textpad.hmm"]
 }
