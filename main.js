@@ -3,7 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () {//runs when in development
-		hmm.openApp("textpad.hmm","$open /better-alternative.txt");
+		hmm.openApp("textpad.hmm", "$open /better-alternative.txt");
 	},
 	restart: function () {//refresh page
 		window.location = window.location.href
@@ -78,16 +78,16 @@ window.hmm = {
 hmm.storage = {
 	name: "HmmOS",
 	version: 0,
-	"better-alternative.txt":"Another nothing (https://github.com/liimee/another-nothing) of course.",
+	"better-alternative.txt": "Another nothing (https://github.com/liimee/another-nothing) of course.",
 	apps: {
 		"app.hmm": {
 			title: { en: "Test app", cd: "edhō" },
 			type: "iframe",
 			code: `
 <script>
-	onload=()=>{
-		console.log(window.parent)
-	}
+	setTimeout(()=>{
+		window.hmmWin.children[0].children[0].innerText=new Date().toString()
+	},100)
 </script>
 `
 		},
@@ -115,8 +115,8 @@ hmm.storage = {
 		},
 		"browser.hmm": {
 			title: { en: "Browser", cd: "ulāwi" },
-			type:"iframe",
-			code:`
+			type: "iframe",
+			code: `
 			<script>location='./browser.html'</script>
 			`
 		}
@@ -276,16 +276,18 @@ hmm.App = class {
 			n.classList.add("win")
 			content.style.overflow = "hidden"
 			content.appendChild(n)
-			n.onload = () =>
+			n.onload = () => {
 				n.contentWindow.arg = arg
-			this.if=n
+				n.contentWindow.hmmWin = node
+			}
+			this.if = n
 		}
 
 		node.appendChild(content)
 		var position = { x: 0, y: 0 }
 		function draggy() {
-			document.querySelectorAll("window").forEach(e=>e.style.zIndex=1)
-			node.style.zIndex=2
+			document.querySelectorAll("window").forEach(e => e.style.zIndex = 1)
+			node.style.zIndex = 2
 		}
 		interact(node).draggable({
 			allowFrom: "taskbar",
@@ -328,8 +330,8 @@ hmm.App = class {
 		this.width = Math.min(window.innerWidth, 300)
 		document.getElementById("windows").appendChild(node)
 		document.getElementById("bar").appendChild(this.baritem)
-		node.addEventListener("mousedown",draggy)
-		this.if.contentWindow.addEventListener("focus",draggy)
+		node.addEventListener("mousedown", draggy)
+		this.if.contentWindow.addEventListener("focus", draggy)
 		draggy()
 	}
 }
