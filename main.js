@@ -167,6 +167,13 @@ window.onload = () => {
 				hmm.storage.version = Number(upd)
 			}
 		}
+		for (lang in hmm.storage.i18n) {
+			if(lang.startsWith("_"))continue;
+			hmm.l[lang] = new Polyglot({
+				locale: lang,
+				phrases: hmm.storage.i18n[lang]
+			})
+		}
 		hmm.setup()
 	})
 }
@@ -295,10 +302,6 @@ hmm.App = class {
 			inertia: true,
 			listeners: {
 				start(event) {
-					if (Math.abs(position.y - window.innerHeight) < 30) {
-						position.y -= 90
-						event.target.style.transform = `translate(${Math.max(0, position.x)}px, ${Math.max(0, position.y)}px)`;
-					}
 					draggy()
 				},
 				move(event) {

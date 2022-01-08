@@ -63,10 +63,3 @@ hmm.storage.i18n.cd = {
 		create:"sey"
 	}
 }
-for (lang in hmm.storage.i18n) {
-	if(lang.startsWith("_"))continue;
-	hmm.l[lang] = new Polyglot({
-		locale: lang,
-		phrases: hmm.storage.i18n[lang]
-	})
-}

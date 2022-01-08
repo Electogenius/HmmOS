@@ -48,7 +48,7 @@ hmm.pathToPath = (p, cwd) => {
 	return p
 }
 hmm.storage.cmd = {
-	help(c) {
+	help(c) {//todo fix this
 		`Built-in commands:
 cd: change current directory
 clear: clears screen
