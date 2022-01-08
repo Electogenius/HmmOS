@@ -3,7 +3,7 @@ hmm.$$ = (cm, c) => {//run more than 1 command
 		let i = 0;
 		(function run() {
 			hmm.$((cm.split`\n`[i] || "#"), c).then(() => {
-				if (cm.length == i) {res();return}
+				if (cm.length == i) { res(); return }
 				i++
 				run()
 			})
@@ -48,28 +48,31 @@ hmm.pathToPath = (p, cwd) => {
 	return p
 }
 hmm.storage.cmd = {
-	help(c) {//todo fix this
-		`Built-in commands:
-cd: change current directory
-clear: clears screen
-echo: displays text
-err: displays an error
-ls: lists folders and files in the current directory
-open: opens an file or path
-ptbye: opens a terminal window
-wait: wait a certain amount of milliseconds
-rm: delete a file or folder
-`.split('\n').slice(0, -1).forEach(c.echo)
+	help() {/* (shows help for one or all command(s)) */
+		if (e.length) {
+			let v=e.join` `
+			if(!/\/\* \(.*\) \*\//.test(hmm.storage.cmd[v])){
+				c.err("help not found for command")
+			}else{
+				c.echo(e + ': ' + hmm.storage.cmd[v].match(/\/\* \(.*\) \*\//)[0].slice(4, -4))
+			}
+		} else {
+			Object.keys(hmm.storage.cmd).forEach(e => {
+				if (!/\/\* \(.*\) \*\//.test(hmm.storage.cmd[e])) return
+				c.echo(e + ': ' + hmm.storage.cmd[e].match(/\/\* \(.*\) \*\//)[0].slice(4, -4))
+			})
+		}
+		
 	},
-	echo() {
+	echo() {/* (displays text) */
 		c.echo(e.join(" "))
 			, 0
 	},
-	err() {
+	err() {/* (displays an error) */
 		c.err(e.join(" "))
 			, 0
 	},
-	open() {
+	open() {/* (opens a file or directory) */
 		let fname = hmm.pathToPath(e.join` `, (c ? c.eval('cwd') : '/')), h = true
 		Object.keys(hmm.storage['.pr'].handlers).forEach(e => {
 			if (fname.endsWith(e)) { hmm.openApp(hmm.storage['.pr'].handlers[e], "$open " + fname); h = false }
@@ -77,28 +80,28 @@ rm: delete a file or folder
 		if (h) hmm.openApp('textpad.hmm', "$open " + fname)
 	},
 	"#"() { },
-	ptbye() {//like PTY but much worse
+	ptbye() {//like PTY but much worse/* (opens a terminal window) */
 		new hmm.App("/.shmm/app.hmm").open("")
 	},
-	wait() {
+	wait() {/* (wait a certain amount of milliseconds) */
 		new Promise(r => setTimeout(r, Number(e[0])))
 	},
-	cd() {
+	cd() {/* (change current directory) */
 		c.eval('cwd=atob("' + btoa(hmm.pathToPath(e.join``, c.eval('cwd'))) + '")')
 			, 0
 	},
-	ls() {
+	ls() {/* (lists folders and files in the current directory) */
 		var f = hmm.pathToJs(hmm.pathToPath(e.join``, c.eval('cwd')))
 		Object.keys(f).sort().forEach(c.echo)
 			, 0
 	},
-	clear() { c.eval('lines=[];ty=-1;yOffset=0'), 0 },
-	$() {
+	clear() {/* (clears the screen) */ c.eval('lines=[];ty=-1;yOffset=0'), 0 },
+	$() {/* (runs a $ script) */
 		hmm.$$(hmm.pathToJs(hmm.pathToPath(e.join``, c.eval('cwd'))), c)
 	},
-	rm(){
-		eval("delete "+hmm.pathToDot(hmm.pathToPath(e.join``, c.eval('cwd'))))
-		,0
+	rm() {/* (delete a file or folder) */
+		eval("delete " + hmm.pathToDot(hmm.pathToPath(e.join``, c.eval('cwd'))))
+			, 0
 	}
 }
 for (const cmd in hmm.storage.cmd) {
