@@ -28,5 +28,6 @@ hmm.updates = {
 		"/cmd/clear",
 		"/cmd/$",
 		"/cmd/rm"
-	]
+	],
+	0.2051:()=>["/cmd/open"]
 }

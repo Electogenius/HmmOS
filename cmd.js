@@ -74,10 +74,12 @@ hmm.storage.cmd = {
 	},
 	open() {/* (opens a file or directory) */
 		let fname = hmm.pathToPath(e.join` `, (c ? c.eval('cwd') : '/')), h = true
+		if(fname.startsWith("/.pr/handlers/")){hmm.openApp('textpad.hmm', "$open " + fname);}else{
 		Object.keys(hmm.storage['.pr'].handlers).forEach(e => {
 			if (fname.endsWith(e)) { hmm.openApp(hmm.storage['.pr'].handlers[e], "$open " + fname); h = false }
 		})
 		if (h) hmm.openApp('textpad.hmm', "$open " + fname)
+	}
 	},
 	"#"() { },
 	ptbye() {//like PTY but much worse/* (opens a terminal window) */
