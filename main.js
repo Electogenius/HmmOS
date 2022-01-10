@@ -4,6 +4,8 @@ function e(query) {
 window.hmm = {
 	testcommand: function () {//runs when in development
 		hmm.openApp("terminal.hmm");
+		hmm.openApp("fe.hmm")
+		hmm.openApp("fe.hmm")
 	},
 	restart: function () {//refresh page
 		window.location = window.location.href
@@ -73,7 +75,8 @@ window.hmm = {
 				darken.style.display = "none"
 			})
 		})
-	}
+	},
+	lastWin: null
 }
 hmm.storage = {
 	name: "HmmOS",
@@ -168,7 +171,7 @@ window.onload = () => {
 			}
 		}
 		for (lang in hmm.storage.i18n) {
-			if(lang.startsWith("_"))continue;
+			if (lang.startsWith("_")) continue;
 			hmm.l[lang] = new Polyglot({
 				locale: lang,
 				phrases: hmm.storage.i18n[lang]
@@ -292,9 +295,14 @@ hmm.App = class {
 
 		node.appendChild(content)
 		var position = { x: 0, y: 0 }
+		node.style.zIndex = document.getElementById('windows').childNodes.length + 50
 		function draggy() {
-			document.querySelectorAll("window").forEach(e => e.style.zIndex = 1)
-			node.style.zIndex = 2
+			if (node == hmm.lastWin) return
+			hmm.lastWin = node
+			document.querySelectorAll("window").forEach(e => {
+				if(e.style.zIndex>node.style.zIndex)e.style.zIndex--
+			})
+			node.style.zIndex = document.getElementById('windows').childNodes.length + 50
 		}
 		interact(node).draggable({
 			allowFrom: "taskbar",
