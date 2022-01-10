@@ -295,7 +295,7 @@ hmm.App = class {
 
 		node.appendChild(content)
 		var position = { x: 0, y: 0 }
-		node.style.zIndex = document.getElementById('windows').childNodes.length + 50
+		node.style.zIndex = document.getElementById('windows').childNodes.length + 10
 		function draggy() {
 			if (node == hmm.lastWin) return
 			hmm.lastWin = node
