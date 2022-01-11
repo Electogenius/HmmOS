@@ -302,7 +302,7 @@ hmm.App = class {
 			document.querySelectorAll("window").forEach(e => {
 				if(e.style.zIndex>node.style.zIndex)e.style.zIndex--
 			})
-			node.style.zIndex = document.getElementById('windows').childNodes.length + 50
+			node.style.zIndex = document.getElementById('windows').childNodes.length + 10
 		}
 		interact(node).draggable({
 			allowFrom: "taskbar",
