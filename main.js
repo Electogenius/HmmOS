@@ -300,20 +300,21 @@ hmm.App = class {
 			if (node == hmm.lastWin) return
 			hmm.lastWin = node
 			document.querySelectorAll("window").forEach(e => {
-				if(e.style.zIndex>node.style.zIndex)e.style.zIndex--
+				if (e.style.zIndex > node.style.zIndex) e.style.zIndex--
 			})
 			node.style.zIndex = document.getElementById('windows').childNodes.length + 10
 		}
+		node.style.width="375px"
 		interact(node).draggable({
 			allowFrom: "taskbar",
 			modifiers: [],
 			inertia: true,
 			listeners: {
-				start(event) {
+				start() {
 					draggy()
 				},
 				move(event) {
-					position.x = Math.max(position.x + event.dx, 0);
+					position.x = Math.min(Math.max(position.x + event.dx, 0),(innerWidth-70-(node.style.width.slice(0,-2)||375)));
 					position.y = Math.max(position.y + event.dy, 0);
 					if (position.y > window.innerHeight - 50) {
 						position.y = window.innerHeight - 30
@@ -344,6 +345,14 @@ hmm.App = class {
 		node.addEventListener("mousedown", draggy)
 		this.if.contentWindow.addEventListener("focus", draggy)
 		draggy()
+		node.style = "opacity:0.1;transform:scale(0.5)"
+		anime({
+			targets: node,
+			duration: 200,
+			easing: 'easeInOutQuad',
+			opacity: 1,
+			scale: 1
+		})
 	}
 }
 setInterval(e => {
