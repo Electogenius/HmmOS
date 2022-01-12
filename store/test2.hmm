@@ -1,0 +1,8 @@
+{
+	"title": {
+		"en": "TestAgain"
+	},
+	"ondownload": "console.log('downloaded')",
+	"code": "<button>Hi",
+	"type": "iframe"
+}

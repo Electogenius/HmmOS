@@ -3,9 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () {//runs when in development
-		hmm.openApp("terminal.hmm");
-		hmm.openApp("fe.hmm")
-		hmm.openApp("fe.hmm")
+		hmm.openApp("store.hmm")
 	},
 	restart: function () {//refresh page
 		window.location = window.location.href
@@ -122,6 +120,11 @@ hmm.storage = {
 			code: `
 			<script>location='./browser.html'</script>
 			`
+		},
+		"store.hmm": {
+			title: { en: "HmmOS Store", cd: "HmmOS kade" },
+			type:"iframe",
+			code:"<script>location='./store.html'</script>"
 		}
 	},
 	opts: {
@@ -304,7 +307,7 @@ hmm.App = class {
 			})
 			node.style.zIndex = document.getElementById('windows').childNodes.length + 10
 		}
-		node.style.width="375px"
+		node.style.width = "375px"
 		interact(node).draggable({
 			allowFrom: "taskbar",
 			modifiers: [],
@@ -314,7 +317,7 @@ hmm.App = class {
 					draggy()
 				},
 				move(event) {
-					position.x = Math.min(Math.max(position.x + event.dx, 0),(innerWidth-70-(node.style.width.slice(0,-2)||375)));
+					position.x = Math.min(Math.max(position.x + event.dx, 0), (innerWidth - 70 - (node.style.width.slice(0, -2) || 375)));
 					position.y = Math.max(position.y + event.dy, 0);
 					if (position.y > window.innerHeight - 50) {
 						position.y = window.innerHeight - 30
