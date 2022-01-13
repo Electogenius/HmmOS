@@ -29,7 +29,7 @@
 <script src="ctx.js" type="text/javascript" charset="utf-8"></script>
 <script>
 	if (location.search == "") {
-		document.write(`<h1>Apps</h1>
+		document.write(`<h1>${hmm.t("menu.apps-label")}</h1>
 <div id=apps>Loading...</div>`)
 		fetch("store/apps.json").then(e => e.text()).then(e => {
 			apps.innerText = ""
