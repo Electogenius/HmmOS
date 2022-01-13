@@ -1,3 +1,7 @@
+if(!("hmm" in window)){
+	window.hmm = window.parent.hmm
+}
+
 document.addEventListener('contextmenu', ev => {
 	hmm.ctx(ev,eval("window.ctxs"))
 	ev.preventDefault()

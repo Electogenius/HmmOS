@@ -4,5 +4,6 @@
 	},
 	"ondownload": "console.log('downloaded')",
 	"code": "<button>Hi",
-	"type": "iframe"
+	"type": "iframe",
+	"description":"An app made to test whether the hmm store works."
 }

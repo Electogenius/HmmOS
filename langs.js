@@ -21,6 +21,9 @@ hmm.storage.i18n.en = {
 			alreadyexists:"A file/folder with that name already exists",
 			namefile:"Enter a name for your file",
 			namedir:"Enter a name for your folder"
+		},
+		store:{
+			download:"Download"
 		}
 	},
 	ui:{ //general ui related things
@@ -51,6 +54,9 @@ hmm.storage.i18n.cd = {
 			alreadyexists:"apērlaor kōplna kōpurærknvērk",
 			namefile:"kōpkor pēr thāng",
 			namedir:"kōpurekor pēr thāng"
+		},
+		store:{
+			download:"padhyerak"
 		}
 	},
 	ui:{

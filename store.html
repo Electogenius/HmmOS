@@ -3,6 +3,7 @@
 		background-color: #222;
 		color: #fff;
 		font-family: system-ui, sans-serif;
+		overflow-y: auto !important;
 	}
 
 	#apps {
@@ -23,25 +24,54 @@
 		width: 750px;
 	}
 </style>
-
+<div id="ctx"></div>
 <link rel="stylesheet" href="style.css">
 <script src="ctx.js" type="text/javascript" charset="utf-8"></script>
-
 <script>
-	window.hmm = window.parent.hmm
 	if (location.search == "") {
 		document.write(`<h1>Apps</h1>
 <div id=apps>Loading...</div>`)
 		fetch("store/apps.json").then(e => e.text()).then(e => {
 			apps.innerText = ""
 			var a = JSON.parse(e)
-			console.log(a, Object.keys(a))
 			Object.keys(a).forEach(h => {
 				var el = document.createElement("app")
-				el.innerText = a[h][hmm.storage.opts.lang]
-				el.onclick
+				el.innerText = a[h][hmm.storage.opts.lang] || a[h].en || h
+				el.setAttribute("appId", h)
+				el.onclick = () => {
+					location = "?" + h
+				}
 				apps.appendChild(el)
 			})
+		})
+	} else {
+		fetch("store/" + location.search.slice(1)).then(e => e.text()).then(str => {
+			const json = JSON.parse(str)
+			document.body.innerHTML += (`
+			<button onclick='location.search=""'>&lt; ${hmm.t("apps.fe.goback")}</button>
+			<h1 id=title></h1><p id=desc></p><button id=dl default>${hmm.t("apps.store.download")}</button>
+			`)
+
+			function oc() {
+				if (location.search.slice(1) in hmm.storage.apps) {
+					dl.innerHTML = hmm.t("ui.delete")
+					dl.addEventListener('click', () => {
+						eval(json.ondelete)
+						eval('delete ' + hmm.pathToDot("/apps/" + location.search.slice(1)))
+						dl.innerHTML = hmm.t("apps.store.download")
+						oc()
+					},{once:true})
+				} else
+					dl.addEventListener('click',()=>{
+						eval(hmm.pathToDot("/apps/" + location.search.slice(1)) + "=json")
+						eval(json.ondownload)
+						dl.innerHTML = hmm.t("ui.delete")
+						oc()
+					},{once:true})
+			}
+			oc()
+			title.innerText = json.title[hmm.storage.opts.lang] || json.title.en || location.search.slice(1)
+			desc.innerText = json.description
 		})
 	}
 </script>
