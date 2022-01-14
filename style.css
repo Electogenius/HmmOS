@@ -151,6 +151,10 @@ taskbar {
 	height: 30px !important;
 }
 
+window:not(.focus) taskbar{
+	background-color: #444;
+}
+
 div.bar {
 	float: right;
 	background-color: #aab;

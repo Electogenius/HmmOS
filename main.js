@@ -2,10 +2,10 @@ function e(query) {
 	return document.querySelector(query)
 }
 window.hmm = {
-	testcommand: function() { //runs when in development
+	testcommand: function () { //runs when in development
 		hmm.openApp("store.hmm")
 	},
-	restart: function() { //refresh page
+	restart: function () { //refresh page
 		window.location = window.location.href
 	},
 	safe: {},
@@ -30,8 +30,8 @@ window.hmm = {
 		return "hmm.storage[atob('" + p.replace(/^\//, "").split('/').map(btoa).join("')][atob('") + "')]"
 	},
 	mtt: { //empty shell interface
-		err() {},
-		echo() {}
+		err() { },
+		echo() { }
 	},
 	ui: { //oh no
 		choose(c, def = c[0]) {
@@ -184,7 +184,7 @@ window.onload = () => {
 	})
 }
 hmm.bar = document.getElementById("bar")
-hmm.bar.toggle = function() {
+hmm.bar.toggle = function () {
 	if (!hmm.bar.isOpen) {
 		anime({
 			targets: "#menu",
@@ -208,7 +208,7 @@ hmm.bar.toggle = function() {
 	}
 	hmm.bar.isOpen = !hmm.bar.isOpen
 }
-hmm.openApp = function(app, arg) {
+hmm.openApp = function (app, arg) {
 	if (app in hmm.storage.apps && app.endsWith(".hmm")) {
 		var a = new hmm.App("/apps/" + app)
 		a.open(arg)
@@ -252,15 +252,14 @@ hmm.App = class {
 		fs.innerHTML = "fullscreen"
 		tb.appendChild(fs)
 		var me = this
-		fs.onclick = tb.children[0].ondblclick = function(event) {
+		fs.onclick = tb.children[0].ondblclick = function (event) {
 			//console.log("h")
 			event.target.parentNode.parentNode.style.height = "100%"
 			event.target.parentNode.parentNode.style.width = window.innerWidth + "px"
 			event.target.parentNode.parentNode.style.transform = "translate(0, 0)"
 			me.width = Number(event.target.parentNode.parentNode.style.width.slice(0, -2))
 		}
-		document.ondblclick=()=>{}
-		console.log(tb.children[0].ondblclick)
+		document.ondblclick = () => { }
 		var content = document.createElement("windowcontent")
 		/*if (this.type == "js") {
 			var x = new Function("document", "window", "hmm", "$", "with(hmm){" + this.code + "}")
@@ -303,13 +302,13 @@ hmm.App = class {
 		var position = { x: 0, y: 0 }
 		node.style.zIndex = document.getElementById('windows').childNodes.length + 10
 
-		function draggy() {
+		node.draggy = () => {
 			if (node == hmm.lastWin) return
 			hmm.lastWin = node
 			document.querySelectorAll("window").forEach(e => {
-				if (e.style.zIndex > node.style.zIndex) e.style.zIndex--
+				if (e.style.zIndex > hmm.lastWin.style.zIndex) e.style.zIndex--
 			})
-			node.style.zIndex = document.getElementById('windows').childNodes.length + 10
+			hmm.lastWin.style.zIndex = document.getElementById('windows').childNodes.length + 10
 		}
 		node.style.width = "375px"
 		interact(node).draggable({
@@ -318,7 +317,7 @@ hmm.App = class {
 			inertia: true,
 			listeners: {
 				start() {
-					draggy()
+					node.draggy()
 				},
 				move(event) {
 					position.x = Math.min(Math.max(position.x + event.dx, 0), (innerWidth - 70 - (node.style.width.slice(0, -2) || 375)));
@@ -326,6 +325,7 @@ hmm.App = class {
 					if (position.y > window.innerHeight - 50) {
 						position.y = window.innerHeight - 30
 					}
+					hmm.showFocus()
 					event.target.style.transform = `translate(${Math.max(0, position.x)}px, ${Math.max(0, position.y)}px)`;
 				}
 			}
@@ -349,9 +349,10 @@ hmm.App = class {
 		this.width = Math.min(window.innerWidth, 300)
 		document.getElementById("windows").appendChild(node)
 		document.getElementById("bar").appendChild(this.baritem)
-		node.addEventListener("mousedown", draggy)
-		this.if.contentWindow.addEventListener("focus", draggy)
-		draggy()
+		node.addEventListener("mousedown", node.draggy)
+		this.if.contentWindow.addEventListener("focus", node.draggy)
+		node.draggy()
+		this.if.focus()
 		node.style = "opacity:0.1;transform:scale(0.5)"
 		anime({
 			targets: node,
@@ -429,3 +430,29 @@ hmm.setup = () => {
 //Object.prototype.with=function(k,v){var x=this;x[k]=v;return x}
 //hide menu:
 document.getElementById("menu").style.width = "0"
+
+window.addEventListener('blur', () => {
+	console.log(11)
+	if (document.activeElement instanceof HTMLIFrameElement) {
+		hmm.lastWin = document.activeElement.parentElement.parentElement
+		hmm.showFocus()
+		document.querySelectorAll("window").forEach(e => {
+			if (e.style.zIndex > hmm.lastWin.style.zIndex) e.style.zIndex--
+		})
+		hmm.lastWin.style.zIndex = document.getElementById('windows').childNodes.length + 10
+	}
+})
+setInterval(()=>{
+	if(document.activeElement instanceof HTMLIFrameElement){
+		hmm.lastWin = document.activeElement.parentElement.parentElement
+		hmm.showFocus()
+		document.querySelectorAll("window").forEach(e => {
+			if (e.style.zIndex > hmm.lastWin.style.zIndex) e.style.zIndex--
+		})
+		hmm.lastWin.style.zIndex = document.getElementById('windows').childNodes.length + 10
+	}
+},500)
+hmm.showFocus=()=>{
+	document.querySelectorAll('window').forEach(e=>e.classList.remove('focus'))
+	hmm.lastWin.classList.add('focus')
+}
