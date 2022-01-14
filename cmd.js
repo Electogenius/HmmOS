@@ -104,6 +104,9 @@ hmm.storage.cmd = {
 	rm() {/* (delete a file or folder) */
 		eval("delete " + hmm.pathToDot(hmm.pathToPath(e.join``, c.eval('cwd'))))
 			, 0
+	},
+	quit(){
+		c.eval("quit()"),0
 	}
 }
 for (const cmd in hmm.storage.cmd) {

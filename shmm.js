@@ -34,6 +34,9 @@
 	function r(o) {
 		rText(o.t, o.fg, o.bg, o.x, o.y + yOffset)
 	}
+	function quit() {
+		window.hmmWin.children[0].children[1].onclick({target: window.hmmWin.children[0].children[1]})
+	}
 	requestAnimationFrame(function draw() {
 		clear()
 		if (path) {
