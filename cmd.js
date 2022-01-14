@@ -105,7 +105,7 @@ hmm.storage.cmd = {
 		eval("delete " + hmm.pathToDot(hmm.pathToPath(e.join``, c.eval('cwd'))))
 			, 0
 	},
-	quit(){
+	quit(){/* (close the terminal window) */
 		c.eval("quit()"),0
 	}
 }
