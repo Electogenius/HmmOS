@@ -309,6 +309,7 @@ hmm.App = class {
 				if (e.style.zIndex > hmm.lastWin.style.zIndex) e.style.zIndex--
 			})
 			hmm.lastWin.style.zIndex = document.getElementById('windows').childNodes.length + 10
+			hmm.showFocus()
 		}
 		node.style.width = "375px"
 		interact(node).draggable({
@@ -325,7 +326,6 @@ hmm.App = class {
 					if (position.y > window.innerHeight - 50) {
 						position.y = window.innerHeight - 30
 					}
-					hmm.showFocus()
 					event.target.style.transform = `translate(${Math.max(0, position.x)}px, ${Math.max(0, position.y)}px)`;
 				}
 			}
@@ -349,6 +349,7 @@ hmm.App = class {
 		this.width = Math.min(window.innerWidth, 300)
 		document.getElementById("windows").appendChild(node)
 		document.getElementById("bar").appendChild(this.baritem)
+		this.baritem.onclick=node.draggy
 		node.addEventListener("mousedown", node.draggy)
 		this.if.contentWindow.addEventListener("focus", node.draggy)
 		node.draggy()
@@ -432,7 +433,6 @@ hmm.setup = () => {
 document.getElementById("menu").style.width = "0"
 
 window.addEventListener('blur', () => {
-	console.log(11)
 	if (document.activeElement instanceof HTMLIFrameElement) {
 		hmm.lastWin = document.activeElement.parentElement.parentElement
 		hmm.showFocus()
