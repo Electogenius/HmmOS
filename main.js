@@ -310,6 +310,7 @@ hmm.App = class {
 			})
 			hmm.lastWin.style.zIndex = document.getElementById('windows').childNodes.length + 10
 			hmm.showFocus()
+			this.if.focus()
 		}
 		node.style.width = "375px"
 		interact(node).draggable({
