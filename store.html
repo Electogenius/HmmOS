@@ -27,10 +27,12 @@
 <div id="ctx"></div>
 <link rel="stylesheet" href="style.css">
 <script src="ctx.js" type="text/javascript" charset="utf-8"></script>
+<main id="main">Loading...</main>
 <script>
 	if (location.search == "") {
+		main.innerText=""
 		document.write(`<h1>${hmm.t("menu.apps-label")}</h1>
-<div id=apps>Loading...</div>`)
+<div id=apps></div>`)
 		fetch("store/apps.json").then(e => e.text()).then(e => {
 			apps.innerText = ""
 			var a = JSON.parse(e)
@@ -46,6 +48,7 @@
 		})
 	} else {
 		fetch("store/" + location.search.slice(1)).then(e => e.text()).then(str => {
+			main.innerText=""
 			const json = JSON.parse(str)
 			document.body.innerHTML += (`
 			<button onclick='location.search=""'>&lt; ${hmm.t("apps.fe.goback")}</button>
@@ -59,6 +62,7 @@
 						eval(json.ondelete)
 						eval('delete ' + hmm.pathToDot("/apps/" + location.search.slice(1)))
 						dl.innerHTML = hmm.t("apps.store.download")
+						hmm.setup()
 						oc()
 					},{once:true})
 				} else
@@ -66,6 +70,7 @@
 						eval(hmm.pathToDot("/apps/" + location.search.slice(1)) + "=json")
 						eval(json.ondownload)
 						dl.innerHTML = hmm.t("ui.delete")
+						hmm.setup()
 						oc()
 					},{once:true})
 			}

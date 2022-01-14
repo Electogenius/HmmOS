@@ -2,36 +2,36 @@ function e(query) {
 	return document.querySelector(query)
 }
 window.hmm = {
-	testcommand: function () {//runs when in development
+	testcommand: function() { //runs when in development
 		hmm.openApp("store.hmm")
 	},
-	restart: function () {//refresh page
+	restart: function() { //refresh page
 		window.location = window.location.href
 	},
 	safe: {},
-	hasPerms: (name, filename) => {//deprecated
+	hasPerms: (name, filename) => { //deprecated
 		return eval("hmm.storage['.pr'].perms." + name).includes(filename + " ")
 	},
 	l: {},
-	t: phrase => {//translates key to current language
+	t: phrase => { //translates key to current language
 		return hmm.l[hmm.storage.opts.lang]?.t(phrase)
 	},
-	reset() {//restart everything
+	reset() { //restart everything
 		hmm.storage = null
 		localforage.setItem('hmm-fs', hmm.storage)
 		location = location.href
 	},
-	pathToJs(p) {//evaluates path and returns value
+	pathToJs(p) { //evaluates path and returns value
 		var cr = hmm.storage;
 		(p.match(/\/[^/]+/g) || []).forEach((e) => cr = cr[e.slice(1)])
 		return cr
 	},
-	pathToDot(p) {//returns javascript dot notation as string from path
+	pathToDot(p) { //returns javascript dot notation as string from path
 		return "hmm.storage[atob('" + p.replace(/^\//, "").split('/').map(btoa).join("')][atob('") + "')]"
 	},
 	mtt: { //empty shell interface
-		err() { },
-		echo() { }
+		err() {},
+		echo() {}
 	},
 	ui: { //oh no
 		choose(c, def = c[0]) {
@@ -123,8 +123,8 @@ hmm.storage = {
 		},
 		"store.hmm": {
 			title: { en: "HmmOS Store", cd: "HmmOS kade" },
-			type:"iframe",
-			code:"<script>location='./store.html'</script>"
+			type: "iframe",
+			code: "<script>location='./store.html'</script>"
 		}
 	},
 	opts: {
@@ -184,7 +184,7 @@ window.onload = () => {
 	})
 }
 hmm.bar = document.getElementById("bar")
-hmm.bar.toggle = function () {
+hmm.bar.toggle = function() {
 	if (!hmm.bar.isOpen) {
 		anime({
 			targets: "#menu",
@@ -208,7 +208,7 @@ hmm.bar.toggle = function () {
 	}
 	hmm.bar.isOpen = !hmm.bar.isOpen
 }
-hmm.openApp = function (app, arg) {
+hmm.openApp = function(app, arg) {
 	if (app in hmm.storage.apps && app.endsWith(".hmm")) {
 		var a = new hmm.App("/apps/" + app)
 		a.open(arg)
@@ -252,12 +252,15 @@ hmm.App = class {
 		fs.innerHTML = "fullscreen"
 		tb.appendChild(fs)
 		var me = this
-		fs.onclick = function (event) {
+		fs.onclick = tb.children[0].ondblclick = function(event) {
+			//console.log("h")
 			event.target.parentNode.parentNode.style.height = "100%"
 			event.target.parentNode.parentNode.style.width = window.innerWidth + "px"
 			event.target.parentNode.parentNode.style.transform = "translate(0, 0)"
 			me.width = Number(event.target.parentNode.parentNode.style.width.slice(0, -2))
 		}
+		document.ondblclick=()=>{}
+		console.log(tb.children[0].ondblclick)
 		var content = document.createElement("windowcontent")
 		/*if (this.type == "js") {
 			var x = new Function("document", "window", "hmm", "$", "with(hmm){" + this.code + "}")
@@ -299,6 +302,7 @@ hmm.App = class {
 		node.appendChild(content)
 		var position = { x: 0, y: 0 }
 		node.style.zIndex = document.getElementById('windows').childNodes.length + 10
+
 		function draggy() {
 			if (node == hmm.lastWin) return
 			hmm.lastWin = node
@@ -382,7 +386,7 @@ hmm.setMenu = () => {
 }
 
 // hmm.hmmVar = (c, n) => {
-// 	return {
+// 	return {k
 // 		set title(t) {
 // 			c.parentNode.children[0].children[0].innerText = t
 // 		},
