@@ -346,6 +346,7 @@ hmm.App = class {
 			})
 			Object.assign(event.target.dataset, { x, y })
 			this.width = Number(event.target.style.width.slice(0, -2))
+			node.draggy()
 		});
 		this.width = Math.min(window.innerWidth, 300)
 		document.getElementById("windows").appendChild(node)
