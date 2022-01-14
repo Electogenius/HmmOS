@@ -10,6 +10,12 @@
 		integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q=="
 		crossorigin="anonymous"></script>
 	<style>
+	*{
+		font-family: monospace
+	}
+		body{
+			overflow: hidden
+		}
 		#editor {
 			position: absolute;
 			top: 0;
@@ -32,6 +38,17 @@
 			width: 80vw;
 			height: 70vh;
 			overflow: scroll;
+			font-family: system-ui,sans-serif
+		}
+		
+		#path{
+			font-family: system-ui, menlo, monospace !important;
+			position: absolute;
+			bottom:0;
+			left:0;
+			width:99vw;
+			z-index:999;
+			border:none;
 		}
 	</style>
 	<link rel="stylesheet" href="ui.css">
@@ -39,17 +56,21 @@
 
 <body>
 	<div id="editor"></div>
+	<input type="text" id="path" value="" placeholder="File path" />
 	<script>
+		path.style.fontFamily="ui-monospace,menlo,monospace"
 		var e = ace.edit("editor")
 		e.setOptions({
-			fontFamily: "ui-monospace, menlo",
-			fontSize: 15
+			fontFamily: "ui-monospace,menlo,monospace",
+			fontSize: 15,
+			scrollPastEnd:0.5
 		})
 		e.setTheme('ace/theme/nord_dark')
 		var { hmm } = parent
 		setTimeout(() => {
-			window.arg ||= ""
+			if(window.arg===undefined)window.arg=""
 			if (window.arg.startsWith('$open ')) {
+				path.value=window.arg
 				e.setValue('' + hmm.pathToJs(window.arg.slice(6)))
 				if (/\.hmm\/code$/.test(window.arg)) {
 					e.session.setMode('ace/mode/html')
@@ -60,6 +81,7 @@
 			e.on('change', () => {
 				if (window.arg.startsWith('$open ')) {
 					eval(hmm.pathToDot(window.arg.slice(6)) + `=decodeURI("${encodeURI(e.getValue())}")`)
+				}else if(window.arg==""){
 				}
 			})
 		}, 100)
