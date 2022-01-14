@@ -13,8 +13,8 @@ window.hmm = {
 		return eval("hmm.storage['.pr'].perms." + name).includes(filename + " ")
 	},
 	l: {},
-	t: phrase => { //translates key to current language
-		return hmm.l[hmm.storage.opts.lang]?.t(phrase)
+	t: (phrase,extras) => { //translates key to current language
+		return hmm.l[hmm.storage.opts.lang]?.t(phrase,extras)
 	},
 	reset() { //restart everything
 		hmm.storage = null

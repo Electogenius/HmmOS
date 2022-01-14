@@ -79,9 +79,11 @@
 				}
 			}
 			e.on('change', () => {
-				if (window.arg.startsWith('$open ')) {
-					eval(hmm.pathToDot(window.arg.slice(6)) + `=decodeURI("${encodeURI(e.getValue())}")`)
-				}else if(window.arg==""){
+				if (path.value.startsWith("/")) {
+					eval(hmm.pathToDot(path.value) + `=decodeURI("${encodeURI(e.getValue())}")`)
+				}else{
+					e.blur()
+					hmm.popup(`Enter a valid file path<br><button>${hmm.t('ui.ok')}</button>`)
 				}
 			})
 		}, 100)
