@@ -70,7 +70,7 @@
 		setTimeout(() => {
 			if(window.arg===undefined)window.arg=""
 			if (window.arg.startsWith('$open ')) {
-				path.value=window.arg
+				path.value=window.arg.slice(6)
 				e.setValue('' + hmm.pathToJs(window.arg.slice(6)))
 				if (/\.hmm\/code$/.test(window.arg)) {
 					e.session.setMode('ace/mode/html')
