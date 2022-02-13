@@ -108,7 +108,7 @@ hmm.storage = {
 			code: `<script>location='./fe.html'</script>`
 		},
 		"textpad.hmm": {
-			title: { en: "TextPad", tok: "ilo pi pali e toki" },
+			title: { en: "TextPad", tok: "ilo tawa pali e toki" },
 			type: "iframe",
 			code: `
 			<script>location='./textpad.html'</script>
