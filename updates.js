@@ -32,5 +32,6 @@ hmm.updates = {
 	0.2051:()=>["/cmd/open"],
 	0.206:()=>["/apps/store.hmm"],
 	0.207:()=>["/i18n/en/apps/store","/i18n/cd/apps/store"],
-	0.208:()=>["/cmd/quit"]
+	0.208:()=>["/cmd/quit"],
+	0.21:()=>["/i18n/tok"]
 }

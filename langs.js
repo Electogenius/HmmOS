@@ -1,7 +1,8 @@
 hmm.storage.i18n = {}
 hmm.langNames={
 	"English":"en",
-	"Compressed Undardese (surknangdārdyizõ)":"cd"
+	"Compressed Undardese (surknangdārdyizõ)":"cd",
+	"toki pona":"tok"
 }
 hmm.storage.i18n.en = {
 	welcome: "Welcome to HmmOS!",
@@ -68,4 +69,37 @@ hmm.storage.i18n.cd = {
 		no:"lle",
 		create:"sey"
 	}
+}
+hmm.storage.i18n.tok = {
+    welcome: "kama pona tawa ilo Imosu",
+    menu: {
+        "apps-label": "ilo"
+    },
+    apps: {
+        settings: {
+            lang: "toki",
+            name: "ijo tawa ante"
+        },
+        fe: {
+            goback: "monsi",
+            addfile: "o pali e lipu",
+            adddir: "o pali e poki",
+            deletefolder: "o pakala poki ni",
+            alreadyexists: "pali anu poki pi nimi ni li lon. o pana e nimi ante",
+            namefile: "o pana e nimi tawa lipu sina",
+            namedir: "o pana e nimi tawa poki sina"
+        },
+        store: {
+            download: "o lanpan e ni"
+        }
+    },
+    ui: {
+        cancel: "wile ala",
+        ok: "pona",
+        save: "o awen e ni",
+        delete: "o pakala",
+        yes: "lon",
+        no: "ala",
+        create: "o pali"
+    }
 }
