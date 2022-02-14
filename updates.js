@@ -35,5 +35,6 @@ hmm.updates = {
 	0.208:()=>["/cmd/quit"],
 	0.21:()=>["/i18n/tok"],
 	0.211:()=>["/apps/browser.hmm/title","/apps/fe.hmm/title","/apps/settings.hmm/title","/apps/store.hmm/title","/apps/terminal.hmm/title","/apps/textpad.hmm/title"],
-	0.212:()=>["/apps/textpad.hmm/title"]
+	0.212:()=>["/apps/textpad.hmm/title"],
+	0.213:()=>["/apps/settings.hmm/title/tok"]
 }

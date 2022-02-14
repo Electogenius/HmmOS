@@ -98,7 +98,7 @@ hmm.storage = {
 			code: `ptbye`
 		},
 		"settings.hmm": {
-			title: { en: "settings", cd: "māthrdhng", tok: "ijo tawa awen" },
+			title: { en: "settings", cd: "māthrdhng", tok: "ijo tawa ante" },
 			type: "iframe",
 			code: "<script>location='./settings.html'</script>",
 		},
