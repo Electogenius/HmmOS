@@ -240,9 +240,15 @@ hmm.App = class {
 		tb.children[0].innerText = this.title[hmm.storage.opts.lang] || this.title.en || this.filename.slice(0, -4)
 		var cls = document.createElement("close")
 		cls.innerText = "✕"
+		let abdabd=this
 		cls.onclick = (event) => {
 			event.target.parentNode.parentNode.remove()
 			this.baritem.remove()
+			let arr=[]
+			hmm.wins.forEach(e=>{
+			    if(e.source!=abdabd.filename)arr.push(e)
+			})
+			hmm.wins=arr
 			// console.log(event.target.parentNode)
 		}
 		tb.appendChild(cls)
@@ -363,9 +369,18 @@ hmm.App = class {
 			easing: 'easeInOutQuad',
 			opacity: 1,
 			scale: 1
+		});
+		
+		hmm.wins.push({
+		    element: node,
+		    id: hmm.wins.length,
+		    source: this.filename
 		})
 	}
 }
+
+hmm.wins=[]
+
 setInterval(e => {
 	document.querySelectorAll(".h-time").forEach(e => {
 		e.innerText = new Date().toLocaleTimeString(hmm.storage.opts.lang)
