@@ -103,7 +103,7 @@ hmm.storage = {
 			code: "<script>location='./settings.html'</script>",
 		},
 		"fe.hmm": {
-			title: { en: "Files", cd: "kōpnge", tok: "ilo tawa lukin e lipu sina e poki sina" },
+			title: { en: "Files", cd: "kōpnge", tok: "ilo tawa lukin e lipu sina" },
 			type: "iframe",
 			code: `<script>location='./fe.html'</script>`
 		},
