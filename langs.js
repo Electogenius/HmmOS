@@ -34,7 +34,8 @@ hmm.storage.i18n.en = {
 		delete:"Delete",
 		yes:"Yes",
 		no:"No",
-		create:"Create"
+		create:"Create",
+		use: "Use %{thing}"
 	}
 }
 hmm.storage.i18n.cd = {

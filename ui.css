@@ -24,14 +24,14 @@
 	background: #05d;
 }
 
-input{
+input:not([type="checkbox"]){
 	background: #000;
 	border: 1px solid white;
 	color:#fff;
 	caret-color: #fff;
 }
 
-input:focus{
+input:not([type="checkbox"]):focus{
 	outline: 3px solid #05d;
 }
 

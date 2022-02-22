@@ -25,12 +25,15 @@
 
 <body>
 	<!--<div id="dmode">
-		<label for="dm"></label><input type="checkbox" name="dm" id="dm" />
+		<label for="dm"></label>\<inputsaajsjs type="checkbox" name="dm" id="dm" />
 	</div>-->
-	<h1 data-t="name"></h1>
+	<h1 data-t="apps.settings.name"></h1>
 	<div id="language">
-		<h2 data-t="lang"></h2>
-
+		<h2 data-t="apps.settings.lang"></h2>
+	</div>
+	<div>
+	    <label for="sp" data-t="ui.use" data-a="{thing:'sitelen pona'}"></p>
+    	<input type="checkbox" name="sp" id="sp" style="border:5px solid white" />
 	</div>
 	<script>
 		let e = q => document.getElementById(q)
@@ -49,7 +52,7 @@
 		}
 		function t(w) {
 			document.querySelectorAll("[data-t]").forEach(e => {
-				e.innerHTML = w.t("apps.settings." + e.getAttribute("data-t"))
+				e.innerHTML = w.t(e.getAttribute("data-t"), eval('('+e.getAttribute("data-a")+')'))
 			})
 		}
 		t(hmm)
