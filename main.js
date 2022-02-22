@@ -162,6 +162,7 @@ window.onload = () => {
 			alert("Say goodbye to your current file system. Migrating to new 'software update' system. Your files will be removed. Hope you don't have anything important on there.")
 			hmm.reset()
 		}
+		let lt=0
 		for (upd in hmm.updates) {
 			if (Number(upd) > hmm.storage.version) {
 				//update hmmos
@@ -169,10 +170,11 @@ window.onload = () => {
 					eval(hmm.pathToDot(e) + '=init' + hmm.pathToDot(e).slice(11))
 					eval(e.extras || "")
 				})
-				console.log("Updated HmmOS to version " + upd)
+				lt=upd
 				hmm.storage.version = Number(upd)
 			}
 		}
+		if(lt)console.log("Updated to HmmOS version "+lt)
 		for (lang in hmm.storage.i18n) {
 			if (lang.startsWith("_")) continue;
 			hmm.l[lang] = new Polyglot({
