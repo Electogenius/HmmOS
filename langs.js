@@ -85,7 +85,7 @@ hmm.storage.i18n.tok = {
             goback: "monsi",
             addfile: "o pali e lipu",
             adddir: "o pali e poki",
-            deletefolder: "o pakala poki ni",
+            deletefolder: "o pakala e poki ni",
             alreadyexists: "pali anu poki pi nimi ni li lon. o pana e nimi ante",
             namefile: "o pana e nimi tawa lipu sina",
             namedir: "o pana e nimi tawa poki sina"

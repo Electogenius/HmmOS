@@ -37,5 +37,6 @@ hmm.updates = {
 	0.211:()=>["/apps/browser.hmm/title","/apps/fe.hmm/title","/apps/settings.hmm/title","/apps/store.hmm/title","/apps/terminal.hmm/title","/apps/textpad.hmm/title"],
 	0.212:()=>["/apps/textpad.hmm/title"],
 	0.213:()=>["/apps/settings.hmm/title/tok"],
-	0.214:()=>["/apps/fe.hmm/title/tok"]
+	0.214:()=>["/apps/fe.hmm/title/tok"],
+	0.215:()=>["/i18n/tok/apps/fe/deletefolder"]
 }
