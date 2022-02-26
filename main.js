@@ -133,11 +133,14 @@ hmm.storage = {
 	".pr": {
 		perms: {
 			iframe: {
-				"nosandbox": "vscodish.hmm opts.hmm fe.hmm "
+				"nosandbox": "vscodish.hmm opts.hmm fe.hmm "//outdated
 			}
 		},
 		handlers: {
 			'/': 'fe.hmm'
+		},
+		startup:{
+		    
 		}
 	},
 	".shmm": {
@@ -445,6 +448,11 @@ hmm.setup = () => {
 	setInterval(() => { //periodically update localforage
 		localforage.setItem('hmm-fs', hmm.storage)
 	}, 1000)
+	for(script in hmm.storage){
+	    //yet another way to improve your malware
+	    //todo add startup screen with option to not load startup scripts (recovery mode)
+	    new Function(script)()
+	}
 }
 //very useful BUT BREAKS CODE FOR SOME REASON:
 //Object.prototype.with=function(k,v){var x=this;x[k]=v;return x}
