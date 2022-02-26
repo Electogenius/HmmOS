@@ -448,10 +448,10 @@ hmm.setup = () => {
 	setInterval(() => { //periodically update localforage
 		localforage.setItem('hmm-fs', hmm.storage)
 	}, 1000)
-	for(script in hmm.storage){
+	for(script in hmm.storage[".pr"].startup){
 	    //yet another way to improve your malware
 	    //todo add startup screen with option to not load startup scripts (recovery mode)
-	    new Function(script)()
+	    new Function(hmm.storage[".pr"].startup[script])()
 	}
 }
 //very useful BUT BREAKS CODE FOR SOME REASON:
