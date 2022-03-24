@@ -45,6 +45,13 @@
 		e("lang").onchange = (ev) => {
 			hmm.storage.opts.lang = langCodes[ev.target.value]//Object.keys(langCodes).filter(e=>langCodes[e]==ev.target.value)[0]
 			hmm.setup(); t(hmm)
+			if(hmm.storage.opts.lang=="toksp"){
+				hmm.storage['.pr'].startup["linja-sike.js"]=`
+				if(hmm.storage.opts.lang=="toksp"){
+					hmm.switchFont("https://wyub.github.io/tokipona/linja-sike-5.otf")
+				}
+				`
+			}
 		}
 		function t(w) {
 			document.querySelectorAll("[data-t]").forEach(e => {

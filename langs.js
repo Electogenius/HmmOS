@@ -2,7 +2,9 @@ hmm.storage.i18n = {}
 hmm.langNames={
 	"English":"en",
 	"Compressed Undardese (surknangdārdyizõ)":"cd",
-	"toki pona":"tok"
+	"toki pona (kepeken sitelen Lasin)":"tok",
+	//let it be hidden for now
+	//"toki pona (sitelen pona/linja sike)":"toksp"
 }
 hmm.storage.i18n.en = {
 	welcome: "Welcome to HmmOS!",
@@ -103,4 +105,50 @@ hmm.storage.i18n.tok = {
         no: "ala",
         create: "o pali"
     }
+}
+hmm.storage.i18n.toksp = {
+    welcome: "kama+pona tawa ilo [_ike+mute_oko+sina_utala]",
+    menu: {
+        "apps-label": "ilo"
+    },
+    apps: {
+        settings: {
+            lang: "toki",
+            name: "ijo+tawa ante"
+        },
+        fe: {
+            goback: "monsi",
+            addfile: "o pali e lipu",
+            adddir: "o pali e poki",
+            deletefolder: "o pakala e poki+ni",
+            alreadyexists: "pali anu poki pi nimi+ni li lon. o pana e nimi+ante",
+            namefile: "o pana e nimi+tawa lipu+sina",
+            namedir: "o pana e nimi+tawa poki+sina"
+        },
+        store: {
+            download: "o lanpan e ni"
+        }
+    },
+    ui: {
+        cancel: "wile ala",
+        ok: "pona",
+        save: "o awen e ni",
+        delete: "o pakala",
+        yes: "lon",
+        no: "ala",
+        create: "o pali"
+    }
+}
+hmm.switchFont=(url)=>{
+	let s=document.createElement('style')
+	s.innerHTML=`
+	@font-face{
+        font-family: cust;
+        src:url("${url}");
+    }
+	*:not(.material-icons){
+		font-family: cust, system-ui, sans-serif !important;
+	}
+	`
+	document.body.appendChild(s)
 }

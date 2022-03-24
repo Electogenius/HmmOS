@@ -39,5 +39,6 @@ hmm.updates = {
 	0.213:()=>["/apps/settings.hmm/title/tok"],
 	0.214:()=>["/apps/fe.hmm/title/tok"],
 	0.215:()=>["/i18n/tok/apps/fe/deletefolder"],
-	0.22:()=>["/.pr/startup"]
+	0.22:()=>["/.pr/startup"],
+	0.23:()=>["/i18n/toksp"]
 }
