@@ -3,7 +3,7 @@ function e(query) {
 }
 window.hmm = {
 	testcommand: function () { //runs when in development
-		hmm.openApp("settings.hmm")
+		hmm.openApp("terminal.hmm")
 	},
 	restart: function () { //refresh page
 		window.location = window.location.href
