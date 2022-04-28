@@ -341,7 +341,7 @@ hmm.App = class {
 					event.target.style.transform = `translate(${Math.max(0, position.x)}px, ${Math.max(0, position.y)}px)`;
 				}
 			}
-		})
+		}).styleCursor(false)
 		interact(node).resizable({
 			edges: {
 				top: false,

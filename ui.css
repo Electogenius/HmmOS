@@ -42,5 +42,5 @@ input:not([type="checkbox"]):focus{
 }
 
 body{
-	cursor: var(--cursor);
+	cursor: var(--cursor) !important;
 }
