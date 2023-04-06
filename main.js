@@ -93,36 +93,36 @@ hmm.storage = {
 `
 		},
 		"terminal.hmm": {
-			title: { en: "Terminal", tok: "ilo tawa toki tawa ilo sona ni", toksp: "ilo+tawa toki+tawa ilo+nanpa ni" },
+			title: { en: "Terminal", tok: "ilo pi toki ilo", toksp: "ilo+tawa toki+tawa ilo+nanpa ni" },
 			type: 0,
 			code: `ptbye`
 		},
 		"settings.hmm": {
-			title: { en: "settings", cd: "māthrdhng", tok: "ijo tawa ante", toksp: "ijo+tawa ante" },
+			title: { en: "settings", cd: "māthrdhng", tok: "ijo pi ante ilo"},
 			type: "iframe",
 			code: "<script>location='./settings.html'</script>",
 		},
 		"fe.hmm": {
-			title: { en: "Files", cd: "kōpnge", tok: "ilo tawa lukin e lipu sina", toksp: "ilo+tawa lukin e lipu+sina" },
+			title: { en: "Files", cd: "kōpnge", tok: "ilo pi lukin lipu",},
 			type: "iframe",
 			code: `<script>location='./fe.html'</script>`
 		},
 		"textpad.hmm": {
-			title: { en: "TextPad", tok: "ilo tawa pali e toki", toksp: "ilo+tawa pali e toki" },
+			title: { en: "TextPad", tok: "ilo pi pali toki"},
 			type: "iframe",
 			code: `
 			<script>location='./textpad.html'</script>
 			`
 		},
 		"browser.hmm": {
-			title: { en: "Browser", cd: "ulāwi", tok:"ilo tawa lukin e linluwi", toksp: "ilo+tawa lukin e linluwi" },
+			title: { en: "Browser", cd: "ulāwi", tok:"ilo linluwi"},
 			type: "iframe",
 			code: `
 			<script>location='./browser.html'</script>
 			`
 		},
 		"store.hmm": {
-			title: { en: "HmmOS Store", cd: "HmmOS kade", tok: "esun pi ilo Imosu", toksp: "esun pi ilo [_ike+mute_oko+sina_utala]" },
+			title: { en: "HmmOS Store", cd: "HmmOS kade", tok: "esun pi ilo Imosu"},
 			type: "iframe",
 			code: "<script>location='./store.html'</script>"
 		}

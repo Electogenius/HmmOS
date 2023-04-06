@@ -74,26 +74,26 @@ hmm.storage.i18n.cd = {
 	}
 }
 hmm.storage.i18n.tok = {
-    welcome: "kama pona tawa ilo Imosu",
+    welcome: "o kama pona tawa ilo Imosu",
     menu: {
         "apps-label": "ilo"
     },
     apps: {
         settings: {
             lang: "toki",
-            name: "ijo tawa ante"
+            name: "ijo pi ante ilo"
         },
         fe: {
-            goback: "monsi",
+            goback: "o tawa pini",
             addfile: "o pali e lipu",
             adddir: "o pali e poki",
             deletefolder: "o pakala e poki ni",
-            alreadyexists: "pali anu poki pi nimi ni li lon. o pana e nimi ante",
+            alreadyexists: "lipu anu poki pi nimi ni li lon. o pana e nimi ante",
             namefile: "o pana e nimi tawa lipu sina",
             namedir: "o pana e nimi tawa poki sina"
         },
         store: {
-            download: "o lanpan e ni"
+            download: "o kama jo e ni"
         }
     },
     ui: {
@@ -106,6 +106,7 @@ hmm.storage.i18n.tok = {
         create: "o pali"
     }
 }
+/*
 hmm.storage.i18n.toksp = {
     welcome: "kama+pona tawa ilo [_ike+mute_oko+sina_utala]",
     menu: {
@@ -117,11 +118,11 @@ hmm.storage.i18n.toksp = {
             name: "ijo+tawa ante"
         },
         fe: {
-            goback: "monsi",
+            goback: "o tawa pini",
             addfile: "o pali e lipu",
             adddir: "o pali e poki",
             deletefolder: "o pakala e poki+ni",
-            alreadyexists: "pali anu poki pi nimi+ni li lon. o pana e nimi+ante",
+            alreadyexists: "lipu anu poki pi nimi+ni li lon. o pana e nimi+ante",
             namefile: "o pana e nimi+tawa lipu+sina",
             namedir: "o pana e nimi+tawa poki+sina"
         },
@@ -138,7 +139,7 @@ hmm.storage.i18n.toksp = {
         no: "ala",
         create: "o pali"
     }
-}
+}*/
 hmm.switchFont=(url)=>{
 	let s=document.createElement('style')
 	s.innerHTML=`
